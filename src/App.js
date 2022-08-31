@@ -1,7 +1,6 @@
-import logo from './logo.svg';
 import './App.css';
 
-import { TasksList, Header, Footer } from './components';
+import { AddTask, Header, Footer } from './components';
 
 function App() {
   return (
@@ -9,6 +8,9 @@ function App() {
       <div>
         <Header/>
 
+      </div>
+      <div>
+        <AddTask/>
       </div>
       <div>
         <Footer/>
