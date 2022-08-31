@@ -19,9 +19,31 @@ const AddTask = () => {
              name="title"
              placeholder="Task Title"
              className='bg-gray-50 border border-gray-300 text-gray-900
-             text-sm rounded-lg block p-2.5'
+             text-sm rounded-lg block p-2.5 w-72'
              required
              />
+            <label>Enter Task Title</label>
+            <textarea
+             type="text"
+             name="description"
+             placeholder="Task Description"
+             rows="4"
+             className='bg-gray-50 border border-gray-300 text-gray-900
+             text-sm rounded-lg block p-2.5 w-72'
+             required
+             />
+            <label>Select a category</label>
+            <select 
+            className='bg-gray-50 border border-gray-300 text-gray-900
+            text-sm rounded-lg block p-2.5 w-72' 
+            name="category"
+            id="category">
+              <option value="volvo">Volvo</option>
+              <option value="saab">Saab</option>
+              <option value="opel">Opel</option>
+              <option value="audi">Audi</option>
+            </select>
+            <submit/>
           </form>
         </div>
 

@@ -4,12 +4,12 @@ import { AddTask, Header, Footer } from './components';
 
 function App() {
   return (
-    <div>
+    <div className='flex flex-col h-screen justify-between'>
       <div>
         <Header/>
 
       </div>
-      <div>
+      <div className='mb-auto'>
         <AddTask/>
       </div>
       <div>
