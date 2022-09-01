@@ -2,10 +2,29 @@ import React from 'react'
 import {BiAddToQueue}from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
 import { useState } from 'react'
+import DatePicker,{ registerLocale } from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import sv from 'date-fns/locale/sv';
+import taskManage from '../manage/taskmanager'
+registerLocale('sv', sv)
 
 const AddTask = () => {
 
   const [showAdd, setShowAdd] = useState(false);
+  // const [task, setTask] = useState([
+  //   {
+  //     id: 1,
+  //     title: "Default Task",
+  //     description: "Default Description",
+  //     deadline: new Date(),
+  //   },
+  // ]);
+  const [deadline, setDeadline] = useState(new Date());
+  const [taskCategory, setTaskCategory] = useState("");
+  const [taskTitle, setTaskTitle] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
+  const [taskId, setTaskId] = useState(0);
+
 
   const displayAdd = () =>{
     if (showAdd) {
@@ -13,6 +32,26 @@ const AddTask = () => {
     } else {
       setShowAdd(true)
     }
+  }
+
+  // const handleId = () => {
+  //   setTaskId(taskId +=1)
+  // }
+
+  const handleSave = (e) =>{
+    handleId()
+    e.preventDefault();
+    let newTask = {
+      id: taskId,
+      title: taskTitle,
+      description: taskDescription,
+      category: taskCategory,
+      deadline: deadline
+
+    }
+
+    taskManage.saveTask(newTask.id,newTask)
+
   }
   
   return (
@@ -29,7 +68,10 @@ const AddTask = () => {
 
     {showAdd ? (
         <div className='p-3'>
-          <form className='bg-slate-100 flex flex-col w-80 items-center rounded-md p-4'>
+          <form
+          id='newTask'
+          onSubmit={handleSave}
+          className='bg-slate-100 flex flex-col w-80 items-center rounded-md p-4'>
             <button
               onClick={displayAdd} 
               className='m-1 p-1 bg-red-500 text-white rounded-xl'
@@ -43,6 +85,9 @@ const AddTask = () => {
              type="text"
              name="title"
              placeholder="Task Title"
+             onChange={(e)=>{
+              setTaskTitle(e.target.value)
+             }}
              className='bg-gray-50 border border-gray-300 text-gray-900
              text-sm rounded-lg block p-2.5 w-72'
              required
@@ -58,6 +103,9 @@ const AddTask = () => {
              rows="4"
              className='bg-gray-50 border border-gray-300 text-gray-900
              text-sm rounded-lg block p-2.5 w-72'
+             onChange={(e)=>{
+              setTaskDescription(e.target.value)
+             }}
              required
              />
             </div>
@@ -68,16 +116,33 @@ const AddTask = () => {
             className='bg-gray-50 border border-gray-300 text-gray-900
             text-sm rounded-lg block p-2.5 w-72' 
             name="category"
-            id="category">
-              <option value="volvo">Volvo</option>
-              <option value="saab">Saab</option>
-              <option value="opel">Opel</option>
-              <option value="audi">Audi</option>
+            id="category"
+            onChange={(e)=>{
+               setTaskCategory(e.target.value)
+            }}
+            >
+              <option value="H">Hard</option>
+              <option value="C">Challenging</option>
+              <option value="I">Intermediate</option>
+              <option value="E">Easy</option>
             </select>
             </div>
 
+            <div>
+            <label>Set deadline</label>
+            <DatePicker 
+              locale="sv" 
+              selected={deadline} 
+              onChange={(date) => setDeadline(date)}
+              className='bg-gray-50 border border-gray-300 text-gray-900
+              text-sm rounded-lg block p-2.5 w-72' 
+              />
+            </div>
+
             <div className='mt-4'>
-            <button 
+            <button
+            type='submit'
+            form='newTask'
             className='p-2 bg-blue-500 text-white rounded
             transition ease-in-out delay-50 hover:bg-indigo-500 w-32'>
               Save Task
