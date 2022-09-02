@@ -1,17 +1,13 @@
 const taskManage = {
-    saveTask: function saveTask(id,task) {
-        localStorage.setItem(id, JSON.stringify(task))
+    saveTasks: function saveTasks(tasks) {
+        localStorage.setItem("tasks", JSON.stringify(tasks))
     },
 
-    getTasks: function getTasks(id) {
-        let retrievedTask = localStorage.getItem(id)
-        return retrievedTask
+    getTasks: function getTasks() {
+        let retrievedTask = localStorage.getItem("tasks")
+        return JSON.parse(retrievedTask)
     },
 
-    getAllTasks: function getAllTasks() {
-        const allItems = { ...localStorage };
-        return allItems
-    }
 }
 
 export default taskManage;

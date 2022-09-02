@@ -1,6 +1,6 @@
 import './App.css';
 
-import { AddTask, Header, Footer } from './components';
+import { AddTask, Header, Footer, TaskList } from './components';
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       </div>
       <div className='mb-auto'>
         <AddTask/>
+        <TaskList/>
       </div>
       <div>
         <Footer/>

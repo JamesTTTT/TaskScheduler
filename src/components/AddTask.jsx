@@ -1,7 +1,7 @@
 import React from 'react'
 import {BiAddToQueue}from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import DatePicker,{ registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import sv from 'date-fns/locale/sv';
@@ -11,21 +11,16 @@ registerLocale('sv', sv)
 const AddTask = () => {
 
   const [showAdd, setShowAdd] = useState(false);
-  // const [task, setTask] = useState([
-  //   {
-  //     id: 1,
-  //     title: "Default Task",
-  //     description: "Default Description",
-  //     deadline: new Date(),
-  //   },
-  // ]);
+  const [taskList, setTaskList] = useState([]);
   const [deadline, setDeadline] = useState(new Date());
   const [taskCategory, setTaskCategory] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
-  const [taskId, setTaskId] = useState(0);
 
-
+  useEffect(() => {
+    setTaskList(taskManage.getTasks())
+  }, [])
+  
   const displayAdd = () =>{
     if (showAdd) {
       setShowAdd(false)
@@ -34,15 +29,11 @@ const AddTask = () => {
     }
   }
 
-  // const handleId = () => {
-  //   setTaskId(taskId +=1)
-  // }
-
   const handleSave = (e) =>{
-    handleId()
+
     e.preventDefault();
     let newTask = {
-      id: taskId,
+      id: new Date().getTime(),
       title: taskTitle,
       description: taskDescription,
       category: taskCategory,
@@ -50,7 +41,17 @@ const AddTask = () => {
 
     }
 
-    taskManage.saveTask(newTask.id,newTask)
+    let allTasks;
+    
+    if (taskList) {
+      allTasks = [...taskList, newTask]
+    }
+    else {
+      allTasks = [newTask]
+    }
+    
+    setTaskList(allTasks)
+    taskManage.saveTasks(allTasks)
 
   }
   
