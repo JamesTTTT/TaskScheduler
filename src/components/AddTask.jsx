@@ -2,24 +2,17 @@ import React from 'react'
 import {BiAddToQueue}from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
 import { useState,useEffect } from 'react'
-import DatePicker,{ registerLocale } from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import sv from 'date-fns/locale/sv';
 import taskManage from '../manage/taskmanager'
-registerLocale('sv', sv)
 
-const AddTask = () => {
+const AddTask = ({loadedTasks, updateTask}) => {
 
   const [showAdd, setShowAdd] = useState(false);
-  const [taskList, setTaskList] = useState([]);
+  //const [taskList, setTaskList] = useState([]);
   const [deadline, setDeadline] = useState(new Date());
   const [taskCategory, setTaskCategory] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
 
-  useEffect(() => {
-    setTaskList(taskManage.getTasks())
-  }, [])
   
   const displayAdd = () =>{
     if (showAdd) {
@@ -27,6 +20,11 @@ const AddTask = () => {
     } else {
       setShowAdd(true)
     }
+  }
+
+  const dateFormat = (date) =>{
+
+    setDeadline(date)
   }
 
   const handleSave = (e) =>{
@@ -41,18 +39,18 @@ const AddTask = () => {
 
     }
 
-    let allTasks;
-    
-    if (taskList) {
-      allTasks = [...taskList, newTask]
+    let allTasks = [];
+
+    if (loadedTasks) {
+      allTasks = [...loadedTasks, newTask]
     }
     else {
       allTasks = [newTask]
     }
     
-    setTaskList(allTasks)
+    updateTask(allTasks)
     taskManage.saveTasks(allTasks)
-
+    setShowAdd(false)
   }
   
   return (
@@ -131,13 +129,15 @@ const AddTask = () => {
 
             <div>
             <label>Set deadline</label>
-            <DatePicker 
-              locale="sv" 
-              selected={deadline} 
-              onChange={(date) => setDeadline(date)}
+            <input 
+              type = "datetime-local"
+              id = "deadline"
+              name="deadline"
+              //selected={deadline} 
+              onChange={(date) => dateFormat(date.toISOString())}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
-              />
+              ></input>
             </div>
 
             <div className='mt-4'>
