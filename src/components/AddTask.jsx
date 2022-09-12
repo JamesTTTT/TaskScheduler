@@ -7,11 +7,12 @@ import taskManage from '../manage/taskmanager'
 const AddTask = ({loadedTasks, updateTask}) => {
 
   const [showAdd, setShowAdd] = useState(false);
-  //const [taskList, setTaskList] = useState([]);
   const [deadline, setDeadline] = useState(new Date());
+  const [startDate, setStartDate] = useState(new Date());
   const [taskCategory, setTaskCategory] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
+  const [taskDurartion, setTaskDuration] = useState(0);
 
   
   const displayAdd = () =>{
@@ -22,9 +23,8 @@ const AddTask = ({loadedTasks, updateTask}) => {
     }
   }
 
-  const dateFormat = (date) =>{
-
-    setDeadline(date)
+  const dateTransform = (date) =>{
+    return new Date(date.toISOString)
   }
 
   const handleSave = (e) =>{
@@ -35,7 +35,9 @@ const AddTask = ({loadedTasks, updateTask}) => {
       title: taskTitle,
       description: taskDescription,
       category: taskCategory,
-      //deadline: deadline
+      startdate: startDate.toDateString(),
+      deadline: deadline.toDateString(),
+      duration: taskDurartion,
 
     }
 
@@ -120,11 +122,24 @@ const AddTask = ({loadedTasks, updateTask}) => {
                setTaskCategory(e.target.value)
             }}
             >
-              <option value="H">Hard</option>
-              <option value="C">Challenging</option>
-              <option value="I">Intermediate</option>
-              <option value="E">Easy</option>
+              <option value="Hard">Hard</option>
+              <option value="Challeging">Challenging</option>
+              <option value="Intermidate">Intermediate</option>
+              <option value="Easy">Easy</option>
             </select>
+            </div>
+
+            <div>
+            <label>Set startdate</label>
+            <input 
+              type = "datetime-local"
+              id = "startdate"
+              name="startdate"
+              //selected={deadline} 
+              onChange={(date) => {setStartDate(dateTransform(date.val()))}}
+              className='bg-gray-50 border border-gray-300 text-gray-900
+              text-sm rounded-lg block p-2.5 w-72' 
+              ></input>
             </div>
 
             <div>
@@ -134,7 +149,22 @@ const AddTask = ({loadedTasks, updateTask}) => {
               id = "deadline"
               name="deadline"
               //selected={deadline} 
-              onChange={(date) => dateFormat(date.toISOString())}
+              onChange={(date) => {setDeadline(dateTransform(date.val()))}}
+              className='bg-gray-50 border border-gray-300 text-gray-900
+              text-sm rounded-lg block p-2.5 w-72' 
+              ></input>
+            </div>
+
+            <div>
+            <label>Set duration</label>
+            <input 
+              type = "number"
+              id = "duration"
+              name="duration"
+              placeholder='Set number of hours' 
+              onChange={(e)=>{
+                setTaskDuration(e.target.value)
+              }}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
               ></input>

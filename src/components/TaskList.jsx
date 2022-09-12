@@ -28,13 +28,15 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                 return(
                     <div 
                     key={index}
-                    className=" transition-colors rounded p-4 bg-slate-300 mx-4 w-56
+                    className=" transition-colors rounded-xl p-4 bg-slate-300 mx-4 w-72
                     hover:bg-slate-400 flex flex-col justify-between my-3"
                     >   
                         <div>
                             <p className='text-xl'>{item.title}</p>
                             <p>{item.description}</p>
-                            <p>Deadline {item.deadline}</p>
+                            <p>Start: {item.startdate}</p>
+                            <p>Deadline: {item.deadline}</p>
+                            <p>Duration: {item.duration} hours</p>
                         </div>
 
                         <div className='pt-3 flex justify-end'>
@@ -63,9 +65,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
   return (
     <div>
-        {/* <div>
-            <h1 className='text-3xl font-thin text-center'>All Tasks</h1>
-        </div> */}
         <div className='flex flex-row justify-center flex-wrap'>
             {Tasks()}
         </div>
