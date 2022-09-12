@@ -35,7 +35,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
       title: taskTitle,
       description: taskDescription,
       category: taskCategory,
-      deadline: deadline
+      //deadline: deadline
 
     }
 
