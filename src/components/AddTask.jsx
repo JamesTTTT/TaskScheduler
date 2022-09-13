@@ -7,7 +7,7 @@ import TaskForm from './TaskForm'
 
 const AddTask = ({loadedTasks, updateTask}) => {
 
-  const [showAdd, setShowAdd] = useState(false);
+  const [showForm, setShowForm] = useState(false);
   const [deadline, setDeadline] = useState(new Date());
   const [startDate, setStartDate] = useState(new Date());
   const [taskCategory, setTaskCategory] = useState("");
@@ -17,11 +17,11 @@ const AddTask = ({loadedTasks, updateTask}) => {
   const [taskStatus, setTaskStatus] = useState("Ongoing")
 
   
-  const displayAdd = () =>{
-    if (showAdd) {
-      setShowAdd(false)
+  const displayForm = () =>{
+    if (showForm) {
+      setShowForm(false)
     } else {
-      setShowAdd(true)
+      setShowForm(true)
     }
   }
 
@@ -50,15 +50,15 @@ const AddTask = ({loadedTasks, updateTask}) => {
     }
     
     updateTask(allTasks)
-    taskManage.saveTasks(allTasks)
-    setShowAdd(false)
+    //taskManage.saveTasks(allTasks)
+    setShowForm(false)
   }
   
   return (
       <>
-      {showAdd ? (
+      {showForm ? (
         <TaskForm
-          displayAdd={displayAdd}
+          displayForm={displayForm}
           handleSave={handleSave}
           setDeadline={setDeadline}
           setStartDate={setStartDate}
@@ -72,7 +72,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
     
     <div className='p-4'>
         <button
-        onClick={displayAdd}
+        onClick={displayForm}
         className='flex overflow-hidden text-white font-bold bg-blue-500 p-2 rounded
         whitespace-nowrap transition ease-in-out delay-50 hover:bg-indigo-500'>
             <span className='inline-flex'>Add New Task</span>

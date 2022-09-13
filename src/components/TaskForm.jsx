@@ -2,7 +2,7 @@ import React from 'react'
 import {BiAddToQueue}from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
 
-const TaskForm = ({ displayAdd,
+const TaskForm = ({ displayForm,
                     handleSave, 
                     setDeadline, 
                     setStartDate, 
@@ -23,7 +23,7 @@ const TaskForm = ({ displayAdd,
           onSubmit={handleSave}
           className='bg-slate-100 flex flex-col w-80 items-center rounded-md p-4'>
             <button
-              onClick={displayAdd} 
+              onClick={displayForm} 
               className='m-1 p-1 bg-red-500 text-white rounded-xl'
               >
               <AiOutlineClose/>

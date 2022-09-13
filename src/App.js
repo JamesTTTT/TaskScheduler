@@ -2,7 +2,7 @@ import './App.css';
 import taskManage from './manage/taskmanager'
 import { useState, useEffect } from 'react';
 
-import { AddTask, Header, Footer, TaskList } from './components';
+import { AddTask, Header, Footer, TaskList, Settings } from './components';
 
 function App() {
 
@@ -14,6 +14,7 @@ function App() {
 
   const updateTask = (newTasks) => {
     setLoadedTasks(newTasks)
+    taskManage.saveTasks(newTasks)
   }
 
   return (
@@ -23,7 +24,10 @@ function App() {
 
       </div>
       <div className='mb-auto'>
-        <AddTask loadedTasks={loadedTasks} updateTask={updateTask}/>
+        <div className="flex justify-between">
+          <AddTask loadedTasks={loadedTasks} updateTask={updateTask}/>
+          <Settings/>
+        </div>
         <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
       </div>
       <div>

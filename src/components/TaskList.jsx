@@ -1,11 +1,31 @@
 import React from 'react'
 import { useState } from 'react'
 import {AiOutlineDelete, AiOutlineEdit} from 'react-icons/ai'
+import TaskForm from './TaskForm'
 import Search from './Search'
 
 
 const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
     
+    const [showForm, setShowForm] = useState(false)
+
+    const [deadline, setDeadline] = useState(new Date());
+    const [startDate, setStartDate] = useState(new Date());
+    const [taskCategory, setTaskCategory] = useState("");
+    const [taskTitle, setTaskTitle] = useState("");
+    const [taskDescription, setTaskDescription] = useState("");
+    const [taskDurartion, setTaskDuration] = useState(0);
+
+    const [selectedTaskID, setSelectedTaskId] = useState(0)
+
+    const displayForm = () =>{
+        if (showForm) {
+          setShowForm(false)
+        } else {
+          setShowForm(true)
+        }
+      }
+
     const handleDelete = (id) => {
         //console.log(id)
         const updatedTaskList = loadedTasks.filter((task) =>{
@@ -14,14 +34,37 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         updateTask(updatedTaskList)
     }
 
-    // const handleEdit = (id) => {
-    //     console.log(id)
-    //     const taskToEdit = loadedTasks.filter((task) =>{
-    //         return id === task.id
-    //     })
+    const newDetails = (id) => {
+        let updatedTaskList = loadedTasks.map(task => {
+            if (task.id === id) {
+                return {
+                    ...task,
+                    title: taskTitle,
+                    description: taskDescription,
+                    category: taskCategory,
+                    startdate: startDate.toDateString(),
+                    deadline: deadline.toDateString(),
+                    duration: taskDurartion,
+                    status: "edited",
+                }
+            }
+            return task
+        })
+        console.log(updatedTaskList)
+        return updatedTaskList
+    }
 
-    //     //updateTask(updatedTaskList)
-    // }
+    const handleEdit = (id) => {
+        //console.log(id)
+        setShowForm(true)
+        setSelectedTaskId(id)
+    }
+
+    const handleUpdateTaskList = () =>{
+        let updatedTaskList = newDetails(selectedTaskID)
+        
+        updateTask(updatedTaskList)
+    }
 
     const Tasks = () => {
         if (loadedTasks) {
@@ -50,7 +93,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
                         <div className='pt-3 flex justify-end'>
                             <button
-                            //onClick={()=>handleDelete(item.id)}
+                            onClick={()=>handleEdit(item.id)}
                             className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
                             hover:bg-blue-700 transition-colors mx-1'>
                                 <AiOutlineEdit/>
@@ -62,7 +105,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                             hover:bg-red-700 transition-colors mx-1'>
                                 <AiOutlineDelete/>
                             </button>
-
                         </div>
 
                     </div>
@@ -73,13 +115,29 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
 
   return (
-    <div>
+    <>
+        {showForm ? (
+            <div className='flex row justify-center items-center'>
+            <TaskForm
+              displayForm={displayForm}
+              handleSave={handleUpdateTaskList}
+              setDeadline={setDeadline}
+              setStartDate={setStartDate}
+              setTaskCategory={setTaskCategory}
+              setTaskTitle={setTaskTitle}
+              setTaskDescription={setTaskDescription}
+              setTaskDuration={setTaskDuration}
+            />
+            </div>
+        ) : 
         <div className='flex flex-row justify-center flex-wrap'>
             {Tasks()}
         </div>
-    </div>
+        }
+    </>
   )
 }
+
 
 const FilteredList = ({loadedTasks, updateTask}) =>{
     const [searchPhrase, setSearchPhrase] = useState("")
