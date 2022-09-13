@@ -7,12 +7,21 @@ import Search from './Search'
 const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
     
     const handleDelete = (id) => {
-        console.log(id)
+        //console.log(id)
         const updatedTaskList = loadedTasks.filter((task) =>{
             return id !== task.id
         })
         updateTask(updatedTaskList)
     }
+
+    // const handleEdit = (id) => {
+    //     console.log(id)
+    //     const taskToEdit = loadedTasks.filter((task) =>{
+    //         return id === task.id
+    //     })
+
+    //     //updateTask(updatedTaskList)
+    // }
 
     const Tasks = () => {
         if (loadedTasks) {
@@ -23,8 +32,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             } else if(item.title.toLowerCase().includes(searchPhrase.toLowerCase())) {
                     return item
             }
-        })
-            .map((item, index) => {
+            }).map((item, index) => {
                 return(
                     <div 
                     key={index}
@@ -37,6 +45,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                             <p>Start: {item.startdate}</p>
                             <p>Deadline: {item.deadline}</p>
                             <p>Duration: {item.duration} hours</p>
+                            <p>Status: {item.status}</p>
                         </div>
 
                         <div className='pt-3 flex justify-end'>
