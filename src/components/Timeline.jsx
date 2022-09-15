@@ -9,24 +9,33 @@ const Timeline = (loadedTasks) => {
       dateObject: moment()
     })
 
-  //   const daysOfTheYear = (month) => {
+    const daysOfTheYear = (year,month) => {
+      //const monthIndex = {January:0, February:1, March:2, }
+      const monthsList = moment.months();
+      let monthDayAr = [];
+      let monthDayCount = daysOfTheMonth(year)
+      let monthIndex = monthsList.indexOf(month)
+      let daysCurMonth = monthDayCount[monthIndex]
 
-  //     let monthDayCount = monthDays(2022)
-  //      return monthDayCount.map((day)=> {
-  //          return (
-  //            <div key={day}>
-  //            <div className=' bg-blue-500 text-sm px-1 border-solid border-blue-800 border-x-2'>
-  //              <p>
-  //                {day}
-  //              </p>
-  //            </div>
-  //          </div>
-  //          );
-  //       });
-  //  }
+      for (let d = 1; d<=daysCurMonth; d++) {
+        monthDayAr.push(d)
+      }
 
-    const daysOfTheYear = (y,m) =>{
-      //let months = moment.months();
+       return monthDayAr.map((day, index)=> {
+           return (
+             <div key={index}>
+             <div className=' bg-blue-500 text-xs px-1 border-solid border-blue-800 border-x-2'>
+               <p>
+                 {day}
+               </p>
+             </div>
+           </div>
+           );
+        });
+   }
+
+   // Gives out how many day of each month during given year
+    const daysOfTheMonth = (y) =>{
 
       let daysInMonths = [];
       let yearMonth = "";
@@ -35,8 +44,7 @@ const Timeline = (loadedTasks) => {
         const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
         daysInMonths.push(numDaysInMonth)
       }
-      //for (let d = months.indexOf(m)+1)
-      //return daysInMonths
+      return daysInMonths
 
     }
 
@@ -80,13 +88,11 @@ const Timeline = (loadedTasks) => {
         return (
           <div key={month}>
             <div className=' bg-blue-700 text-center border-white border-x-2'>
-              <p>
                 {month}
                 <div className='flex'>
 
                   {daysOfTheYear(2022,month)}
                 </div>
-              </p>
             </div>
           </div>
         );
