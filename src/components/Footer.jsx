@@ -2,10 +2,18 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className='flex justify-center'>
+    <div>
+      <div className='bg-blue-500 w-screen h-20 flex justify-center items-center text-white flex-col'>
         <h1 className='text-3xl font-bold'>
             Footer
         </h1>
+        <p>Task Scheduler Application all rights reserved 2022 &reg;</p>
+        {/* <ul>
+          <li>Coffee</li>
+          <li>Tea</li>
+          <li>Milk</li>
+        </ul> */}
+      </div>
     </div>
   )
 }

@@ -23,12 +23,10 @@ function App() {
         <Header/>
 
       </div>
-      <div className='mb-auto'>
-        <div className="flex justify-between">
+      <div className='mb-auto flex flex-col justify-between md:flex-row'>
           <AddTask loadedTasks={loadedTasks} updateTask={updateTask}/>
+          <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
           <Settings/>
-        </div>
-        <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
       </div>
       <div>
         <Footer/>

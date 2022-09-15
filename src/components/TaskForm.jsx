@@ -1,5 +1,4 @@
 import React from 'react'
-import {BiAddToQueue}from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
 
 const TaskForm = ({ displayForm,
@@ -21,7 +20,7 @@ const TaskForm = ({ displayForm,
           <form
           id='newTask'
           onSubmit={handleSave}
-          className='bg-slate-100 flex flex-col w-80 items-center rounded-md p-4'>
+          className='bg-slate-100 flex flex-col w-80 items-center rounded-md p-4 shadow-xl'>
             <button
               onClick={displayForm} 
               className='m-1 p-1 bg-red-500 text-white rounded-xl'
@@ -124,7 +123,7 @@ const TaskForm = ({ displayForm,
             type='submit'
             form='newTask'
             className='p-2 bg-blue-500 text-white rounded
-            transition ease-in-out delay-50 hover:bg-indigo-500 w-32'>
+            transition ease-in-out delay-50 hover:bg-blue-600 w-32'>
               Save Task
             </button>
             </div>

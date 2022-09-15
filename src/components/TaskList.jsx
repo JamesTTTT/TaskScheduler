@@ -79,11 +79,13 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                 return(
                     <div 
                     key={index}
-                    className=" transition-colors rounded-xl p-4 bg-slate-300 mx-4 w-72
-                    hover:bg-slate-400 flex flex-col justify-between my-3"
+                    className=" transition-colors rounded-xl pb-4 bg-white mx-4 w-72
+                    hover:bg-slate-200 flex flex-col justify-between my-3 shadow-xl"
                     >   
-                        <div>
+                        <div className='bg-blue-500 rounded-t-xl p-2 text-white'>
                             <p className='text-xl'>{item.title}</p>
+                        </div>
+                        <div className='px-4 pt-1'>
                             <p>{item.description}</p>
                             <p>Start: {item.startdate}</p>
                             <p>Deadline: {item.deadline}</p>
@@ -91,18 +93,18 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                             <p>Status: {item.status}</p>
                         </div>
 
-                        <div className='pt-3 flex justify-end'>
+                        <div className='pt-3 flex justify-end px-2'>
                             <button
                             onClick={()=>handleEdit(item.id)}
                             className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                            hover:bg-blue-700 transition-colors mx-1'>
+                            hover:bg-blue-500 transition-colors mx-1'>
                                 <AiOutlineEdit/>
                             </button>
                             
                             <button
                             onClick={()=>handleDelete(item.id)}
                             className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                            hover:bg-red-700 transition-colors mx-1'>
+                            hover:bg-red-500 transition-colors mx-1'>
                                 <AiOutlineDelete/>
                             </button>
                         </div>
@@ -117,7 +119,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
   return (
     <>
         {showForm ? (
-            <div className='flex row justify-center items-center'>
+            <div>
             <TaskForm
               displayForm={displayForm}
               handleSave={handleUpdateTaskList}
