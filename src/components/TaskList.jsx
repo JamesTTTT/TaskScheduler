@@ -66,7 +66,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         updateTask(updatedTaskList)
     }
 
-    const Tasks = () => {
+    const tasks = () => {
         if (loadedTasks) {
             return loadedTasks
             .filter(item => {
@@ -82,7 +82,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     className=" transition-colors rounded-xl pb-4 bg-white mx-4 w-72
                     hover:bg-slate-200 flex flex-col justify-between my-3 shadow-xl"
                     >   
-                        <div className='bg-blue-500 rounded-t-xl p-2 text-white'>
+                        <div className='bg-blue-700 rounded-t-xl p-2 text-white'>
                             <p className='text-xl'>{item.title}</p>
                         </div>
                         <div className='px-4 pt-1'>
@@ -133,7 +133,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             </div>
         ) : 
         <div className='flex flex-row justify-center flex-wrap'>
-            {Tasks()}
+            {tasks()}
         </div>
         }
     </>

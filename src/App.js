@@ -2,7 +2,7 @@ import './App.css';
 import taskManage from './manage/taskmanager'
 import { useState, useEffect } from 'react';
 
-import { AddTask, Header, Footer, TaskList, Settings } from './components';
+import { AddTask, Header, Footer, TaskList, Settings, Timeline } from './components';
 
 function App() {
 
@@ -28,6 +28,7 @@ function App() {
           <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
           <Settings/>
       </div>
+      <div><Timeline/></div>
       <div>
         <Footer/>
 

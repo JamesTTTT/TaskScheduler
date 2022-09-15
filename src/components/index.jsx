@@ -3,4 +3,5 @@ export { default as Footer } from './Footer';
 export { default as AddTask } from './AddTask';
 export { default as TaskList } from './TaskList';
 export { default as Search } from './Search';
-export { default as Settings } from './Settings'
+export { default as Settings } from './Settings';
+export { default as Timeline } from './Timeline'
