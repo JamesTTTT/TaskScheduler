@@ -9,12 +9,45 @@ const Timeline = (loadedTasks) => {
       dateObject: moment()
     })
 
-    // const timelineHeader = () => {
+  //   const daysOfTheYear = (month) => {
 
-    // }
+  //     let monthDayCount = monthDays(2022)
+  //      return monthDayCount.map((day)=> {
+  //          return (
+  //            <div key={day}>
+  //            <div className=' bg-blue-500 text-sm px-1 border-solid border-blue-800 border-x-2'>
+  //              <p>
+  //                {day}
+  //              </p>
+  //            </div>
+  //          </div>
+  //          );
+  //       });
+  //  }
 
-    // const taskRows = () => {
+    const daysOfTheYear = (y,m) =>{
+      //let months = moment.months();
 
+      let daysInMonths = [];
+      let yearMonth = "";
+      for (let mon = 1; mon<=12; mon++) {
+        yearMonth = y.toString()+"-0"+mon.toString()
+        const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
+        daysInMonths.push(numDaysInMonth)
+      }
+      //for (let d = months.indexOf(m)+1)
+      //return daysInMonths
+
+    }
+
+    // const dateTask = (date) => {
+    //   let allTasks = loadedTasks.map(task => {
+    //     let shortendDate = 0;
+    //     if (task.startdate === date) {
+    //         return task
+    //     }  
+    //   })
+    //   return allTasks
     // }
 
     const firstDayOfMonth = () => {
@@ -28,10 +61,10 @@ const Timeline = (loadedTasks) => {
 
     const week = () => {
        let weekdayshort = moment.weekdaysShort();
-        let weekdayshortname = weekdayshort.map(day => {
+        return weekdayshort.map(day => {
             return (
               <div key={day}>
-              <div className=' bg-blue-500 text-xs'>
+              <div className=' bg-blue-500 text-sm px-1 border-solid border-blue-800 border-x-2'>
                 <p>
                   {day}
                 </p>
@@ -39,19 +72,19 @@ const Timeline = (loadedTasks) => {
             </div>
             );
          });
-        return weekdayshortname
     }
 
-    const month = () => {
+    const monthDisplay = () => {
       let months = moment.months();
-      let monthNames = months.map(day => {
+      let monthNames = months.map(month => {
         return (
-          <div key={day}>
-            <div className='p-1 bg-blue-500'>
+          <div key={month}>
+            <div className=' bg-blue-700 text-center border-white border-x-2'>
               <p>
-                {day}
+                {month}
                 <div className='flex'>
-                  {week()}
+
+                  {daysOfTheYear(2022,month)}
                 </div>
               </p>
             </div>
@@ -64,8 +97,8 @@ const Timeline = (loadedTasks) => {
     return (
       <div>
         <p>Timeline</p>
-      <div className='flex text-white justify-center w-screen'>
-        {month()}
+      <div className='flex text-white justify-start max-w-screen-xs overflow-x-scroll'>
+        {monthDisplay()}
       </div>  
       
       {firstDayOfMonth()}

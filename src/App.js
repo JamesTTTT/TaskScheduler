@@ -28,7 +28,9 @@ function App() {
           <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
           <Settings/>
       </div>
-      <div><Timeline/></div>
+      <div>
+        <Timeline loadedTasks={loadedTasks}/>
+      </div>
       <div>
         <Footer/>
 
