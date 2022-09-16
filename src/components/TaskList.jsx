@@ -86,7 +86,12 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                             <p className='text-xl'>{item.title}</p>
                         </div>
                         <div className='px-4 pt-1'>
-                            <p>{item.description}</p>
+                            <h1>About:</h1>
+                            <div 
+                                className='h-20 max-h-20 overflow-y-scroll border-2 rounded-xl px-2'
+                            >
+                                <p>{item.description}</p>
+                            </div>
                             <p>Start: {item.startdate}</p>
                             <p>Deadline: {item.deadline}</p>
                             <p>Duration: {item.duration} hours</p>
@@ -113,6 +118,13 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                 )
             })
         }
+        // else {
+        //     return( <div>
+        //                 <p>
+        //                     No Current Tasks
+        //                 </p>
+        //             </div>)
+        // }
     }
 
 

@@ -3,11 +3,20 @@ import moment from 'moment'
 import { useState } from 'react'
 
 
-const Timeline = (loadedTasks) => {
+const TimelineBody = ({loadedTasks}) => {
+     // Gives out how many day of each month during given year
+     const daysOfTheMonth = (y) =>{
 
-    const [dateObj, setDateObj] = useState({
-      dateObject: moment()
-    })
+      let daysInMonths = [];
+      let yearMonth = "";
+      for (let mon = 1; mon<=12; mon++) {
+        yearMonth = y.toString()+"-0"+mon.toString()
+        const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
+        daysInMonths.push(numDaysInMonth)
+      }
+      return daysInMonths
+
+    }
 
     const daysOfTheYear = (year,month) => {
       //const monthIndex = {January:0, February:1, March:2, }
@@ -23,92 +32,110 @@ const Timeline = (loadedTasks) => {
 
        return monthDayAr.map((day, index)=> {
            return (
-             <div key={index}>
-             <div className=' bg-blue-500 text-xs px-1 border-solid border-blue-800 border-x-2'>
-               <p>
-                 {day}
-               </p>
-             </div>
-           </div>
+            <th key={index} className=' bg-blue-500 text-xs px-1 border-solid border-blue-800 border-x-2'>
+              <tr> {day} </tr>
+            </th>
            );
         });
    }
 
-   // Gives out how many day of each month during given year
-    const daysOfTheMonth = (y) =>{
+   const timeLineRows = () => {
+      return loadedTasks.map((item, index) => {
+        return(
+          <tr key={index} className="bg-blue-200">
+            <td> {item.title}</td>
+            <td> Task2</td>
+          </tr>
+        )
+      })
+   }
 
-      let daysInMonths = [];
-      let yearMonth = "";
-      for (let mon = 1; mon<=12; mon++) {
-        yearMonth = y.toString()+"-0"+mon.toString()
-        const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
-        daysInMonths.push(numDaysInMonth)
-      }
-      return daysInMonths
-
-    }
-
-    // const dateTask = (date) => {
-    //   let allTasks = loadedTasks.map(task => {
-    //     let shortendDate = 0;
-    //     if (task.startdate === date) {
-    //         return task
-    //     }  
-    //   })
-    //   return allTasks
-    // }
-
-    const firstDayOfMonth = () => {
-
-      let dateObject = dateObj;
-      let firstDay = moment(dateObject)
-                   .startOf("month")
-                   .format("d"); 
-     return firstDay;
-    };
-
-    const week = () => {
-       let weekdayshort = moment.weekdaysShort();
-        return weekdayshort.map(day => {
-            return (
-              <div key={day}>
-              <div className=' bg-blue-500 text-sm px-1 border-solid border-blue-800 border-x-2'>
-                <p>
-                  {day}
-                </p>
-              </div>
-            </div>
-            );
-         });
-    }
-
-    const monthDisplay = () => {
+    const timelineBody = () => {
       let months = moment.months();
       let monthNames = months.map(month => {
         return (
-          <div key={month}>
-            <div className=' bg-blue-700 text-center border-white border-x-2'>
-                {month}
-                <div className='flex'>
-
+            <th key={month} className=' bg-blue-700 text-center border-white border-x-2'>
+                <tr>{month}</tr>
+                <table>
                   {daysOfTheYear(2022,month)}
-                </div>
-            </div>
-          </div>
+                  {timeLineRows()}
+                </table>
+            </th>
         );
       });
       return monthNames
     }
 
+    return(
+      <>
+        <table className=' text-white justify-start text-center'>
+          {timelineBody()}
+        </table>
+      </>
+    )
+}
+
+// const TimelineBody = ({loadedTasks}) => {
+
+
+
+//   return(
+//     <>
+//       {tasks()}
+//     </>
+//   )
+// }
+
+const Timeline = ({loadedTasks}) => {
+
+    const splitDate = (date) => {
+      return date.split(' ')
+    }
+
+    const taskList = (y) => {
+        let year = y.toString()
+        if(loadedTasks){
+          return loadedTasks
+          .filter(task => {
+            let dateArr = splitDate(task.startdate)
+            //console.log(dateArr)
+              if(dateArr[3] === year){
+                return task
+              }
+          }).map((task, index) =>{
+            return(
+              <div 
+                key={index} 
+                className='border-t-2 border-blue-800 bg-blue-500 text-white'
+              >
+                <p>{task.title}</p>
+              </div>
+            )
+          })
+        }
+    }
+
     return (
-      <div>
-        <p>Timeline</p>
-      <div className='flex text-white justify-start max-w-screen-xs overflow-x-scroll'>
-        {monthDisplay()}
-      </div>  
-      
-      {firstDayOfMonth()}
-      </div>
+      <>
+        <h1 className='text-center text-2xl'>Timeline</h1>
+        <div className='flex flex-row-reverse'>
+          <div className='max-w-screen-xs overflow-x-scroll'>
+
+              <TimelineBody loadedTasks={loadedTasks}/>
+              {/* <TimelineBody/> */}
+
+          </div>
+          <div>
+            <div className='bg-blue-800 text-white w-36'>
+              <h2>Task List</h2>
+              <p>.</p>
+            </div>
+            <div>
+              {taskList(2022)}
+            </div>
+          </div>
+        </div>
+      </>
     )
 }
 
