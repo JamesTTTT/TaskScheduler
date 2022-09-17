@@ -33,6 +33,7 @@ const TaskForm = ({ displayForm,
             <input
              type="text"
              name="title"
+             maxlength="10"
              placeholder="Task Title"
              onChange={(e)=>{
               setTaskTitle(e.target.value)

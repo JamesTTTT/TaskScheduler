@@ -70,8 +70,12 @@ const TimelineBody = ({loadedTasks}) => {
 
   const figurePosX = (day) =>{
     //EACH DAY IS 24px
-    return day * 24
-  } 
+    return day * 24 - 24
+  }
+
+  const startDateToDay = (date) => {
+    
+  }
 
   const taskRows = (y) => {
     let year = y.toString()
@@ -88,10 +92,12 @@ const TimelineBody = ({loadedTasks}) => {
         return(
           <div 
             key={index} 
-            className='outline outline-blue-800 outline-2 bg-blue-200 text-black flex-1 text-lg relative w-80'
-            style={{left: figurePosX(31)}}
-            >
-            <div>
+            className='outline outline-blue-800 outline-2 bg-blue-200 text-black flex-1 text-lg relative w-80 py-2'
+            style={{width: 8784}}>
+            <div
+              className='outline outline-blue-800 outline-2 bg-blue-500 text-white flex-1 text-lg relative w-80 rounded-xl pl-2'
+              style={{left: figurePosX(30)}}
+              >
               <p>{task.title}</p>
             </div>
           </div>
@@ -102,6 +108,8 @@ const TimelineBody = ({loadedTasks}) => {
 
   return(
     <>
+      {/* <div className='w-full bg-blue-800'
+      style={{width: 8784}}> */}
       <div>
         {taskRows(2022)}
       </div>
@@ -129,7 +137,7 @@ const TaskList = ({loadedTasks}) => {
           return(
             <div 
               key={index} 
-              className='outline outline-blue-800 outline-1 bg-blue-500 text-white text-lg'
+              className='outline outline-blue-800 outline-1 bg-blue-500 text-white text-lg py-2 px-4'
             >
               <p>{task.title}</p>
             </div>
@@ -160,12 +168,10 @@ const Timeline = ({loadedTasks}) => {
 
           </div>
           <div>
-            <div className='bg-blue-900 text-white w-36 text-center pb-4'>
+            <div className='bg-blue-900 text-white w-48 text-center pb-4'>
               <h2>Task List</h2>
             </div>
-
               <TaskList loadedTasks={loadedTasks} />
-
           </div>
         </div>
       </>
