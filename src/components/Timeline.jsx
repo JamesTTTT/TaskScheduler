@@ -2,7 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import { useState } from 'react'
 
-
+//EACH DAY IS 24
 const TimelineHeader = ({loadedTasks}) => {
      // Gives out how many day of each month during given year
      const daysOfTheMonth = (y) =>{
@@ -32,31 +32,25 @@ const TimelineHeader = ({loadedTasks}) => {
 
        return monthDayAr.map((day, index)=> {
            return (
-            <th key={index} className=' bg-blue-500 text-xs px-1 border-solid border-blue-800 border-x-2'>
-              <tr> {day} </tr>
-            </th>
+            <div 
+              key={index} 
+              className='bg-blue-500 text-xs px-1 outline outline-blue-800 outline-2 w-6 font-bold'>
+              <p> {day} </p>
+            </div>
            );
         });
    }
 
-  //  const timeLineRows = () => {
-  //     return loadedTasks.map((item, index) => {
-  //       return(
-  //         <tr key={index} className="bg-blue-200">
-  //           <td> {item.title}</td>
-  //           <td> Task2</td>
-  //         </tr>
-  //       )
-  //     })
-  //  }
 
     const timelineHead = () => {
       let months = moment.months();
       let monthData = months.map(month => {
         return (
-            <div key={month} className=' bg-blue-700 border-white border-x-2'>
+            <div key={month} className=' bg-blue-700 outline-dashed outline-2'>
                 <p>{month}</p>
-                <p>{daysOfTheYear(2022,month)}</p>
+                <div className='flex'>
+                  {daysOfTheYear(2022,month)}
+                </div>
             </div>
         );
       });
@@ -74,11 +68,43 @@ const TimelineHeader = ({loadedTasks}) => {
 
 const TimelineBody = ({loadedTasks}) => {
 
+  const figurePosX = (day) =>{
+    //EACH DAY IS 24px
+    return day * 24
+  } 
 
+  const taskRows = (y) => {
+    let year = y.toString()
+    if(loadedTasks){
+      return loadedTasks
+      // .filter(task => {
+      //   let dateArr = splitDate(task.startdate)
+      //   //console.log(dateArr)
+      //     if(dateArr[3] === year){
+      //       return task
+      //     }
+      // })
+      .map((task, index) =>{
+        return(
+          <div 
+            key={index} 
+            className='outline outline-blue-800 outline-2 bg-blue-200 text-black flex-1 text-lg relative w-80'
+            style={{left: figurePosX(31)}}
+            >
+            <div>
+              <p>{task.title}</p>
+            </div>
+          </div>
+        )
+      })
+    }
+}
 
   return(
     <>
-      <div></div>
+      <div>
+        {taskRows(2022)}
+      </div>
     </>
   )
 }
@@ -103,7 +129,7 @@ const TaskList = ({loadedTasks}) => {
           return(
             <div 
               key={index} 
-              className='border-t-2 border-blue-800 bg-blue-500 text-white'
+              className='outline outline-blue-800 outline-1 bg-blue-500 text-white text-lg'
             >
               <p>{task.title}</p>
             </div>
@@ -130,13 +156,12 @@ const Timeline = ({loadedTasks}) => {
           <div className='max-w-screen-xs overflow-x-scroll'>
 
               <TimelineHeader loadedTasks={loadedTasks}/>
-              {/* <TimelineBody/> */}
+              <TimelineBody loadedTasks={loadedTasks}/>
 
           </div>
           <div>
-            <div className='bg-blue-900 text-white w-36 text-center'>
+            <div className='bg-blue-900 text-white w-36 text-center pb-4'>
               <h2>Task List</h2>
-              <p>.</p>
             </div>
 
               <TaskList loadedTasks={loadedTasks} />
