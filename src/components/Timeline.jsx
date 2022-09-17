@@ -70,11 +70,16 @@ const TimelineBody = ({loadedTasks}) => {
 
   const figurePosX = (day) =>{
     //EACH DAY IS 24px
-    return day * 24 - 24
+    return day * 24
   }
 
   const startDateToDay = (date) => {
-    
+    let now = new Date(date)
+    let start = new Date(now.getFullYear(), 0, 0);
+    let diff = now - start;
+    let oneDay = 1000 * 60 * 60 * 24;
+    let day = Math.floor(diff / oneDay);
+    return figurePosX(day)
   }
 
   const taskRows = (y) => {
@@ -96,7 +101,7 @@ const TimelineBody = ({loadedTasks}) => {
             style={{width: 8784}}>
             <div
               className='outline outline-blue-800 outline-2 bg-blue-500 text-white flex-1 text-lg relative w-80 rounded-xl pl-2'
-              style={{left: figurePosX(30)}}
+              style={{left: startDateToDay(task.startdate)}}
               >
               <p>{task.title}</p>
             </div>
