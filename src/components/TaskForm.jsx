@@ -10,9 +10,12 @@ const TaskForm = ({ displayForm,
                     setTaskDescription, 
                     setTaskDuration }) => {
     
-    const dateTransform = (date) =>{
-        return new Date(date.toISOString)
-    }
+    // const dateTransform = (date) =>{
+    //   //console.log(date.val())
+    //   console.log(date)
+    //   return new Date(date).toDateString()
+        
+    // }
 
     return (
 
@@ -50,6 +53,7 @@ const TaskForm = ({ displayForm,
              type="text"
              name="description"
              placeholder="Task Description"
+             maxlength="100"
              rows="4"
              className='bg-gray-50 border border-gray-300 text-gray-900
              text-sm rounded-lg block p-2.5 w-72'
@@ -81,11 +85,11 @@ const TaskForm = ({ displayForm,
             <div>
             <label>Set startdate</label>
             <input 
-              type = "datetime-local"
+              type = "date"
               id = "startdate"
               name="startdate"
               //selected={deadline} 
-              onChange={(date) => {setStartDate(dateTransform(date.val()))}}
+              onChange={(date) => {setStartDate(date.target.value)}}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
               ></input>
@@ -94,11 +98,11 @@ const TaskForm = ({ displayForm,
             <div>
             <label>Set deadline</label>
             <input 
-              type = "datetime-local"
+              type = "date"
               id = "deadline"
               name="deadline"
               //selected={deadline} 
-              onChange={(date) => {setDeadline(dateTransform(date.val()))}}
+              onChange={(date) => {setDeadline(date.target.value)}}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
               ></input>

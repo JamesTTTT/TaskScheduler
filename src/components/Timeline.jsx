@@ -46,7 +46,7 @@ const TimelineHeader = ({loadedTasks}) => {
       let months = moment.months();
       let monthData = months.map(month => {
         return (
-            <div key={month} className=' bg-blue-700 outline-dashed outline-2'>
+            <div key={month} className=' bg-blue-800 outline-dashed outline-2 font-semibold'>
                 <p>{month}</p>
                 <div className='flex'>
                   {daysOfTheYear(2022,month)}
@@ -70,7 +70,7 @@ const TimelineBody = ({loadedTasks}) => {
 
   const figurePosX = (day) =>{
     //EACH DAY IS 24px
-    return day * 24
+    return day * 24 - 12
   }
 
   const startDateToDay = (date) => {
@@ -97,7 +97,7 @@ const TimelineBody = ({loadedTasks}) => {
         return(
           <div 
             key={index} 
-            className='outline outline-blue-800 outline-2 bg-blue-200 text-black flex-1 text-lg relative w-80 py-2'
+            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
             style={{width: 8784}}>
             <div
               className='outline outline-blue-800 outline-2 bg-blue-500 text-white flex-1 text-lg relative w-80 rounded-xl pl-2'
@@ -132,17 +132,18 @@ const TaskList = ({loadedTasks}) => {
       let year = y.toString()
       if(loadedTasks){
         return loadedTasks
-        .filter(task => {
-          let dateArr = splitDate(task.startdate)
-          //console.log(dateArr)
-            if(dateArr[3] === year){
-              return task
-            }
-        }).map((task, index) =>{
+        // .filter(task => {
+        //   let dateArr = splitDate(task.startdate)
+        //   //console.log(dateArr)
+        //     if(dateArr[3] === year){
+        //       return task
+        //     }
+        // })
+        .map((task, index) =>{
           return(
             <div 
               key={index} 
-              className='outline outline-blue-800 outline-1 bg-blue-500 text-white text-lg py-2 px-4'
+              className='outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
             >
               <p>{task.title}</p>
             </div>
@@ -173,7 +174,7 @@ const Timeline = ({loadedTasks}) => {
 
           </div>
           <div>
-            <div className='bg-blue-900 text-white w-48 text-center pb-4'>
+            <div className='bg-slate-700 font-bold outline text-white w-48 text-center outline-blue-800 outline-1 pb-4'>
               <h2>Task List</h2>
             </div>
               <TaskList loadedTasks={loadedTasks} />

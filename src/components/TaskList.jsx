@@ -82,20 +82,20 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     className=" transition-colors rounded-xl pb-4 bg-white mx-4 w-72
                     hover:bg-slate-200 flex flex-col justify-between my-3 shadow-xl"
                     >   
-                        <div className='bg-blue-700 rounded-t-xl p-2 text-white'>
-                            <p className='text-xl'>{item.title}</p>
+                        <div className='bg-blue-800 rounded-t-xl p-2 text-white'>
+                            <p className='text-xl font-light'>{item.title}</p>
                         </div>
                         <div className='px-4 pt-1'>
-                            <h1>About:</h1>
+                            <p className='text-lg font-semibold'>Due: {item.deadline}</p>
+                            <p className='text-sm font-semibold'>Started: {item.startdate}</p>
+                            <p className='text-sm font-semibold'>{item.duration} hours - {item.status}</p>
                             <div 
-                                className='h-20 max-h-20 overflow-y-scroll border-2 rounded-xl px-2'
+                                className='h-20 break-words max-h-20 text-sm overflow-hidden mt-2 px-1'
                             >
                                 <p>{item.description}</p>
                             </div>
-                            <p>Start: {item.startdate}</p>
-                            <p>Deadline: {item.deadline}</p>
-                            <p>Duration: {item.duration} hours</p>
-                            <p>Status: {item.status}</p>
+                            
+                           
                         </div>
 
                         <div className='pt-3 flex justify-end px-2'>

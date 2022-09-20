@@ -8,8 +8,8 @@ import TaskForm from './TaskForm'
 const AddTask = ({loadedTasks, updateTask}) => {
 
   const [showForm, setShowForm] = useState(false);
-  const [deadline, setDeadline] = useState(new Date());
-  const [startDate, setStartDate] = useState(new Date());
+  const [deadline, setDeadline] = useState("");
+  const [startDate, setStartDate] = useState("");
   const [taskCategory, setTaskCategory] = useState("");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
@@ -33,8 +33,8 @@ const AddTask = ({loadedTasks, updateTask}) => {
       title: taskTitle,
       description: taskDescription,
       category: taskCategory,
-      startdate: startDate.toDateString(),
-      deadline: deadline.toDateString(),
+      startdate: startDate,
+      deadline: deadline,
       duration: taskDurartion,
       status: taskStatus,
 
