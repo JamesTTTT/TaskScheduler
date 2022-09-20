@@ -66,6 +66,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
           setTaskTitle={setTaskTitle}
           setTaskDescription={setTaskDescription}
           setTaskDuration={setTaskDuration}
+          startdate={startDate}
         />
 
     ) : 

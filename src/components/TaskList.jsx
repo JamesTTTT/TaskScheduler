@@ -9,14 +9,16 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
     
     const [showForm, setShowForm] = useState(false)
 
-    const [deadline, setDeadline] = useState(new Date());
-    const [startDate, setStartDate] = useState(new Date());
+    const [deadline, setDeadline] = useState(0);
+    const [startDate, setStartDate] = useState(0);
     const [taskCategory, setTaskCategory] = useState("");
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [taskDurartion, setTaskDuration] = useState(0);
 
     const [selectedTaskID, setSelectedTaskId] = useState(0)
+
+    const [editedTaskDetails, setEditedTaskDetails] = useState({})
 
     const displayForm = () =>{
         if (showForm) {
@@ -34,6 +36,14 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         updateTask(updatedTaskList)
     }
 
+    // const oldDetails = (id) => {
+    //     const taskDetails = loadedTasks.find(task => {
+    //         return task.id === id
+    //     })
+    //     console.log(taskDetails)
+    //     setEditedTaskDetails(taskDetails)
+    // }
+
     const newDetails = (id) => {
         let updatedTaskList = loadedTasks.map(task => {
             if (task.id === id) {
@@ -42,8 +52,8 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     title: taskTitle,
                     description: taskDescription,
                     category: taskCategory,
-                    startdate: startDate.toDateString(),
-                    deadline: deadline.toDateString(),
+                    startdate: startDate,
+                    deadline: deadline,
                     duration: taskDurartion,
                     status: "edited",
                 }
@@ -58,6 +68,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         //console.log(id)
         setShowForm(true)
         setSelectedTaskId(id)
+        //oldDetails(id)
     }
 
     const handleUpdateTaskList = () =>{
@@ -141,6 +152,8 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
               setTaskTitle={setTaskTitle}
               setTaskDescription={setTaskDescription}
               setTaskDuration={setTaskDuration}
+              //title={editedTaskDetails.title}
+              startdate={editedTaskDetails.startdate}
             />
             </div>
         ) : 

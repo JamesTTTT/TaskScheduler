@@ -8,14 +8,12 @@ const TaskForm = ({ displayForm,
                     setTaskCategory, 
                     setTaskTitle, 
                     setTaskDescription, 
-                    setTaskDuration }) => {
+                    setTaskDuration,
+                    title,
+                    startdate,
+                  
+                  }) => {
     
-    // const dateTransform = (date) =>{
-    //   //console.log(date.val())
-    //   console.log(date)
-    //   return new Date(date).toDateString()
-        
-    // }
 
     return (
 
@@ -37,8 +35,10 @@ const TaskForm = ({ displayForm,
              type="text"
              name="title"
              maxlength="10"
-             placeholder="Task Title"
+             placeholder="Max 10 Characters"
+//             value={title}
              onChange={(e)=>{
+              
               setTaskTitle(e.target.value)
              }}
              className='bg-gray-50 border border-gray-300 text-gray-900
@@ -52,7 +52,7 @@ const TaskForm = ({ displayForm,
             <textarea
              type="text"
              name="description"
-             placeholder="Task Description"
+             placeholder="Max 100 Characters"
              maxlength="100"
              rows="4"
              className='bg-gray-50 border border-gray-300 text-gray-900
@@ -101,7 +101,7 @@ const TaskForm = ({ displayForm,
               type = "date"
               id = "deadline"
               name="deadline"
-              //selected={deadline} 
+              min={startdate}
               onChange={(date) => {setDeadline(date.target.value)}}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
