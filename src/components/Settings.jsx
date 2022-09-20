@@ -1,13 +1,14 @@
 import React from 'react'
+import taskManage from '../manage/taskmanager'
 import {FiSettings} from 'react-icons/fi'
 import {AiOutlineClose} from 'react-icons/ai'
 
 import { useState } from 'react'
 
-const Settings = () => {
+const Settings = ({capacity,updateCapacity}) => {
     const [showSettings, setSettings] = useState(false)
 
-    const [time, setTime] = useState(0)
+    //const [time, setTime] = useState(0)
 
     const displaySettings = () =>{
         if (showSettings) {
@@ -33,7 +34,9 @@ const Settings = () => {
                 <label> Enter Daily Hours</label>
                 <input 
                     type="number"
-                    placeholder={time}
+                    value={capacity}
+                    placeholder={capacity}
+                    onChange={(e)=>{updateCapacity(e.target.value)}}
                     className='bg-gray-50 border border-gray-300 text-gray-900
                                 text-sm rounded-lg block p-2.5 w-20' />
             </div>
