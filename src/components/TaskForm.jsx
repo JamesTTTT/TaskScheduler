@@ -34,7 +34,7 @@ const TaskForm = ({ displayForm,
             <input
              type="text"
              name="title"
-             maxlength="10"
+             maxLength="10"
              placeholder="Max 10 Characters"
 //             value={title}
              onChange={(e)=>{
@@ -53,7 +53,7 @@ const TaskForm = ({ displayForm,
              type="text"
              name="description"
              placeholder="Max 100 Characters"
-             maxlength="100"
+             maxLength="100"
              rows="4"
              className='bg-gray-50 border border-gray-300 text-gray-900
              text-sm rounded-lg block p-2.5 w-72'
@@ -72,13 +72,14 @@ const TaskForm = ({ displayForm,
             name="category"
             id="category"
             onChange={(e)=>{
+              // console.log(e.target.value)
                setTaskCategory(e.target.value)
             }}
             >
               <option value="Hard">Hard</option>
-              <option value="Challeging">Challenging</option>
-              <option value="Intermidate">Intermediate</option>
-              <option value="Easy">Easy</option>
+              <option value="Challenging">Challenging</option>
+              <option value="Intermediate">Intermediate</option>
+              <option selected="selected" value="Simple">Simple</option>
             </select>
             </div>
 
@@ -88,7 +89,7 @@ const TaskForm = ({ displayForm,
               type = "date"
               id = "startdate"
               name="startdate"
-              //selected={deadline} 
+              required
               onChange={(date) => {setStartDate(date.target.value)}}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
@@ -102,6 +103,7 @@ const TaskForm = ({ displayForm,
               id = "deadline"
               name="deadline"
               min={startdate}
+              required
               onChange={(date) => {setDeadline(date.target.value)}}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import {AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare} from 'react-icons/ai'
+import {AiOutlineDelete, AiOutlineEdit, AiOutlineCheck} from 'react-icons/ai'
 import TaskForm from './TaskForm'
 import Search from './Search'
 
@@ -89,6 +89,19 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         }
     }
 
+    const handleDifficultyColor = (category) => {
+        switch(category){
+            case 'Hard':
+                return '#ef4444'
+            case 'Challenging':
+                return '#f97316'
+            case 'Intermediate':
+                return '#facc15'
+            case 'Simple':
+                return '#84cc16'
+        }
+    }
+
     const tasks = () => {
         if (loadedTasks) {
             return loadedTasks
@@ -105,17 +118,21 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     className=" transition-colors rounded-xl pb-4 bg-white mx-4 w-72
                     hover:bg-slate-200 flex flex-col justify-between my-3 shadow-xl"
                     >   
-                        <div className=' rounded-t-xl p-2 text-white'
-                        style={{backgroundColor: handleStatusColor(item.status)}}>
+                        <div 
+                            className=' rounded-t-xl p-2 text-white'
+                            style={{backgroundColor: handleStatusColor(item.status)}}
+                        >
                             <p className='text-xl font-light'>{item.title}</p>
                         </div>
                         <div className='px-4 pt-1'>
                             <p className='text-lg font-semibold'>Due: {item.deadline}</p>
                             <p className='text-sm font-semibold'>Started: {item.startdate}</p>
-                            <p className='text-sm font-semibold'>{item.duration} hours 
-                            <span className=' bg-green-500 px-2 rounded-xl mx-1'>
-                                {item.category}
-                            </span>
+                            <p className='text-sm font-semibold'>{item.duration} hours
+                                <span 
+                                    className='px-2 rounded-xl mx-1'
+                                    style={{backgroundColor: handleDifficultyColor(item.category)}}>
+                                    {item.category}
+                                </span>
                             </p>
                             <div 
                                 className='h-20 break-words max-h-20 text-sm overflow-hidden mt-2 px-1'
@@ -132,8 +149,8 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                                 <button
                                 // onClick={()=>handleDone(item.id)}
                                 className='text-2xl p-2 bg-green-500 rounded-3xl text-white
-                                hover:bg-green-700 transition-colors mx-1'>
-                                    <AiOutlineCheckSquare/>
+                                hover:bg-slate-700 transition-colors mx-1'>
+                                    <AiOutlineCheck/>
                                 </button>
                             </div>
                             <div className='flex justify-end px-2'>

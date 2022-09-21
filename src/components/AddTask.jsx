@@ -10,7 +10,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
   const [showForm, setShowForm] = useState(false);
   const [deadline, setDeadline] = useState("");
   const [startDate, setStartDate] = useState("");
-  const [taskCategory, setTaskCategory] = useState("");
+  const [taskCategory, setTaskCategory] = useState("Simple");
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDurartion, setTaskDuration] = useState(0);
@@ -23,6 +23,17 @@ const AddTask = ({loadedTasks, updateTask}) => {
     } else {
       setShowForm(true)
     }
+  }
+
+  const setDefValues = () =>{
+    setTaskTitle("");
+    setTaskDescription("");
+    setTaskCategory("Simple");
+    setStartDate(0);
+    setDeadline(0);
+    setTaskDuration(0);
+    setTaskStatus("Ongoing")
+    console.log(taskTitle)
   }
 
   const handleSave = (e) =>{
@@ -39,6 +50,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
       status: taskStatus,
 
     }
+    setDefValues()
 
     let allTasks = [];
 
