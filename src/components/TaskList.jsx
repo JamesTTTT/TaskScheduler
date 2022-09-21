@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import {AiOutlineDelete, AiOutlineEdit} from 'react-icons/ai'
+import {AiOutlineDelete, AiOutlineEdit, AiOutlineCheckSquare} from 'react-icons/ai'
 import TaskForm from './TaskForm'
 import Search from './Search'
 
@@ -77,6 +77,18 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         updateTask(updatedTaskList)
     }
 
+    const handleStatusColor = (status) =>{
+        switch(status){
+            case 'Ongoing':
+                return '#1d4ed8'
+            case 'Done':
+                return '#22c55e'
+            case 'edited':
+                return '#db2777'
+
+        }
+    }
+
     const tasks = () => {
         if (loadedTasks) {
             return loadedTasks
@@ -93,38 +105,53 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     className=" transition-colors rounded-xl pb-4 bg-white mx-4 w-72
                     hover:bg-slate-200 flex flex-col justify-between my-3 shadow-xl"
                     >   
-                        <div className='bg-blue-800 rounded-t-xl p-2 text-white'>
+                        <div className=' rounded-t-xl p-2 text-white'
+                        style={{backgroundColor: handleStatusColor(item.status)}}>
                             <p className='text-xl font-light'>{item.title}</p>
                         </div>
                         <div className='px-4 pt-1'>
                             <p className='text-lg font-semibold'>Due: {item.deadline}</p>
                             <p className='text-sm font-semibold'>Started: {item.startdate}</p>
-                            <p className='text-sm font-semibold'>{item.duration} hours - {item.status}</p>
+                            <p className='text-sm font-semibold'>{item.duration} hours 
+                            <span className=' bg-green-500 px-2 rounded-xl mx-1'>
+                                {item.category}
+                            </span>
+                            </p>
                             <div 
                                 className='h-20 break-words max-h-20 text-sm overflow-hidden mt-2 px-1'
                             >
                                 <p>{item.description}</p>
                             </div>
                             
-                           
-                        </div>
-
-                        <div className='pt-3 flex justify-end px-2'>
-                            <button
-                            onClick={()=>handleEdit(item.id)}
-                            className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                            hover:bg-blue-500 transition-colors mx-1'>
-                                <AiOutlineEdit/>
-                            </button>
                             
-                            <button
-                            onClick={()=>handleDelete(item.id)}
-                            className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                            hover:bg-red-500 transition-colors mx-1'>
-                                <AiOutlineDelete/>
-                            </button>
-                        </div>
 
+                        </div>
+                        {/* container for buttons */}
+                        <div className='pt-3 flex flex-row-reverse justify-between items-start'>
+                            <div className='px-2'>
+                                <button
+                                // onClick={()=>handleDone(item.id)}
+                                className='text-2xl p-2 bg-green-500 rounded-3xl text-white
+                                hover:bg-green-700 transition-colors mx-1'>
+                                    <AiOutlineCheckSquare/>
+                                </button>
+                            </div>
+                            <div className='flex justify-end px-2'>
+                                <button
+                                onClick={()=>handleEdit(item.id)}
+                                className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
+                                hover:bg-blue-500 transition-colors mx-1'>
+                                    <AiOutlineEdit/>
+                                </button>
+
+                                <button
+                                onClick={()=>handleDelete(item.id)}
+                                className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
+                                hover:bg-red-500 transition-colors mx-1'>
+                                    <AiOutlineDelete/>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 )
             })
