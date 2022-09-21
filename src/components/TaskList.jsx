@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import {AiOutlineDelete, AiOutlineEdit, AiOutlineCheck} from 'react-icons/ai'
+import colorManage from '../manage/colormanager'
 import TaskForm from './TaskForm'
 import Search from './Search'
 
@@ -11,7 +12,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
     const [deadline, setDeadline] = useState(0);
     const [startDate, setStartDate] = useState(0);
-    const [taskCategory, setTaskCategory] = useState("");
+    const [taskCategory, setTaskCategory] = useState("Simple");
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [taskDurartion, setTaskDuration] = useState(0);
@@ -60,7 +61,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             }
             return task
         })
-        console.log(updatedTaskList)
         return updatedTaskList
     }
 
@@ -76,18 +76,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
         updateTask(updatedTaskList)
     }
 
-    const handleStatusColor = (status) =>{
-        switch(status){
-            case 'In-Progress':
-                return '#1d4ed8'
-            case 'Complete':
-                return '#22c55e'
-            case 'edited':
-                return '#db2777'
-
-        }
-    }
-
     const handleDone = (id) => {
         let updatedTaskList = loadedTasks.map(task => {
             if (task.id === id) {
@@ -99,19 +87,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             return task
         })
         updateTask(updatedTaskList)
-    }
-
-    const handleDifficultyColor = (category) => {
-        switch(category){
-            case 'Hard':
-                return '#ef4444'
-            case 'Challenging':
-                return '#f97316'
-            case 'Intermediate':
-                return '#facc15'
-            case 'Simple':
-                return '#84cc16'
-        }
     }
 
     const tasks = () => {
@@ -132,7 +107,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     >   
                         <div 
                             className=' rounded-t-xl p-2 text-white flex flew-row justify-between'
-                            style={{backgroundColor: handleStatusColor(item.status)}}
+                            style={{backgroundColor: colorManage.statusColor(item.status)}}
                         >
                             <p className='text-xl font-light'>{item.title} </p>
                             <p className='text-sm font-light'>{item.status}</p>
@@ -143,7 +118,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                             <p className='text-sm font-semibold'>{item.duration} hours
                                 <span 
                                     className='px-2 rounded-xl mx-1'
-                                    style={{backgroundColor: handleDifficultyColor(item.category)}}>
+                                    style={{backgroundColor: colorManage.difficultyColor(item.category)}}>
                                     {item.category}
                                 </span>
                             </p>

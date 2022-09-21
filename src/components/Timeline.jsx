@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import colorManage from '../manage/colormanager'
 import { useState } from 'react'
 
 //EACH DAY IS 24
@@ -101,7 +102,9 @@ const TimelineBody = ({loadedTasks}) => {
             style={{width: 8784}}>
             <div
               className='outline outline-blue-800 outline-2 bg-blue-500 text-white flex-1 text-lg relative w-80 rounded-xl pl-2'
-              style={{left: startDateToDay(task.startdate)}}
+              style={{
+                left: startDateToDay(task.startdate), 
+                backgroundColor: colorManage.statusColor(task.status)}}
               >
               <p>{task.title}</p>
             </div>
