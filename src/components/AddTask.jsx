@@ -14,7 +14,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDurartion, setTaskDuration] = useState(0);
-  const [taskStatus, setTaskStatus] = useState("Ongoing")
+  const [taskStatus, setTaskStatus] = useState("In-Progress")
 
   
   const displayForm = () =>{
@@ -32,7 +32,7 @@ const AddTask = ({loadedTasks, updateTask}) => {
     setStartDate(0);
     setDeadline(0);
     setTaskDuration(0);
-    setTaskStatus("Ongoing")
+    setTaskStatus("In-Progress")
     console.log(taskTitle)
   }
 

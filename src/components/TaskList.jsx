@@ -65,7 +65,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
     }
 
     const handleEdit = (id) => {
-        //console.log(id)
         setShowForm(true)
         setSelectedTaskId(id)
         //oldDetails(id)
@@ -79,14 +78,27 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
     const handleStatusColor = (status) =>{
         switch(status){
-            case 'Ongoing':
+            case 'In-Progress':
                 return '#1d4ed8'
-            case 'Done':
+            case 'Complete':
                 return '#22c55e'
             case 'edited':
                 return '#db2777'
 
         }
+    }
+
+    const handleDone = (id) => {
+        let updatedTaskList = loadedTasks.map(task => {
+            if (task.id === id) {
+                return {
+                    ...task,
+                    status: "Complete",
+                }
+            }
+            return task
+        })
+        updateTask(updatedTaskList)
     }
 
     const handleDifficultyColor = (category) => {
@@ -119,10 +131,11 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                     hover:bg-slate-200 flex flex-col justify-between my-3 shadow-xl"
                     >   
                         <div 
-                            className=' rounded-t-xl p-2 text-white'
+                            className=' rounded-t-xl p-2 text-white flex flew-row justify-between'
                             style={{backgroundColor: handleStatusColor(item.status)}}
                         >
-                            <p className='text-xl font-light'>{item.title}</p>
+                            <p className='text-xl font-light'>{item.title} </p>
+                            <p className='text-sm font-light'>{item.status}</p>
                         </div>
                         <div className='px-4 pt-1'>
                             <p className='text-lg font-semibold'>Due: {item.deadline}</p>
@@ -147,7 +160,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                         <div className='pt-3 flex flex-row-reverse justify-between items-start'>
                             <div className='px-2'>
                                 <button
-                                // onClick={()=>handleDone(item.id)}
+                                onClick={()=>handleDone(item.id)}
                                 className='text-2xl p-2 bg-green-500 rounded-3xl text-white
                                 hover:bg-slate-700 transition-colors mx-1'>
                                     <AiOutlineCheck/>
