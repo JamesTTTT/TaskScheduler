@@ -10,6 +10,10 @@ function App() {
   const [capacity, setCapacity] = useState(0)
 
   useEffect(() => {
+    document.title = 'My Task Scheduler';
+  });
+
+  useEffect(() => {
       setLoadedTasks(taskManage.getTasks())
       setCapacity(taskManage.getCapacity())
     }, [])

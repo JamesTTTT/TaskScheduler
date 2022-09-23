@@ -7,7 +7,7 @@ const Header = () => {
         className='shadow-xl bg-blue-700 py-2 px-6 rounded-full text-2xl bold text-white flex'
         >
             <h1>
-                Task Scheduler
+                My Task Scheduler
             </h1>
             <h1 className='py-1 ml-1'><AiOutlineSchedule/></h1>
         </div>
