@@ -98,6 +98,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             } else if(item.title.toLowerCase().includes(searchPhrase.toLowerCase())) {
                     return item
             }
+                return
             }).map((item, index) => {
                 return(
                     <div 
@@ -189,7 +190,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             />
             </div>
         ) : 
-        <div className='flex flex-row justify-center flex-wrap'>
+        <div className='flex flex-row justify-start flex-wrap'>
             {tasks()}
         </div>
         }

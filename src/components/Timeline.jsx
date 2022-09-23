@@ -83,6 +83,18 @@ const TimelineBody = ({loadedTasks}) => {
     return figurePosX(day)
   }
 
+  const taskLenght = (start, end) => {
+    let startdate = new Date(start)
+    let deadline = new Date(end)
+    let difference = deadline.getTime() - startdate.getTime();
+    let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
+    console.log("t:"+TotalDays)
+    if(TotalDays <= 1){
+      return 24
+    }
+    return figurePosX(TotalDays)
+  }
+
   const taskRows = (y) => {
     let year = y.toString()
     if(loadedTasks){
@@ -101,9 +113,11 @@ const TimelineBody = ({loadedTasks}) => {
             className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
             style={{width: 8784}}>
             <div
-              className='outline outline-blue-800 outline-2 bg-blue-500 text-white flex-1 text-lg relative w-80 rounded-xl pl-2'
+              className='outline outline-blue-800 outline-2 bg-blue-500 text-white
+                         flex-1 text-lg relative rounded-xl pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
               style={{
-                left: startDateToDay(task.startdate), 
+                left: startDateToDay(task.startdate),
+                width: taskLenght(task.startdate, task.deadline),
                 backgroundColor: colorManage.statusColor(task.status)}}
               >
               <p>{task.title}</p>
