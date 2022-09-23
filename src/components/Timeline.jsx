@@ -123,7 +123,7 @@ const TimelineBody = ({loadedTasks}) => {
               data-tip={task.title}
               data-for="task"
               className='outline outline-blue-800 outline-2 bg-blue-500 text-white
-                         flex-1 text-lg relative rounded-xl pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
+                         flex-1 text-lg relative pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
               style={{
                 left: startDateToDay(task.startdate),
                 width: taskLenght(task.startdate, task.deadline),
