@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import colorManage from '../manage/colormanager'
+import ReactTooltip from 'react-tooltip';
 import { useState } from 'react'
 
 //EACH DAY IS 24
@@ -71,9 +72,15 @@ const TimelineBody = ({loadedTasks}) => {
 
   const figurePosX = (day) =>{
     //EACH DAY IS 24px
-    return day * 24 - 12
+    return day * 24 - 24
   }
 
+  const figurePosEnd = (day) =>{
+    //EACH DAY IS 24px
+    return day * 24
+  }
+
+  //Determines when the day starts on the timeline
   const startDateToDay = (date) => {
     let now = new Date(date)
     let start = new Date(now.getFullYear(), 0, 0);
@@ -83,16 +90,16 @@ const TimelineBody = ({loadedTasks}) => {
     return figurePosX(day)
   }
 
+  //Determines the lenght of the task
   const taskLenght = (start, end) => {
     let startdate = new Date(start)
     let deadline = new Date(end)
     let difference = deadline.getTime() - startdate.getTime();
     let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-    console.log("t:"+TotalDays)
     if(TotalDays <= 1){
       return 24
     }
-    return figurePosX(TotalDays)
+    return figurePosEnd(TotalDays)
   }
 
   const taskRows = (y) => {
@@ -113,6 +120,8 @@ const TimelineBody = ({loadedTasks}) => {
             className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
             style={{width: 8784}}>
             <div
+              data-tip={task.title}
+              data-for="task"
               className='outline outline-blue-800 outline-2 bg-blue-500 text-white
                          flex-1 text-lg relative rounded-xl pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
               style={{
@@ -122,6 +131,12 @@ const TimelineBody = ({loadedTasks}) => {
               >
               <p>{task.title}</p>
             </div>
+            <ReactTooltip 
+              id="task" 
+              place="top" 
+              effect="solid" 
+              delayHide={300}
+              getContent={(dataTip) => <div> <h1>{dataTip}</h1></div>}/>
           </div>
         )
       })
