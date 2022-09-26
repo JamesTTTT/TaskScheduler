@@ -193,8 +193,6 @@ const TaskList = ({loadedTasks}) => {
 
 const Timeline = ({loadedTasks}) => {
 
-
-
     return (
       <>
         <h1 className='text-center text-2xl'>Timeline</h1>

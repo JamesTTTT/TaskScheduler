@@ -43,7 +43,7 @@ function App() {
         <Timeline loadedTasks={loadedTasks}/>
       </div>
       <div>
-        <Footer/>
+        <Footer loadedTasks={loadedTasks}/>
 
       </div>
     </div>
