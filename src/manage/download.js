@@ -25,7 +25,7 @@ const download = {
           },
           columnStyles:{
             0: {
-                columnWidth: '1000'
+                columnWidth: '50'
             },
             1: {
                 columnWidth: '50'
