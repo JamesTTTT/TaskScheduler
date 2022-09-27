@@ -1,3 +1,5 @@
+import moment from 'moment/moment'
+
 const timeline = {
     figurePosX: function figurePosX(day){
         //EACH DAY IS 24px
@@ -29,7 +31,32 @@ const timeline = {
           return 24
         }
         return this.figurePosEnd(TotalDays)
-      }
+      },
+
+     // Gives out how many day of each month during given year
+      daysOfTheMonth: function daysOfTheMonth(y){
+        let daysInMonths = [];
+        let yearMonth = "";
+        for (let mon = 1; mon<=12; mon++) {
+          yearMonth = y.toString()+"-0"+mon.toString()
+          const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
+          daysInMonths.push(numDaysInMonth)
+        }
+        return daysInMonths
+      },
+
+      //Creates an array that fills up with hours of the day
+      hoursOfTheDay: function hoursOfTheDay(){
+        let hours = [];
+        new Array(24).fill().forEach((acc, index) => {
+            hours.push(moment( {hour: index} ).format('H:mm'));
+            //items.push(moment({ hour: index, minute: 30 }).format('h:mm A'));
+        })
+        return hours
+      },
+
     }
+
+
 
 export default timeline

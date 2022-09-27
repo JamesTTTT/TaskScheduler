@@ -6,25 +6,12 @@ import ReactTooltip from 'react-tooltip';
 
 //EACH DAY IS 24
 const TimelineHeader = () => {
-    // Gives out how many day of each month during given year
-    const daysOfTheMonth = (y) =>{
-
-     let daysInMonths = [];
-     let yearMonth = "";
-     for (let mon = 1; mon<=12; mon++) {
-       yearMonth = y.toString()+"-0"+mon.toString()
-       const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
-       daysInMonths.push(numDaysInMonth)
-     }
-     return daysInMonths
-
-   }
 
    const daysOfTheYear = (year,month) => {
      //const monthIndex = {January:0, February:1, March:2, }
      const monthsList = moment.months();
      let monthDayAr = [];
-     let monthDayCount = daysOfTheMonth(year)
+     let monthDayCount = timeline.daysOfTheMonth(year)
      let monthIndex = monthsList.indexOf(month)
      let daysCurMonth = monthDayCount[monthIndex]
 
