@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import colorManage from '../../manage/colormanager'
+import timeline from '../../manage/timeline';
 import ReactTooltip from 'react-tooltip';
 
 //EACH DAY IS 24
@@ -69,38 +70,6 @@ const TimelineHeader = () => {
 
 const TimelineBody = ({loadedTasks}) => {
 
- const figurePosX = (day) =>{
-   //EACH DAY IS 24px
-   return day * 24 - 24
- }
-
- const figurePosEnd = (day) =>{
-   //EACH DAY IS 24px
-   return day * 24
- }
-
- //Determines when the day starts on the timeline
- const startDateToDay = (date) => {
-   let now = new Date(date)
-   let start = new Date(now.getFullYear(), 0, 0);
-   let diff = now - start;
-   let oneDay = 1000 * 60 * 60 * 24;
-   let day = Math.floor(diff / oneDay);
-   return figurePosX(day)
- }
-
- //Determines the lenght of the task
- const taskLenght = (start, end) => {
-   let startdate = new Date(start)
-   let deadline = new Date(end)
-   let difference = deadline.getTime() - startdate.getTime();
-   let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-   if(TotalDays <= 1){
-     return 24
-   }
-   return figurePosEnd(TotalDays)
- }
-
  const taskRows = (y) => {
    let year = y.toString()
    if(loadedTasks){
@@ -124,8 +93,8 @@ const TimelineBody = ({loadedTasks}) => {
              className='outline outline-blue-800 outline-2 bg-blue-500 text-white
                         flex-1 text-lg relative pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
              style={{
-               left: startDateToDay(task.startdate),
-               width: taskLenght(task.startdate, task.deadline),
+               left: timeline.startDateToDay(task.startdate),
+               width: timeline.taskLenght(task.startdate, task.deadline),
                backgroundColor: colorManage.statusColor(task.status)}}
              >
              <p>{task.title}</p>

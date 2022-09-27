@@ -16,11 +16,13 @@ const Timeline = ({loadedTasks}) => {
       <>
         <h1 className='text-center text-2xl pb-2 pt-5'>Timeline</h1>
         <div 
-          className='bg-slate-700 text-lg flex justify-center py-1 pb-2
+          className='bg-slate-700 text-lg flex justify-center
           text-white font-light outline outline-blue-500 outline-1'
           >
-            <div className='px-3 flex flex-col'>
-              <label>Daily</label>
+            <div className='px-3 flex flex-row'>
+              <label className='px-2'>
+                Daily
+              </label>
               <input
                 type="radio" 
                 name="timeline"
@@ -28,8 +30,10 @@ const Timeline = ({loadedTasks}) => {
               />
 
             </div>
-            <div className='px-3 flex flex-col'> 
-              <label>Hourly</label>
+            <div className='px-3 flex flex-row'> 
+              <label className='px-2'>
+                Hourly
+              </label>
               <input
                 type="radio" 
                 name="timeline" 
@@ -39,7 +43,7 @@ const Timeline = ({loadedTasks}) => {
         </div>
 
         {isHourly
-        ?(
+        ? (
           <div>
             <TimelineHourly loadedTasks={loadedTasks}/>
           </div>
