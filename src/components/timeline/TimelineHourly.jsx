@@ -3,7 +3,7 @@ import timeline from '../../manage/timeline'
 import colorManage from '../../manage/colormanager'
 import moment from 'moment/moment'
 import ReactTooltip from 'react-tooltip';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 //EACH HOUR IS 40 AND EACH DAY IS 960
 const TimelineHeader = () => {
@@ -15,14 +15,13 @@ const TimelineHeader = () => {
     let hour = moment().hour();
 
     const  getTimelinePos = timeline.figureHourPos(day, hour);
-    console.log(getTimelinePos)
+
     timelineX.scrollTo({
       left: getTimelinePos,
       behavior: 'smooth'
     });
 
   }, []);
-
    
   const hoursOfTheYear = () => {
     let hours = timeline.hoursOfTheDay()
@@ -59,8 +58,8 @@ const TimelineHeader = () => {
          <div 
            key={index} 
            className='
-           bg-blue-500 text-xs outline
-           outline-blue-800 outline-2 font-bold'>
+           bg-blue-500 text-md outline
+           outline-blue-800 outline-2'>
 
            <p> {day} </p>
             <div className='flex'>
@@ -80,7 +79,7 @@ const TimelineHeader = () => {
    let monthData = months.map(month => {
      return (
          <div key={month} className=' bg-blue-800 outline-dashed outline-2 font-semibold'>
-             <p>{month}</p>
+             {/* <p> {month} </p> */}
              <div className='flex'>
                {daysOfTheYear(2022,month)}
              </div>
@@ -189,22 +188,63 @@ const TimelineBody = ({loadedTasks}) => {
   )
 }
 
+const CurrentMonth = () =>{
+  const [month, setMonth] = useState("")
+  
+  useEffect(() => {
+    const timelineX = document.getElementById('hourTimeline');
+    const scrollEvent = () => {
+      let curMonth = timeline.monthPos(timelineX.scrollLeft)
+      //console.log(curMonth)
+      setMonth(curMonth)
+    }
+
+    timelineX.addEventListener("scroll", scrollEvent)
+  }, [])
+  
+  return(
+    <>
+    <div className='flex justify-center bg-blue-700 text-white'>
+      <h1>{month}</h1>
+    </div>
+    </>
+  )
+}
+
 const TimelineHourly = ({loadedTasks}) => {
   return (
-    <div className='flex flex-row-reverse'>
-    <div
-      id="hourTimeline"
-      className='max-w-screen-xs overflow-x-scroll'>
-
-        <TimelineHeader loadedTasks={loadedTasks}/>
-        <TimelineBody loadedTasks={loadedTasks}/>
-
-    </div>
     <div>
-      <div className='bg-slate-700 font-bold outline text-white w-48 text-center outline-blue-800 outline-1 pb-4'>
-        <h2>Task List</h2>
+      <div className='flex flex-row-reverse justify-between'>
+        <div className='w-full'>
+          <CurrentMonth/>
+        </div>
+        
+        <div
+        style={{minWidth: 192}}
+        className="bg-slate-700"
+        >
+           {/* empty div */}
+        </div>
+
       </div>
-        <TaskList loadedTasks={loadedTasks} />
+      <div className='flex flex-row-reverse'>
+        
+      <div
+        id="hourTimeline"
+        className='max-w-screen-xs overflow-x-scroll'>
+
+          <TimelineHeader />
+          <TimelineBody loadedTasks={loadedTasks}/>
+
+      </div>
+      <div>
+        <div className='
+        bg-slate-700 font-bold outline text-white w-48
+          text-center outline-blue-800 outline-1 pb-4'>
+          <h2>Task List</h2>
+        </div>
+          <TaskList loadedTasks={loadedTasks} />
+      </div>
     </div>
   </div>
   )

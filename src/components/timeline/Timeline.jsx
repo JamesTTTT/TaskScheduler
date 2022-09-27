@@ -17,7 +17,7 @@ const Timeline = ({loadedTasks}) => {
         <h1 className='text-center text-2xl pb-2 pt-5'>Timeline</h1>
         <div 
           className='bg-slate-700 text-lg flex justify-center
-          text-white font-light outline outline-blue-500 outline-1'
+          text-white font-light '
           >
             <div className='px-3 flex flex-row'>
               <label className='px-2'>

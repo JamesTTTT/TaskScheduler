@@ -167,7 +167,7 @@ const TimelineDaily = ({loadedTasks}) => {
       id="dayTimeline"
       className='max-w-screen-xs overflow-x-scroll'>
 
-        <TimelineHeader loadedTasks={loadedTasks}/>
+        <TimelineHeader />
         <TimelineBody loadedTasks={loadedTasks}/>
 
     </div>

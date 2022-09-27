@@ -2,19 +2,20 @@ import moment from 'moment/moment'
 
 const timeline = {
 
+
     //EACH DAY IS 24px
     figurePosX: function figurePosX(day){
-        return day * 24 - 24
+        return day * 24 - 24;
       },
 
      //EACH DAY IS 24px
     figurePosEnd: function figurePosEnd(day){
-        return day * 24
+        return day * 24;
       },
 
-      //Days are 40px and days 960px
+      //hours are 40px and days 960px
     figureHourPos: function figureHourPos(day, hour) {
-        let dayPos = day * 960;
+        let dayPos = day * 960 - 960;
         let hourPos = hour * 40;
         let pos = dayPos + hourPos;
         return pos;
@@ -72,6 +73,25 @@ const timeline = {
         let monthDaysArr = this.daysOfTheMonth(year)
         let dayYear = monthDaysArr.reduce((partialSum, a) => partialSum + a, 0);
         return dayYear * entities
+      },
+
+      //Positions for each month in hourly timeline
+      monthPos: function monthPos(pos){
+        let months = moment.months();
+        let monthPositions = [];
+        let daysInMonthArr = this.daysOfTheMonth(2022)
+        let monthPos=0;
+
+        for(let i=0; i<12; i++){
+          monthPos += daysInMonthArr[i]*960;
+          monthPositions.push(monthPos)
+        }
+
+        for(let i=0; i<12; i++){
+          if(pos < monthPositions[i]){
+            return months[i]
+          }
+        }
       }
 
     }
