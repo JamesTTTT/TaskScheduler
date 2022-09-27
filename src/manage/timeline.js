@@ -11,14 +11,19 @@ const timeline = {
     figurePosEnd: function figurePosEnd(day){
         return day * 24
       },
+
+      //Days are 40px and days 960px
+    figureHourPos: function figureHourPos(day, hour) {
+        let dayPos = day * 960;
+        let hourPos = hour * 40;
+        let pos = dayPos + hourPos;
+        return pos;
+    },
      
       //Determines when the day starts on the timeline
-    startDateToDay: function startDateToDay(date){
+      startDateToDay: function startDateToDay(date){
         let now = new Date(date)
-        let start = new Date(now.getFullYear(), 0, 0);
-        let diff = now - start;
-        let oneDay = 1000 * 60 * 60 * 24;
-        let day = Math.floor(diff / oneDay);
+        const day = moment(now).dayOfYear();
         return this.figurePosX(day)
       },
      

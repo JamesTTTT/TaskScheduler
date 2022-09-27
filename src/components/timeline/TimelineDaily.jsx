@@ -12,11 +12,10 @@ const TimelineHeader = () => {
     const timelineX = document.getElementById('dayTimeline');
 
     let day = moment().dayOfYear();
-    console.log(day)
-    const  getDayLen = day * 24 -24;
+    const  getTimelinePos = timeline.figurePosX(day);
 
     timelineX.scrollTo({
-      left: getDayLen,
+      left: getTimelinePos,
       behavior: 'smooth'
     });
 

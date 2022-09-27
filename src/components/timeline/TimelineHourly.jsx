@@ -5,23 +5,24 @@ import moment from 'moment/moment'
 import ReactTooltip from 'react-tooltip';
 import { useEffect } from 'react';
 
-//EACH HOUR IS 40
+//EACH HOUR IS 40 AND EACH DAY IS 960
 const TimelineHeader = () => {
   //scroll to current date
-//   useEffect(() => {
-//     const timeline = document.getElementById('hourTimeine');
+  useEffect(() => {
+    const timelineX = document.getElementById('hourTimeline');
 
-//     let day = moment().dayOfYear();
-//     console.log(day)
-//     let getDayLen = timeline.figurePosEnd(day);
-//     console.log(getDayLen)
+    let day = moment().dayOfYear();
+    let hour = moment().hour();
 
-//     timeline.scrollTo({
-//       left: getDayLen,
-//       behavior: 'smooth'
-//     });
+    const  getTimelinePos = timeline.figureHourPos(day, hour);
+    console.log(getTimelinePos)
+    timelineX.scrollTo({
+      left: getTimelinePos,
+      behavior: 'smooth'
+    });
 
-// }, []);
+  }, []);
+
    
   const hoursOfTheYear = () => {
     let hours = timeline.hoursOfTheDay()
@@ -192,7 +193,7 @@ const TimelineHourly = ({loadedTasks}) => {
   return (
     <div className='flex flex-row-reverse'>
     <div
-      id="hourTimeine"
+      id="hourTimeline"
       className='max-w-screen-xs overflow-x-scroll'>
 
         <TimelineHeader loadedTasks={loadedTasks}/>
