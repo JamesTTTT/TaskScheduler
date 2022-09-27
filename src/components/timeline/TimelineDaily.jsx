@@ -3,9 +3,24 @@ import moment from 'moment'
 import colorManage from '../../manage/colormanager'
 import timeline from '../../manage/timeline';
 import ReactTooltip from 'react-tooltip';
+import { useEffect } from 'react';
 
 //EACH DAY IS 24
 const TimelineHeader = () => {
+
+  useEffect(() => {
+    const timelineX = document.getElementById('dayTimeline');
+
+    let day = moment().dayOfYear();
+    console.log(day)
+    const  getDayLen = day * 24 -24;
+
+    timelineX.scrollTo({
+      left: getDayLen,
+      behavior: 'smooth'
+    });
+
+  }, []);
 
    const daysOfTheYear = (year,month) => {
      //const monthIndex = {January:0, February:1, March:2, }
@@ -73,7 +88,8 @@ const TimelineBody = ({loadedTasks}) => {
          <div 
            key={index} 
            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
-           style={{width: 8784}}>
+           // the param is how wide each sqaure is. so each day is 24px
+           style={{width: timeline.timelineDailyLen(24)}}>
            <div
              data-tip={task.title}
              data-for="task"
@@ -148,7 +164,9 @@ const TaskList = ({loadedTasks}) => {
 const TimelineDaily = ({loadedTasks}) => {
   return (
     <div className='flex flex-row-reverse'>
-    <div className='max-w-screen-xs overflow-x-scroll'>
+    <div 
+      id="dayTimeline"
+      className='max-w-screen-xs overflow-x-scroll'>
 
         <TimelineHeader loadedTasks={loadedTasks}/>
         <TimelineBody loadedTasks={loadedTasks}/>

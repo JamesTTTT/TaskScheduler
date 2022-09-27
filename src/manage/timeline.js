@@ -1,13 +1,14 @@
 import moment from 'moment/moment'
 
 const timeline = {
+
+    //EACH DAY IS 24px
     figurePosX: function figurePosX(day){
-        //EACH DAY IS 24px
         return day * 24 - 24
       },
-     
+
+     //EACH DAY IS 24px
     figurePosEnd: function figurePosEnd(day){
-        //EACH DAY IS 24px
         return day * 24
       },
      
@@ -38,7 +39,12 @@ const timeline = {
         let daysInMonths = [];
         let yearMonth = "";
         for (let mon = 1; mon<=12; mon++) {
-          yearMonth = y.toString()+"-0"+mon.toString()
+          //Check how if month is double digit
+          if(mon<10){
+            yearMonth = y.toString()+"-0"+mon.toString()
+          }else{
+            yearMonth = y.toString()+"-"+mon.toString()
+          }
           const numDaysInMonth = moment(yearMonth, "YYYY-MM").daysInMonth();
           daysInMonths.push(numDaysInMonth)
         }
@@ -54,6 +60,14 @@ const timeline = {
         })
         return hours
       },
+
+      // Don't forget to change Year !!!!
+      timelineDailyLen: function timelineLen(entities){
+        let year = moment().year();
+        let monthDaysArr = this.daysOfTheMonth(year)
+        let dayYear = monthDaysArr.reduce((partialSum, a) => partialSum + a, 0);
+        return dayYear * entities
+      }
 
     }
 

@@ -3,10 +3,26 @@ import timeline from '../../manage/timeline'
 import colorManage from '../../manage/colormanager'
 import moment from 'moment/moment'
 import ReactTooltip from 'react-tooltip';
+import { useEffect } from 'react';
 
-
+//EACH HOUR IS 40
 const TimelineHeader = () => {
+  //scroll to current date
+//   useEffect(() => {
+//     const timeline = document.getElementById('hourTimeine');
 
+//     let day = moment().dayOfYear();
+//     console.log(day)
+//     let getDayLen = timeline.figurePosEnd(day);
+//     console.log(getDayLen)
+
+//     timeline.scrollTo({
+//       left: getDayLen,
+//       behavior: 'smooth'
+//     });
+
+// }, []);
+   
   const hoursOfTheYear = () => {
     let hours = timeline.hoursOfTheDay()
 
@@ -16,11 +32,9 @@ const TimelineHeader = () => {
         <div 
         key={index}
         className='
-        bg-blue-500 text-xs px-1 outline
+        bg-blue-500 text-xs px-1 w-10 outline
         outline-blue-800 outline-2 font-bold'>
-
           <p>{hour}</p>
-          {console.log(hour)}
         </div>
       )
     })
@@ -137,7 +151,8 @@ const TimelineBody = ({loadedTasks}) => {
           <div 
             key={index} 
             className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
-            style={{width: 8784}}>
+            // the param is how wide each sqaure is. so each hour is 40px, making each day 40*24=960 
+            style={{width: timeline.timelineDailyLen(960)}}>
             <div
               data-tip={task.title}
               data-for="task"
@@ -176,7 +191,9 @@ const TimelineBody = ({loadedTasks}) => {
 const TimelineHourly = ({loadedTasks}) => {
   return (
     <div className='flex flex-row-reverse'>
-    <div className='max-w-screen-xs overflow-x-scroll'>
+    <div
+      id="hourTimeine"
+      className='max-w-screen-xs overflow-x-scroll'>
 
         <TimelineHeader loadedTasks={loadedTasks}/>
         <TimelineBody loadedTasks={loadedTasks}/>
