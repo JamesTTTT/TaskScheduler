@@ -13,9 +13,17 @@ const timeline = {
         return day * 24;
       },
 
-      //hours are 40px and days 960px
+    //hours are 40px and days 960px
     figureHourPos: function figureHourPos(day, hour) {
         let dayPos = day * 960 - 960;
+        let hourPos = hour * 40;
+        let pos = dayPos + hourPos;
+        return pos;
+    },
+
+      //hours are 40px and days 960px
+      figureHourPosEnd: function figureHourPosEnd(day, hour) {
+        let dayPos = day * 960;
         let hourPos = hour * 40;
         let pos = dayPos + hourPos;
         return pos;
@@ -25,7 +33,7 @@ const timeline = {
       startDateToDay: function startDateToDay(date){
         let now = new Date(date)
         const day = moment(now).dayOfYear();
-        return this.figurePosX(day)
+        return day
       },
      
       //Determines the lenght of the task
@@ -35,9 +43,9 @@ const timeline = {
         let difference = deadline.getTime() - startdate.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
         if(TotalDays <= 1){
-          return 24
+          return 1
         }
-        return this.figurePosEnd(TotalDays)
+        return TotalDays
       },
 
      // Gives out how many day of each month during given year

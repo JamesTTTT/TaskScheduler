@@ -83,6 +83,9 @@ const TimelineBody = ({loadedTasks}) => {
      //     }
      // })
      .map((task, index) =>{
+        // Get how many days between two dates
+        let dayCount = timeline.taskLenght(task.startdate, task.deadline);
+        let dayStart = timeline.startDateToDay(task.startdate);
        return(
          <div 
            key={index} 
@@ -95,8 +98,8 @@ const TimelineBody = ({loadedTasks}) => {
              className='outline outline-blue-800 outline-2 bg-blue-500 text-white
                         flex-1 text-lg relative pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
              style={{
-               left: timeline.startDateToDay(task.startdate),
-               width: timeline.taskLenght(task.startdate, task.deadline),
+               left: timeline.figurePosX(dayStart),
+               width: timeline.figurePosEnd(dayCount),
                backgroundColor: colorManage.statusColor(task.status)}}
              >
              <p>{task.title}</p>
