@@ -197,7 +197,6 @@ const CurrentMonth = () =>{
     const timelineX = document.getElementById('hourTimeline');
     const scrollEvent = () => {
       let curMonth = timeline.monthPos(timelineX.scrollLeft)
-      //console.log(curMonth)
       setMonth(curMonth)
     }
 
@@ -214,6 +213,7 @@ const CurrentMonth = () =>{
 }
 
 const TimelineHourly = ({loadedTasks}) => {
+    
   return (
     <div>
       <div className='flex flex-row-reverse justify-between'>

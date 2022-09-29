@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import colorManage from '../../manage/colormanager'
 import timeline from '../../manage/timeline';
+import capacityManage from '../../manage/capacitymanager';
 import ReactTooltip from 'react-tooltip';
 import { useEffect } from 'react';
 
@@ -69,7 +70,16 @@ const TimelineHeader = () => {
    )
 }
 
-const TimelineBody = ({loadedTasks}) => {
+const TimelineBody = ({loadedTasks,capacity}) => {
+
+  const getToCompleteTime = (start,end,duration) =>{
+    let days = timeline.taskLenght(start,end)
+    let taskDays = capacityManage.capacityToDays(capacity,duration,days)
+    console.log(taskDays)
+    let fill = timeline.figurePosEnd(taskDays)
+    //console.log(fill)
+    return fill
+   }
 
  const taskRows = (y) => {
    let year = y.toString()
@@ -96,13 +106,18 @@ const TimelineBody = ({loadedTasks}) => {
              data-tip={task.title}
              data-for="task"
              className='outline outline-blue-800 outline-2 bg-blue-500 text-white
-                        flex-1 text-lg relative pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
+                        flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
              style={{
                left: timeline.figurePosX(dayStart),
                width: timeline.figurePosEnd(dayCount),
                backgroundColor: colorManage.statusColor(task.status)}}
              >
-             <p>{task.title}</p>
+              <div 
+              className="bg-blue-900 pl-1" 
+              style={{width: getToCompleteTime(task.startdate,task.deadline,task.duration)}}>
+                <p>{task.title}</p>
+              </div>
+             
            </div>
            <ReactTooltip 
              id="task" 
@@ -128,12 +143,18 @@ const TimelineBody = ({loadedTasks}) => {
 }
 
 
-const TaskList = ({loadedTasks}) => {
+const TaskList = ({loadedTasks, capacity}) => {
  const splitDate = (date) => {
    return date.split(' ')
  }
 
+ const getToCompleteTime = (start,end,duration) =>{
+  let days = timeline.taskLenght(start,end)
+  return capacityManage.capacityToDays(capacity,duration,days)
+ }
+
  const taskList = (y) => {
+
      let year = y.toString()
      if(loadedTasks){
        return loadedTasks
@@ -148,9 +169,10 @@ const TaskList = ({loadedTasks}) => {
          return(
            <div 
              key={index} 
-             className='outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
+             className='flex justify-between outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
            >
              <p>{task.title}</p>
+             <p>{getToCompleteTime(task.startdate,task.deadline,task.duration)}</p>
            </div>
          )
        })
@@ -163,22 +185,20 @@ const TaskList = ({loadedTasks}) => {
  )
 }
 
-const TimelineDaily = ({loadedTasks}) => {
+const TimelineDaily = ({loadedTasks, capacity}) => {
   return (
     <div className='flex flex-row-reverse'>
-    <div 
-      id="dayTimeline"
-      className='max-w-screen-xs overflow-x-scroll'>
-
-        <TimelineHeader />
-        <TimelineBody loadedTasks={loadedTasks}/>
-
-    </div>
+        <div 
+          id="dayTimeline"
+          className='max-w-screen-xs overflow-x-scroll'>
+            <TimelineHeader />
+            <TimelineBody loadedTasks={loadedTasks} capacity={capacity}/>
+        </div>
     <div>
       <div className='bg-slate-700 font-bold outline text-white w-48 text-center outline-blue-800 outline-1 pb-4'>
         <h2>Task List</h2>
       </div>
-        <TaskList loadedTasks={loadedTasks} />
+        <TaskList loadedTasks={loadedTasks} capacity={capacity} />
     </div>
   </div>
   )

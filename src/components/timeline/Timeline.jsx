@@ -4,7 +4,7 @@ import TimelineDaily from './TimelineDaily';
 import TimelineHourly from './TimelineHourly';
 
 
-const Timeline = ({loadedTasks}) => {
+const Timeline = ({loadedTasks, capacity}) => {
 
     const [isHourly, setIsHourly] = useState(false)
 
@@ -50,7 +50,7 @@ const Timeline = ({loadedTasks}) => {
         )
         : (
           <div>
-            <TimelineDaily loadedTasks={loadedTasks}/>
+            <TimelineDaily loadedTasks={loadedTasks} capacity={capacity}/>
           </div>
         )
         }

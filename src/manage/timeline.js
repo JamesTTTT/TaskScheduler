@@ -100,6 +100,10 @@ const timeline = {
             return months[i]
           }
         }
+      },
+
+      mapDailyCapacity: function mapDailyCapacity(cap,time,start,end){
+
       }
 
     }

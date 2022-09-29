@@ -1,5 +1,6 @@
 import './App.css';
 import taskManage from './manage/taskmanager';
+import capacityManage from './manage/capacitymanager';
 import { useState, useEffect } from 'react';
 
 import { AddTask, Header, Footer, TaskList, Settings, Timeline } from './components';
@@ -15,7 +16,7 @@ function App() {
 
   useEffect(() => {
       setLoadedTasks(taskManage.getTasks())
-      setCapacity(taskManage.getCapacity())
+      setCapacity(capacityManage.getCapacity())
     }, [])
 
   const updateTask = (newTasks) => {
@@ -25,7 +26,7 @@ function App() {
 
   const updateCapacity = (newCap) => {
     setCapacity(newCap)
-    taskManage.saveCapacity(newCap)
+    capacityManage.saveCapacity(newCap)
   }
 
   return (
@@ -40,7 +41,7 @@ function App() {
           <Settings capacity={capacity} updateCapacity={updateCapacity}/>
       </div>
       <div>
-        <Timeline loadedTasks={loadedTasks}/>
+        <Timeline loadedTasks={loadedTasks} capacity={capacity}/>
       </div>
       <div>
         <Footer loadedTasks={loadedTasks}/>

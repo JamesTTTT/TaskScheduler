@@ -8,16 +8,6 @@ const taskManage = {
         return JSON.parse(retrievedTask)
     },
 
-    saveCapacity: function saveCapacity(capacity){
-        localStorage.setItem("capacity",JSON.stringify(capacity))
-    },
-
-    getCapacity: function getCapacity() {
-        let retrievedCapacity = localStorage.getItem("capacity")
-        return JSON.parse(retrievedCapacity)
-    },
-
-
 }
 
 export default taskManage;
