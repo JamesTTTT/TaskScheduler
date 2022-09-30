@@ -40,7 +40,7 @@ const capacityManage = {
           disabled = false;
         }
         return disabled
-      }
+      },
 
 }
 

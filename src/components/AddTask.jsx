@@ -22,7 +22,7 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
   useEffect(() => {
     let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
     setIsDisabled(d)
-  }, [taskDurartion])
+  }, [taskDurartion,startDate,deadline])
   
   
 
@@ -42,6 +42,7 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
     setDeadline(0);
     setTaskDuration(0);
     setTaskStatus("In-Progress")
+    setIsDisabled(false)
     console.log(taskTitle)
   }
 

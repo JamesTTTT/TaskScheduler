@@ -117,6 +117,7 @@ const TaskForm = ({ displayForm,
               type = "number"
               id = "duration"
               name="duration"
+              min="1"
               placeholder='Set number of hours' 
               onChange={(e)=>{
                 setTaskDuration(e.target.value)

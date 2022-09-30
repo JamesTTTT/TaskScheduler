@@ -42,9 +42,9 @@ const timeline = {
         let deadline = new Date(end)
         let difference = deadline.getTime() - startdate.getTime();
         let TotalDays = Math.ceil(difference / (1000 * 3600 * 24));
-        if(TotalDays <= 1){
-          return 1
-        }
+        // if(TotalDays <= 1){
+        //   return 1
+        // }
         return TotalDays
       },
 
