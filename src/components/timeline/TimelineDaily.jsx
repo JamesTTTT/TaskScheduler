@@ -75,9 +75,7 @@ const TimelineBody = ({loadedTasks,capacity}) => {
   const getToCompleteTime = (start,end,duration) =>{
     let days = timeline.taskLenght(start,end)
     let taskDays = capacityManage.capacityToDays(capacity,duration,days)
-    console.log(taskDays)
     let fill = timeline.figurePosEnd(taskDays)
-    //console.log(fill)
     return fill
    }
 

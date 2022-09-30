@@ -2,10 +2,12 @@ import React from 'react'
 import {BiAddToQueue}from 'react-icons/bi'
 import {AiOutlineClose} from 'react-icons/ai'
 import { useState,useEffect } from 'react'
-import taskManage from '../manage/taskmanager'
+import timeline from '../manage/timeline'
+import capacityManage from '../manage/capacitymanager'
 import TaskForm from './TaskForm'
+import { duration } from 'moment'
 
-const AddTask = ({loadedTasks, updateTask}) => {
+const AddTask = ({loadedTasks, updateTask, capacity}) => {
 
   const [showForm, setShowForm] = useState(false);
   const [deadline, setDeadline] = useState("");
@@ -14,9 +16,16 @@ const AddTask = ({loadedTasks, updateTask}) => {
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDescription, setTaskDescription] = useState("");
   const [taskDurartion, setTaskDuration] = useState(0);
-  const [taskStatus, setTaskStatus] = useState("In-Progress")
+  const [taskStatus, setTaskStatus] = useState("In-Progress");
+  const [isDisabled, setIsDisabled] = useState(false);
 
+  useEffect(() => {
+    let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
+    setIsDisabled(d)
+  }, [taskDurartion])
   
+  
+
   const displayForm = () =>{
     if (showForm) {
       setShowForm(false)
@@ -79,6 +88,8 @@ const AddTask = ({loadedTasks, updateTask}) => {
           setTaskDescription={setTaskDescription}
           setTaskDuration={setTaskDuration}
           startdate={startDate}
+          isDisabled={isDisabled}
+
         />
 
     ) : 

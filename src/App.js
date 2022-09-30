@@ -8,7 +8,8 @@ import { AddTask, Header, Footer, TaskList, Settings, Timeline } from './compone
 function App() {
 
   const [loadedTasks, setLoadedTasks] = useState([])
-  const [capacity, setCapacity] = useState(0)
+  const [capacity, setCapacity] = useState(8)
+  const [occupiedHours, setOccupiedHours] = useState([])
 
   useEffect(() => {
     document.title = 'My Task Scheduler';
@@ -36,7 +37,7 @@ function App() {
 
       </div>
       <div className='mb-auto flex flex-col justify-between md:flex-row'>
-          <AddTask loadedTasks={loadedTasks} updateTask={updateTask}/>
+          <AddTask loadedTasks={loadedTasks} updateTask={updateTask} capacity={capacity}/>
           <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
           <Settings capacity={capacity} updateCapacity={updateCapacity}/>
       </div>

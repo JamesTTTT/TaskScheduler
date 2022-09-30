@@ -8,7 +8,6 @@ const Settings = ({capacity,updateCapacity}) => {
     const [showSettings, setSettings] = useState(false)
 
     const [startTime, setStartTime] = useState(0);
-    console.log(startTime)
     const displaySettings = () =>{
         if (showSettings) {
             setSettings(false)

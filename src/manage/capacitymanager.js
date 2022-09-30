@@ -1,3 +1,4 @@
+import timeline from "./timeline"
 const capacityManage = {
 
     saveCapacity: function saveCapacity(capacity){
@@ -9,9 +10,9 @@ const capacityManage = {
         return JSON.parse(retrievedCapacity)
     },
 
-    capacityToDays: function capacityToDays(cap,taskHours,days){
+    capacityToDays: function capacityToDays(cap,duration){
         let daysAmount;
-        let taskTime  = taskHours/cap;
+        let taskTime  = duration/cap;
 
         if(taskTime<1){
             daysAmount = 1
@@ -27,7 +28,20 @@ const capacityManage = {
             isPossible = false;
         } 
         return isPossible;
-    }
+    },
+
+    //gets possible data to dtermin if task can be completed in time
+    ifPossible: function ifPossible(cap,start,end, duration){
+        let disabled = true;
+        let taskDays = capacityManage.capacityToDays(cap, duration);
+        let daysToDline = timeline.taskLenght(start,end)
+        let possible = capacityManage.checkPossible(daysToDline,taskDays)
+        if(possible){
+          disabled = false;
+        }
+        return disabled
+      }
+
 }
 
 export default capacityManage

@@ -1,5 +1,7 @@
+import { duration } from 'moment'
 import React from 'react'
 import {AiOutlineClose} from 'react-icons/ai'
+import capacityManage from '../manage/capacitymanager'
 
 const TaskForm = ({ displayForm,
                     handleSave, 
@@ -9,11 +11,9 @@ const TaskForm = ({ displayForm,
                     setTaskTitle, 
                     setTaskDescription, 
                     setTaskDuration,
-                    title,
                     startdate,
-                  
+                    isDisabled
                   }) => {
-    
 
     return (
 
@@ -111,6 +111,7 @@ const TaskForm = ({ displayForm,
             </div>
 
             <div>
+              
             <label>Set duration</label>
             <input 
               type = "number"
@@ -125,10 +126,21 @@ const TaskForm = ({ displayForm,
               ></input>
             </div>
 
-            <div className='mt-4'>
+            <div className='mt-4 text-center'>
+
+              {isDisabled
+                ?<div className='text-sm font-bold text-red-600 rounded-lg mb-3'>
+                  <p>Warning:</p> 
+                  <p>The task duration is too high to be completed before the deadline</p>
+                </div>
+
+                :<div></div>
+              }
+            
             <button
             type='submit'
             form='newTask'
+            disabled={isDisabled}
             className='p-2 bg-blue-500 text-white rounded
             transition ease-in-out delay-50 hover:bg-blue-600 w-32'>
               Save Task
