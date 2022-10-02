@@ -10,7 +10,9 @@ const Footer = ({loadedTasks}) => {
     <div>
       <div className='bg-blue-500 w-full flex justify-center items-center text-white flex-col'>
         <p className='text-xl p-2'>Export all tasks</p>
-        <div className=' p-3 flex flex-row justify-between'>
+        {loadedTasks
+        ?(
+          <div className=' p-3 flex flex-row justify-between'>
           <CSVLink
               style={{ textDecoration: 'none' }}
               data={loadedTasks}
@@ -32,6 +34,13 @@ const Footer = ({loadedTasks}) => {
               Export PDF
             </button>
         </div>
+        )
+        :<div> 
+          <h1>
+            No tasks to export 
+          </h1>
+        </div>}
+
       </div>
     </div>
   )
