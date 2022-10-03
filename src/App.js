@@ -9,7 +9,7 @@ function App() {
 
   const [loadedTasks, setLoadedTasks] = useState([])
   const [capacity, setCapacity] = useState(8)
-  const [occupiedHours, setOccupiedHours] = useState([])
+  const [workHours, setWorkHours] = useState([7,16])
 
   useEffect(() => {
     document.title = 'My Task Scheduler';
@@ -18,18 +18,21 @@ function App() {
   useEffect(() => {
     //Get data
     let tasks = taskManage.getTasks()
-    let cap = capacityManage.getCapacity()
+    let cap = capacityManage.getWorkHours()
 
     // Check data
     if (cap === null){
-      capacityManage.saveCapacity(8)
+      capacityManage.saveWorkHours([7,16])
     }
     if (tasks === null){
       taskManage.saveTasks([])
     }
 
     // Set data
-    setCapacity(cap)
+    let hours = capacityManage.calcCapacity(cap[0],cap[1])
+    
+    setWorkHours(cap)
+    setCapacity(hours)
     setLoadedTasks(tasks)
     }, [])
 
@@ -38,9 +41,11 @@ function App() {
     taskManage.saveTasks(newTasks)
   }
 
-  const updateCapacity = (newCap) => {
-    setCapacity(newCap)
-    capacityManage.saveCapacity(newCap)
+  const updateCapacity = (start, end) => {
+    let cap = capacityManage.calcCapacity(start,end)
+    setWorkHours([start,end])
+    setCapacity(cap)
+    capacityManage.saveWorkHours(workHours)
   }
 
   return (
@@ -52,7 +57,7 @@ function App() {
       <div className='mb-auto flex flex-col justify-between md:flex-row'>
           <AddTask loadedTasks={loadedTasks} updateTask={updateTask} capacity={capacity}/>
           <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
-          <Settings capacity={capacity} updateCapacity={updateCapacity}/>
+          <Settings workHours={workHours} capacity={capacity} updateCapacity={updateCapacity}/>
       </div>
       <div>
         <Timeline loadedTasks={loadedTasks} capacity={capacity}/>

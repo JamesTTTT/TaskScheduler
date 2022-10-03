@@ -8,10 +8,10 @@ const Footer = ({loadedTasks}) => {
 
   const [isTasksAvailable, setIsTasksAvailable] = useState(true)
   useEffect(() => {
-    //console.log(loadedTasks.length)
-    if(loadedTasks.length === 0){
-      setIsTasksAvailable(false)
-    }else{
+
+    setIsTasksAvailable(false)
+
+    if(loadedTasks.length > 0){
       setIsTasksAvailable(true)
     }
 

@@ -22,7 +22,7 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
   useEffect(() => {
     let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
     setIsDisabled(d)
-  }, [taskDurartion,startDate,deadline])
+  }, [taskDurartion,startDate,deadline,capacity])
   
   
 

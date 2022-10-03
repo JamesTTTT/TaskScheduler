@@ -1,13 +1,26 @@
 import timeline from "./timeline"
 const capacityManage = {
 
-    saveCapacity: function saveCapacity(capacity){
+    saveWorkHours: function saveCapacity(capacity){
         localStorage.setItem("capacity",JSON.stringify(capacity))
     },
 
-    getCapacity: function getCapacity() {
+    getWorkHours: function getCapacity() {
         let retrievedCapacity = localStorage.getItem("capacity")
         return JSON.parse(retrievedCapacity)
+    },
+
+    calcCapacity: function calcCapacity(start,end){
+        let workHours = end - start
+        let hrs = workHours;
+
+        if (workHours === 0){
+            hrs = 1;
+        }else if (workHours<0){
+            hrs = 24 - workHours*-1 
+        }
+        
+        return hrs
     },
 
     capacityToDays: function capacityToDays(cap,duration){

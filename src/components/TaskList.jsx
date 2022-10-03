@@ -21,8 +21,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
     const [selectedTaskID, setSelectedTaskId] = useState(0)
 
-    const [editedTaskDetails, setEditedTaskDetails] = useState({})
-
     const displayForm = () =>{
         if (showForm) {
           setShowForm(false)
@@ -42,7 +40,12 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
     const daysLeft = (deadline) =>{
         let today = new Date()
         let daysLeft = timeline.taskLenght(today,deadline)
-        return daysLeft;
+        let stateString = "Deadline in " + daysLeft.toString() + " days";
+        if(daysLeft < 0) {
+            daysLeft = daysLeft * -1
+            stateString = "Deadline was " + daysLeft.toString() + " days ago";
+        }
+        return stateString;
     }
 
     const archiveBtn = (status) =>{
@@ -124,7 +127,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                         <div className='px-4 pt-1'>
                             <p className='text-lg font-semibold'>Due: {item.deadline}</p>
                             <p className='text-sm font-semibold'>Started: {item.startdate}</p>
-                            <p className='text-sm font-semibold'>Deadline in: {daysLeft(item.deadline)} days</p>
+                            <p className='text-sm font-semibold'>{daysLeft(item.deadline)}</p>
                             <p className='text-sm font-semibold'>{item.duration} hours
                                 <span 
                                     className='px-2 rounded-xl mx-1'
@@ -204,7 +207,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
               setTaskDescription={setTaskDescription}
               setTaskDuration={setTaskDuration}
               //title={editedTaskDetails.title}
-              startdate={editedTaskDetails.startdate}
+              //startdate={editedTaskDetails.startdate}
             />
             </div>
         ) : 
