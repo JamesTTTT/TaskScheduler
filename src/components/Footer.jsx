@@ -1,16 +1,28 @@
 import React from 'react'
 import { CSVLink } from 'react-csv';
-
+import { useState,useEffect } from 'react';
 import autoTable from 'jspdf-autotable';
 import download from '../manage/download'
 
 const Footer = ({loadedTasks}) => {
 
+  const [isTasksAvailable, setIsTasksAvailable] = useState(true)
+  useEffect(() => {
+    //console.log(loadedTasks.length)
+    if(loadedTasks.length === 0){
+      setIsTasksAvailable(false)
+    }else{
+      setIsTasksAvailable(true)
+    }
+
+  }, [loadedTasks])
+  
+
   return (
     <div>
       <div className='bg-blue-500 w-full flex justify-center items-center text-white flex-col'>
         <p className='text-xl p-2'>Export all tasks</p>
-        {loadedTasks
+        {isTasksAvailable
         ?(
           <div className=' p-3 flex flex-row justify-between'>
           <CSVLink

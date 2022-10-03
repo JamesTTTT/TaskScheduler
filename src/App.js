@@ -16,8 +16,21 @@ function App() {
   });
 
   useEffect(() => {
-      setLoadedTasks(taskManage.getTasks())
-      setCapacity(capacityManage.getCapacity())
+    //Get data
+    let tasks = taskManage.getTasks()
+    let cap = capacityManage.getCapacity()
+
+    // Check data
+    if (cap === null){
+      capacityManage.saveCapacity(8)
+    }
+    if (tasks === null){
+      taskManage.saveTasks([])
+    }
+
+    // Set data
+    setCapacity(cap)
+    setLoadedTasks(tasks)
     }, [])
 
   const updateTask = (newTasks) => {
