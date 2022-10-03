@@ -1,42 +1,20 @@
 import React from 'react'
-import { useState } from 'react'
 import {AiOutlineDelete, AiOutlineEdit, AiOutlineCheck} from 'react-icons/ai'
 import {BiArchiveIn} from 'react-icons/bi'
-import colorManage from '../manage/colormanager'
-import timeline from '../manage/timeline'
-import TaskForm from './TaskForm'
-import Search from './Search'
+import colorManage from '../../manage/colormanager'
+import timeline from '../../manage/timeline'
 
 
-const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
-    
-    const [showForm, setShowForm] = useState(false)
+const LargeList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhrase}) => {
 
-    const [deadline, setDeadline] = useState(0);
-    const [startDate, setStartDate] = useState(0);
-    const [taskCategory, setTaskCategory] = useState("Simple");
-    const [taskTitle, setTaskTitle] = useState("");
-    const [taskDescription, setTaskDescription] = useState("");
-    const [taskDurartion, setTaskDuration] = useState(0);
-
-    const [selectedTaskID, setSelectedTaskId] = useState(0)
-
-    const displayForm = () =>{
-        if (showForm) {
-          setShowForm(false)
-        } else {
-          setShowForm(true)
+    const archiveBtn = (status) =>{
+        let comp = true;
+        if (status === "Complete"){
+            comp = false;
         }
-      }
-
-    const handleDelete = (id) => {
-        //console.log(id)
-        const updatedTaskList = loadedTasks.filter((task) =>{
-            return id !== task.id
-        })
-        updateTask(updatedTaskList)
+        return comp
     }
-
+    
     const daysLeft = (deadline) =>{
         let today = new Date()
         let daysLeft = timeline.taskLenght(today,deadline)
@@ -46,58 +24,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             stateString = "Deadline was " + daysLeft.toString() + " days ago";
         }
         return stateString;
-    }
-
-    const archiveBtn = (status) =>{
-        let comp = true;
-        if (status === "Complete"){
-            comp = false;
-        }
-        return comp
-    }
-
-    const newDetails = (id) => {
-        let updatedTaskList = loadedTasks.map(task => {
-            if (task.id === id) {
-                return {
-                    ...task,
-                    title: taskTitle,
-                    description: taskDescription,
-                    category: taskCategory,
-                    startdate: startDate,
-                    deadline: deadline,
-                    duration: taskDurartion,
-                    status: "edited",
-                }
-            }
-            return task
-        })
-        return updatedTaskList
-    }
-
-    const handleEdit = (id) => {
-        setShowForm(true)
-        setSelectedTaskId(id)
-        //oldDetails(id)
-    }
-
-    const handleUpdateTaskList = () =>{
-        let updatedTaskList = newDetails(selectedTaskID)
-        
-        updateTask(updatedTaskList)
-    }
-
-    const handleDone = (id) => {
-        let updatedTaskList = loadedTasks.map(task => {
-            if (task.id === id) {
-                return {
-                    ...task,
-                    status: "Complete",
-                }
-            }
-            return task
-        })
-        updateTask(updatedTaskList)
     }
 
     const tasks = () => {
@@ -142,7 +68,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                             </div>
                             
                             
-
+    
                         </div>
                         {/* container for buttons */}
                         <div className='pt-3 flex flex-row-reverse justify-between items-start'>
@@ -161,7 +87,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                                         <BiArchiveIn/>
                                     </button>
                                 }
-
+    
                             </div>
                             <div className='flex justify-end px-2'>
                                 <button
@@ -170,7 +96,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                                 hover:bg-blue-500 transition-colors mx-1'>
                                     <AiOutlineEdit/>
                                 </button>
-
+    
                                 <button
                                 onClick={()=>handleDelete(item.id)}
                                 className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
@@ -183,67 +109,12 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
                 )
             })
         }
-        // else {
-        //     return( <div>
-        //                 <p>
-        //                     No Current Tasks
-        //                 </p>
-        //             </div>)
-        // }
     }
-
-
   return (
-    <>
-        {showForm ? (
-            <div>
-            <TaskForm
-              displayForm={displayForm}
-              handleSave={handleUpdateTaskList}
-              setDeadline={setDeadline}
-              setStartDate={setStartDate}
-              setTaskCategory={setTaskCategory}
-              setTaskTitle={setTaskTitle}
-              setTaskDescription={setTaskDescription}
-              setTaskDuration={setTaskDuration}
-              //title={editedTaskDetails.title}
-              //startdate={editedTaskDetails.startdate}
-            />
-            </div>
-        ) : 
-        <div className='flex flex-row justify-start flex-wrap'>
-            {tasks()}
-        </div>
-        }
-    </>
+    <div className='flex flex-row justify-start flex-wrap'>
+        {tasks()}
+    </div>  
   )
 }
 
-
-const FilteredList = ({loadedTasks, updateTask}) =>{
-    const [searchPhrase, setSearchPhrase] = useState("")
-    return(
-    <div>
-        <div>
-            <h1 className='text-3xl font-thin text-center'>All Tasks</h1>
-        </div>
-        <div>
-            <Search
-                searchPhrase={searchPhrase}
-                setSearchPhrase={setSearchPhrase}
-            />
-        </div>
-        <div>
-            <TaskList
-                loadedTasks={loadedTasks}
-                updateTask={updateTask}
-                searchPhrase={searchPhrase}
-            />
-        </div>
-    </div>
-    
-    )
-}
-
-
-export default FilteredList
+export default LargeList

@@ -16,10 +16,11 @@ const capacityManage = {
 
         if (workHours === 0){
             hrs = 1;
+        //if you work between days
         }else if (workHours<0){
             hrs = 24 - workHours*-1 
         }
-        
+
         return hrs
     },
 
