@@ -3,7 +3,6 @@ import {FiSettings} from 'react-icons/fi'
 import {AiOutlineClose} from 'react-icons/ai'
 import { useState, useEffect } from 'react'
 
-import capacityManage from '../manage/capacitymanager'
 
 const Settings = ({workHours, capacity,updateCapacity}) => {
     const [showSettings, setSettings] = useState(false)
@@ -17,6 +16,7 @@ const Settings = ({workHours, capacity,updateCapacity}) => {
     
 
     useEffect(() => {
+        console.log("i trigger")
         updateCapacity(startTime,endTime)
     }, [startTime,endTime])
 

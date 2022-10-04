@@ -4,6 +4,7 @@ import colorManage from '../../manage/colormanager'
 import moment from 'moment/moment'
 import ReactTooltip from 'react-tooltip';
 import { useEffect, useState } from 'react';
+import capacityManage from '../../manage/capacitymanager';
 
 //EACH HOUR IS 40 AND EACH DAY IS 960
 const TimelineHeader = () => {
@@ -133,7 +134,8 @@ const TaskList = ({loadedTasks}) => {
   )
 }
 
-const TimelineBody = ({loadedTasks}) => {
+const TimelineBody = ({loadedTasks, capacity, workHours}) => {
+
 
   const taskRows = (y) => {
     let year = y.toString()
@@ -159,13 +161,19 @@ const TimelineBody = ({loadedTasks}) => {
               data-tip={task.title}
               data-for="task"
               className='outline outline-blue-800 outline-2 bg-blue-500 text-white
-                         flex-1 text-lg relative pl-2 overflow-hidden text-ellipsis whitespace-nowrap'
+                         flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
               style={{
                 left: timeline.figureHourPos(dayStart,0),
                 width: timeline.figureHourPosEnd(dayCount,0),
                 backgroundColor: colorManage.statusColor(task.status)}}
               >
-              <p>{task.title}</p>
+              <div 
+                className="bg-blue-900 pl-1 relative" 
+                style={{
+                  left:timeline.figureHourPosEnd(0,workHours[0]),
+                  width: timeline.figureHourPosEnd(0,task.duration)}}>
+                <p>{task.title}</p>
+              </div>
             </div>
             <ReactTooltip 
               id="task" 
@@ -212,7 +220,7 @@ const CurrentMonth = () =>{
   )
 }
 
-const TimelineHourly = ({loadedTasks}) => {
+const TimelineHourly = ({loadedTasks, capacity, workHours}) => {
     
   return (
     <div>
@@ -236,7 +244,11 @@ const TimelineHourly = ({loadedTasks}) => {
         className='max-w-screen-xs overflow-x-scroll'>
 
           <TimelineHeader />
-          <TimelineBody loadedTasks={loadedTasks}/>
+          <TimelineBody 
+            loadedTasks={loadedTasks}
+            capacity={capacity}
+            workHours={workHours}
+          />
 
       </div>
       <div>

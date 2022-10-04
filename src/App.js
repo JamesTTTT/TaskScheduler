@@ -9,7 +9,7 @@ function App() {
 
   const [loadedTasks, setLoadedTasks] = useState([])
   const [capacity, setCapacity] = useState(8)
-  const [workHours, setWorkHours] = useState([7,16])
+  const [workHours, setWorkHours] = useState(["7","16"])
 
   useEffect(() => {
     document.title = 'My Task Scheduler';
@@ -20,10 +20,14 @@ function App() {
     let tasks = taskManage.getTasks()
     let cap = capacityManage.getWorkHours()
 
+    console.log(cap)
+
     // Check data
-    if (cap === null){
-      capacityManage.saveWorkHours([7,16])
+    if (cap === [null,null]){
+      console.log("!!")
+      capacityManage.saveWorkHours(["7","16"])
     }
+
     if (tasks === null){
       taskManage.saveTasks([])
     }
@@ -45,7 +49,7 @@ function App() {
     let cap = capacityManage.calcCapacity(start,end)
     setWorkHours([start,end])
     setCapacity(cap)
-    capacityManage.saveWorkHours(workHours)
+    capacityManage.saveWorkHours([start,end])
   }
 
   return (
@@ -69,7 +73,7 @@ function App() {
           
       </div>
       <div>
-        <Timeline loadedTasks={loadedTasks} capacity={capacity}/>
+        <Timeline workHours={workHours} loadedTasks={loadedTasks} capacity={capacity}/>
       </div>
       <div>
         <Footer loadedTasks={loadedTasks}/>

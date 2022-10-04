@@ -1,12 +1,13 @@
 import timeline from "./timeline"
 const capacityManage = {
 
-    saveWorkHours: function saveCapacity(capacity){
-        localStorage.setItem("capacity",JSON.stringify(capacity))
+    saveWorkHours: function saveWorkHours(cap){
+        localStorage.setItem("capacity", JSON.stringify(cap))
     },
 
-    getWorkHours: function getCapacity() {
+    getWorkHours: function getWorkHours() {
         let retrievedCapacity = localStorage.getItem("capacity")
+        console.log(retrievedCapacity)
         return JSON.parse(retrievedCapacity)
     },
 
