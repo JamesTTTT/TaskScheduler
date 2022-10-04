@@ -54,10 +54,19 @@ function App() {
         <Header/>
 
       </div>
-      <div className='mb-auto flex flex-col justify-between md:flex-row'>
-          <AddTask loadedTasks={loadedTasks} updateTask={updateTask} capacity={capacity}/>
+      <div className='mb-auto flex flex-col justify-center md:flex-row w-full'>
+        <div style={{height:"700px"}}>
+          <div className='absolute left-0'>
+            <AddTask loadedTasks={loadedTasks} updateTask={updateTask} capacity={capacity}/>
+          </div>
+        </div>
+        <div className='w-3/5 mb-20'>
           <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
+        </div>
+        <div className='absolute right-0'>
           <Settings workHours={workHours} capacity={capacity} updateCapacity={updateCapacity}/>
+        </div>
+          
       </div>
       <div>
         <Timeline loadedTasks={loadedTasks} capacity={capacity}/>

@@ -43,7 +43,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                     >   
                         
                         <div 
-                            className=' rounded-t-xl px-2 text-white flex flew-col justify-between'
+                            className=' rounded-t-xl px-2 text-white flex flew-col justify-between self-auto'
                             style={{backgroundColor: colorManage.statusColor(item.status)}}
                         >
                             <p className='text-md font-light'>{item.title} </p>
@@ -74,7 +74,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
     
                         
                         {/* container for buttons */}
-                        <div className='py-1 '>
+                        <div className='p-1'>
                             <div className='px-2 flex flex-row-reverse'>
                                 {archiveBtn(item.status)
                                 ?   <button

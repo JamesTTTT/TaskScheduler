@@ -12,9 +12,9 @@ const TaskForm = ({ displayForm,
                     setTaskDescription, 
                     setTaskDuration,
                     startdate,
-                    isDisabled
+                    isDisabled,
+                    checkDisability
                   }) => {
-
     return (
 
         <div className='p-3'>
@@ -22,13 +22,18 @@ const TaskForm = ({ displayForm,
           id='newTask'
           onSubmit={handleSave}
           className='bg-slate-100 flex flex-col w-80 items-center rounded-md p-4 shadow-xl'>
-            <button
-              onClick={displayForm} 
-              className='m-1 p-1 bg-red-500 text-white rounded-xl'
-              >
-              <AiOutlineClose/>
-            </button>
-            <h1 className='text-l'>Create Task</h1>
+
+            <div className='flex flex-row-reverse justify-between w-full'>
+              <button
+                onClick={displayForm} 
+                className='m-1 text-sm p-2 font-bold bg-red-500 text-white rounded-full
+                hover:bg-red-600'
+                >
+                <AiOutlineClose/>
+              </button>
+              <h1 className='text-lg p-1 font-bold'>Create Task</h1>
+            </div>
+
             <div>
             <label>Enter Title</label>
             <input
@@ -90,7 +95,9 @@ const TaskForm = ({ displayForm,
               id = "startdate"
               name="startdate"
               required
-              onChange={(date) => {setStartDate(date.target.value)}}
+              onChange={(date) => {
+                setStartDate(date.target.value)
+                checkDisability()}}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
               ></input>
@@ -104,7 +111,10 @@ const TaskForm = ({ displayForm,
               name="deadline"
               min={startdate}
               required
-              onChange={(date) => {setDeadline(date.target.value)}}
+              onChange={(date) => {
+                setDeadline(date.target.value)
+                checkDisability()
+              }}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
               ></input>
@@ -121,6 +131,7 @@ const TaskForm = ({ displayForm,
               placeholder='Set number of hours' 
               onChange={(e)=>{
                 setTaskDuration(e.target.value)
+                checkDisability()
               }}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 

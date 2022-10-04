@@ -14,7 +14,6 @@ const Timeline = ({loadedTasks, capacity}) => {
 
     return (
       <>
-        <h1 className='text-center text-2xl pb-2 pt-5'>Timeline</h1>
         <div 
           className='bg-slate-700 text-lg flex justify-center
           text-white font-light '

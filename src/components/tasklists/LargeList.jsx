@@ -111,9 +111,9 @@ const LargeList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhr
         }
     }
   return (
-    <div className='flex flex-row justify-start flex-wrap'>
-        {tasks()}
-    </div>  
+        <div className='flex flex-row justify-center flex-wrap'>
+            {tasks()}
+        </div> 
   )
 }
 

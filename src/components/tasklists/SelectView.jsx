@@ -5,9 +5,6 @@ import {FaBoxes} from 'react-icons/fa'
 const SelectView = ({updateView}) => {
   return (
     <div>
-        <div>
-            <h1 className='text-3xl font-thin text-center'>All Tasks</h1>
-        </div>
         <div 
           className='text-lg p-3 flex justify-center font-light text-white'
           >
