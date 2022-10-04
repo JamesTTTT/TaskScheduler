@@ -43,28 +43,26 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                     >   
                         
                         <div 
-                            className=' rounded-t-xl p-2 text-white flex flew-col justify-between'
+                            className=' rounded-t-xl px-2 text-white flex flew-col justify-between'
                             style={{backgroundColor: colorManage.statusColor(item.status)}}
                         >
-                            <p className='text-xl font-light'>{item.title} </p>
-                            <p className='text-sm font-light'>{item.status}</p>
+                            <p className='text-md font-light'>{item.title} </p>
+                            <p className='text-md font-light'>{item.status}</p>
                         </div>
 
-                        <div className='flex flex-row justify-between'>
+                        <div>
                         <div className='px-4 flex justify-between'>
-                            <div className='flex'>
+
                                 <p className='text-md font-semibold'>Due: {item.deadline}</p>
                                 <p className='text-md font-semibold'>Started: {item.startdate}</p>
-
-                            <p className='text-md font-semibold'>{daysLeft(item.deadline)}</p>
-                            <p className='text-md font-semibold'>{item.duration} hours
-                                <span 
-                                    className='px-2 rounded-xl mx-1'
+                                <p className='text-md font-semibold'>{daysLeft(item.deadline)}</p>
+                                <p className='text-md font-semibold'>{item.duration} hours</p>
+                                <p 
+                                    className='px-2 text-md rounded-xl mx-1 h-fit font-bold'
                                     style={{backgroundColor: colorManage.difficultyColor(item.category)}}>
                                     {item.category}
-                                </span>
-                            </p>
-                            </div>
+                                </p>
+
 
                             {/* <div 
                                 className='break-words text-sm overflow-hidden mt-2 px-1'
@@ -74,9 +72,9 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                             
                             
     
-                        </div>
+                        
                         {/* container for buttons */}
-                        <div className='py-3 '>
+                        <div className='py-1 '>
                             <div className='px-2 flex flex-row-reverse'>
                                 {archiveBtn(item.status)
                                 ?   <button
@@ -107,6 +105,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                                     <AiOutlineDelete/>
                                 </button>
                             </div>
+                        </div>
                         </div>
                         </div>
                     </div>

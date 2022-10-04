@@ -5,9 +5,10 @@ import TaskForm from '../TaskForm'
 import Search from '../Search'
 import LargeList from './LargeList'
 import CondensedList from './CondensedList'
+import SelectView from './SelectView'
 
 
-const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
+const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
     
     const [showForm, setShowForm] = useState(false)
 
@@ -116,20 +117,27 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
             </div>
         ) : 
         <div>
+            {isLargeList
+            ?(            
             <LargeList
                 loadedTasks={loadedTasks}
                 handleDelete={handleDelete}
                 handleDone={handleDone}
                 handleEdit={handleEdit}
                 searchPhrase={searchPhrase}
-            />
+            />)
+            :
             <CondensedList              
-                loadedTasks={loadedTasks}
-                handleDelete={handleDelete}
-                handleDone={handleDone}
-                handleEdit={handleEdit}
-                searchPhrase={searchPhrase}
+            loadedTasks={loadedTasks}
+            handleDelete={handleDelete}
+            handleDone={handleDone}
+            handleEdit={handleEdit}
+            searchPhrase={searchPhrase}
             />
+
+            }
+
+
         </div>
         }
     </>
@@ -139,11 +147,13 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase}) => {
 
 const FilteredList = ({loadedTasks, updateTask}) =>{
     const [searchPhrase, setSearchPhrase] = useState("")
+    const [isLargeList, setIsLargeList] = useState(true)
+
+    const updateView = (bool) =>{
+        setIsLargeList(bool)
+    }
     return(
     <div>
-        <div>
-            <h1 className='text-3xl font-thin text-center'>All Tasks</h1>
-        </div>
         <div>
             <Search
                 searchPhrase={searchPhrase}
@@ -151,10 +161,16 @@ const FilteredList = ({loadedTasks, updateTask}) =>{
             />
         </div>
         <div>
+            <SelectView
+            updateView={updateView}
+            />
+        </div>
+        <div>
             <TaskList
                 loadedTasks={loadedTasks}
                 updateTask={updateTask}
                 searchPhrase={searchPhrase}
+                isLargeList={isLargeList}
             />
         </div>
     </div>
