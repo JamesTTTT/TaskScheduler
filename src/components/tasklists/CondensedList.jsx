@@ -50,12 +50,15 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                         <td className='text-md font-semibold'>{daysLeft(item.deadline)}</td>
                         <td className='text-md font-semibold'>{item.duration} hours</td>
                         <td 
-                            className='text-md font-bold'
-                            style={{backgroundColor: colorManage.difficultyColor(item.category)}}>
+                            className='text-md font-semibold'>
                             {item.category}
                         </td>
-                        <td  style={{backgroundColor: colorManage.statusColor(item.status)}}>
-                            <p className='text-md text-white'>{item.status}</p>
+                        <td >
+                            <p
+                            style={{color: colorManage.statusColor(item.status)}}
+                            className='text-md text-white font-bold'>
+                                {item.status}
+                            </p>
                         </td>
 
                         <td>
@@ -95,7 +98,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
     }
   return (
     <table className="w-full text-sm text-left text-gray-800 ">
-    <thead className="text-xs uppercase bg-slate-700 text-gray-300">
+    <thead className="text-xs uppercase bg-slate-700 text-gray-200 p-1">
       <tr>
         <th>Title</th>
         <th>Due</th>
