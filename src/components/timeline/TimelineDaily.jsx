@@ -2,6 +2,7 @@ import React from 'react'
 import moment from 'moment'
 import colorManage from '../../manage/colormanager'
 import timeline from '../../manage/timeline';
+import {GrStatusCriticalSmall} from 'react-icons/gr'
 import capacityManage from '../../manage/capacitymanager';
 import ReactTooltip from 'react-tooltip';
 import { useEffect } from 'react';
@@ -150,6 +151,8 @@ const TaskList = ({loadedTasks, capacity}) => {
   return capacityManage.capacityToDays(capacity,duration,days)
  }
 
+
+
  const taskList = (y) => {
 
      let year = y.toString()
@@ -163,13 +166,24 @@ const TaskList = ({loadedTasks, capacity}) => {
        //     }
        // })
        .map((task, index) =>{
-         return(
-           <div 
-             key={index} 
-             className='flex justify-between outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
-           >
-             <p>{task.title}</p>
-             <p>{getToCompleteTime(task.startdate,task.deadline,task.duration)}</p>
+        let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration)
+        let tooltipString = getToCompleteTime(task.startdate,task.deadline,task.duration)
+        return(
+          <div 
+            key={index} 
+            className='flex justify-between outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
+          >
+            <p>{task.title}</p>
+            <p
+            data-tip = {tooltipString}
+            data-for="possible"
+            style={{color:colorManage.possibilityColor(taskPsbl)}}>
+              <GrStatusCriticalSmall/>
+            </p>
+             <ReactTooltip 
+              id='possible' 
+              aria-haspopup='true' 
+              getContent={(dataTip) => <div>Time needed: {dataTip} days</div>} />
            </div>
          )
        })
@@ -187,7 +201,7 @@ const TimelineDaily = ({loadedTasks, capacity}) => {
     <div className='flex flex-row-reverse'>
         <div 
           id="dayTimeline"
-          className='max-w-screen-xs overflow-x-scroll'>
+          className='max-w-screen-xs overflow-x-scroll scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300'>
             <TimelineHeader />
             <TimelineBody loadedTasks={loadedTasks} capacity={capacity}/>
         </div>

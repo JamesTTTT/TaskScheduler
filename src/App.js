@@ -1,9 +1,9 @@
 import './App.css';
 import taskManage from './manage/taskmanager';
 import capacityManage from './manage/capacitymanager';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-import { AddTask, Header, Footer, TaskList, Settings, Timeline } from './components';
+import { AddTask, Header, Footer, TaskList, Settings, Timeline} from './components';
 
 function App() {
 
@@ -56,19 +56,34 @@ function App() {
       <div className='mb-auto flex flex-col justify-center md:flex-row w-full'>
         <div style={{height:"700px"}}>
           <div className='absolute left-0'>
-            <AddTask loadedTasks={loadedTasks} updateTask={updateTask} capacity={capacity}/>
+            <AddTask 
+              loadedTasks={loadedTasks} 
+              updateTask={updateTask} 
+              capacity={capacity}
+            />
           </div>
         </div>
         <div className='w-3/5 mb-20'>
-          <TaskList loadedTasks={loadedTasks} updateTask={updateTask}/>
+          <TaskList 
+            loadedTasks={loadedTasks}
+            updateTask={updateTask}
+          />
         </div>
         <div className='absolute right-0'>
-          <Settings workHours={workHours} capacity={capacity} updateCapacity={updateCapacity}/>
+          <Settings 
+            workHours={workHours} 
+            capacity={capacity} 
+            updateCapacity={updateCapacity}
+          />
         </div>
           
       </div>
       <div>
-        <Timeline workHours={workHours} loadedTasks={loadedTasks} capacity={capacity}/>
+        <Timeline 
+          workHours={workHours} 
+          loadedTasks={loadedTasks} 
+          capacity={capacity} 
+        />
       </div>
       <div>
         <Footer loadedTasks={loadedTasks}/>

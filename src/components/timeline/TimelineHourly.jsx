@@ -105,10 +105,10 @@ const TaskList = ({loadedTasks,capacity}) => {
     return date.split(' ')
   }
 
-  const getToCompleteTime = (start,end,duration) =>{
-    let days = timeline.taskLenght(start,end)
-    return capacityManage.capacityToDays(capacity,duration,days)
-   }
+  // const getToCompleteTime = (start,end,duration) =>{
+  //   let days = timeline.taskLenght(start,end)
+  //   return capacityManage.capacityToDays(capacity,duration,days)
+  //  }
 
   const getToolTipCont = (bool) =>{
     let string = "Posssible"
@@ -131,23 +131,23 @@ const TaskList = ({loadedTasks,capacity}) => {
         // })
         .map((task, index) =>{
           let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration)
+          let tooltipString = getToCompleteTime(task.startdate,task.deadline,task.duration)
           return(
             <div 
               key={index} 
               className='flex justify-between outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
             >
               <p>{task.title}</p>
-              {}
               <p
-              data-tip = {taskPsbl}
+              data-tip = {tooltipString}
               data-for="possible"
               style={{color:colorManage.possibilityColor(taskPsbl)}}>
                 <GrStatusCriticalSmall/>
               </p>
               <ReactTooltip 
               id='possible' 
-              aria-haspopup='true' 
-              getContent={(dataTip) => <div>{getToolTipCont(dataTip)}</div>} />
+              aria-haspopup='true'
+              getContent={(dataTip) => <div>Time needed: {dataTip} days</div>} />
             </div>
           )
         })
@@ -273,7 +273,7 @@ const TimelineHourly = ({loadedTasks, capacity, workHours}) => {
         
       <div
         id="hourTimeline"
-        className='max-w-screen-xs overflow-x-scroll'>
+        className='max-w-screen-xs overflow-x-scroll scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300'>
 
           <TimelineHeader />
           <TimelineBody 

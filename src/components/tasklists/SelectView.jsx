@@ -1,8 +1,9 @@
 import React from 'react'
 import {BsList} from 'react-icons/bs'
 import {FaBoxes} from 'react-icons/fa'
+import JumpToTimelineBtn from '../timeline/JumpToTimelineBtn';
 
-const SelectView = ({updateView}) => {
+const SelectView = ({updateView,timelineComp}) => {
   return (
     <div>
         <div 
@@ -24,11 +25,14 @@ const SelectView = ({updateView}) => {
               <input
                 type="radio" 
                 name="select" 
-                className=''
                 onChange={()=>{updateView(false)}}/>
-                <label for="select" className='p-2 text-3xl'>
-                    <BsList/>
-                </label>
+              <label for="select" className='p-2 text-3xl'>
+                  <BsList/>
+              </label>
+
+            </div>
+            <div className='p-2'>
+              <JumpToTimelineBtn timelineComp={timelineComp}/>
             </div>
         </div>
     </div>

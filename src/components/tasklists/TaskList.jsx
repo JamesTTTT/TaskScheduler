@@ -37,25 +37,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
         updateTask(updatedTaskList)
     }
 
-    const daysLeft = (deadline) =>{
-        let today = new Date()
-        let daysLeft = timeline.taskLenght(today,deadline)
-        let stateString = "Deadline in " + daysLeft.toString() + " days";
-        if(daysLeft < 0) {
-            daysLeft = daysLeft * -1
-            stateString = "Deadline was " + daysLeft.toString() + " days ago";
-        }
-        return stateString;
-    }
-
-    const archiveBtn = (status) =>{
-        let comp = true;
-        if (status === "Complete"){
-            comp = false;
-        }
-        return comp
-    }
-
     const newDetails = (id) => {
         let updatedTaskList = loadedTasks.map(task => {
             if (task.id === id) {
@@ -128,11 +109,11 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
             />)
             :
             <CondensedList              
-            loadedTasks={loadedTasks}
-            handleDelete={handleDelete}
-            handleDone={handleDone}
-            handleEdit={handleEdit}
-            searchPhrase={searchPhrase}
+                loadedTasks={loadedTasks}
+                handleDelete={handleDelete}
+                handleDone={handleDone}
+                handleEdit={handleEdit}
+                searchPhrase={searchPhrase}
             />
 
             }
@@ -162,7 +143,7 @@ const FilteredList = ({loadedTasks, updateTask}) =>{
         </div>
         <div>
             <SelectView
-            updateView={updateView}
+                updateView={updateView}
             />
         </div>
         <div>

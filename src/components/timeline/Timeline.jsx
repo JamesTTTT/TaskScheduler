@@ -13,8 +13,8 @@ const Timeline = ({workHours, loadedTasks, capacity}) => {
     }
 
     return (
-      <>
-        <div 
+      <div id="timelineID">
+        <div
           className='bg-slate-700 text-lg flex justify-center
           text-white font-light '
           >
@@ -57,7 +57,7 @@ const Timeline = ({workHours, loadedTasks, capacity}) => {
           </div>
         )
         }
-      </>
+      </div>
     )
 }
 
