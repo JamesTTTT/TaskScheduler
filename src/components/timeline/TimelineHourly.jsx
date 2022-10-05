@@ -105,10 +105,10 @@ const TaskList = ({loadedTasks,capacity}) => {
     return date.split(' ')
   }
 
-  // const getToCompleteTime = (start,end,duration) =>{
-  //   let days = timeline.taskLenght(start,end)
-  //   return capacityManage.capacityToDays(capacity,duration,days)
-  //  }
+  const getToCompleteTime = (start,end,duration) =>{
+    let days = timeline.taskLenght(start,end)
+    return capacityManage.capacityToDays(capacity,duration,days)
+   }
 
   const getToolTipCont = (bool) =>{
     let string = "Posssible"
