@@ -36,46 +36,42 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                 return
             }).map((item, index) => {
                 return(
-                    <div 
+                    <tr 
                     key={index}
-                    className=" transition-colors rounded-xl bg-white
-                    hover:bg-slate-200 flex flex-col justify-between shadow-xl mb-4"
+                    className="border-b border-gray-700"
                     >   
                         
-                        <div 
-                            className=' rounded-t-xl px-2 text-white flex flew-col justify-between self-auto'
-                            style={{backgroundColor: colorManage.statusColor(item.status)}}
-                        >
-                            <p className='text-md font-light'>{item.title} </p>
-                            <p className='text-md font-light'>{item.status}</p>
-                        </div>
+                        <td className='py-3'>
+                            <p className='text-md font-semibold'>{item.title} </p>
+                        </td>
 
-                        <div>
-                        <div className='px-4 flex justify-between'>
+                        <td className='text-md font-semibold'>Due: {item.deadline}</td>
+                        <td className='text-md font-semibold'>Started: {item.startdate}</td>
+                        <td className='text-md font-semibold'>{daysLeft(item.deadline)}</td>
+                        <td className='text-md font-semibold'>{item.duration} hours</td>
+                        <td 
+                            className='text-md font-bold'
+                            style={{backgroundColor: colorManage.difficultyColor(item.category)}}>
+                            {item.category}
+                        </td>
+                        <td  style={{backgroundColor: colorManage.statusColor(item.status)}}>
+                            <p className='text-md text-white'>{item.status}</p>
+                        </td>
 
-                                <p className='text-md font-semibold'>Due: {item.deadline}</p>
-                                <p className='text-md font-semibold'>Started: {item.startdate}</p>
-                                <p className='text-md font-semibold'>{daysLeft(item.deadline)}</p>
-                                <p className='text-md font-semibold'>{item.duration} hours</p>
-                                <p 
-                                    className='px-2 text-md rounded-xl mx-1 h-fit font-bold'
-                                    style={{backgroundColor: colorManage.difficultyColor(item.category)}}>
-                                    {item.category}
-                                </p>
-
-
-                            {/* <div 
-                                className='break-words text-sm overflow-hidden mt-2 px-1'
-                            >
-                                <p>{item.description}</p>
-                            </div> */}
-                            
-                            
-    
-                        
-                        {/* container for buttons */}
-                        <div className='p-1'>
-                            <div className='px-2 flex flex-row-reverse'>
+                        <td>
+                            <div className='px-2 flex flex-row'>
+                                <button
+                                    onClick={()=>handleDelete(item.id)}
+                                    className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
+                                    hover:bg-red-500 transition-colors mx-1'>
+                                        <AiOutlineDelete/>
+                                </button>
+                                <button
+                                    onClick={()=>handleEdit(item.id)}
+                                    className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
+                                    hover:bg-blue-500 transition-colors mx-1'>
+                                        <AiOutlineEdit/>
+                                </button>                             
                                 {archiveBtn(item.status)
                                 ?   <button
                                       onClick={()=>handleDone(item.id)}
@@ -90,33 +86,31 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                                         <BiArchiveIn/>
                                     </button>
                                 }
-    
-                                <button
-                                onClick={()=>handleEdit(item.id)}
-                                className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                                hover:bg-blue-500 transition-colors mx-1'>
-                                    <AiOutlineEdit/>
-                                </button>
-    
-                                <button
-                                onClick={()=>handleDelete(item.id)}
-                                className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                                hover:bg-red-500 transition-colors mx-1'>
-                                    <AiOutlineDelete/>
-                                </button>
                             </div>
-                        </div>
-                        </div>
-                        </div>
-                    </div>
+                        </td>
+                    </tr>
                 )
             })
         }
     }
   return (
-    <div className='flex flex-col justify-center'>
+    <table className="w-full text-sm text-left text-gray-800 ">
+    <thead className="text-xs uppercase bg-slate-700 text-gray-300">
+      <tr>
+        <th>Title</th>
+        <th>Due</th>
+        <th>Started</th>
+        <th>Deadline in</th>
+        <th>Duration</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Controls</th>
+      </tr>
+    </thead>
+    <tbody>
         {tasks()}
-    </div>
+    </tbody>
+    </table>
   )
 }
 
