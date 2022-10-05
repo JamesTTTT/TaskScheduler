@@ -109,9 +109,16 @@ const TaskList = ({loadedTasks,capacity}) => {
     let days = timeline.taskLenght(start,end)
     return capacityManage.capacityToDays(capacity,duration,days)
    }
+
+  const getToolTipCont = (bool) =>{
+    let string = "Posssible"
+      if(bool === "true"){
+        string = "Not Posssible"
+      }
+    return string
+  }
  
   const taskList = (y) => {
-      let taskPsbl;
       let year = y.toString()
       if(loadedTasks){
         return loadedTasks
@@ -131,9 +138,16 @@ const TaskList = ({loadedTasks,capacity}) => {
             >
               <p>{task.title}</p>
               {}
-              <p style={{color:colorManage.possibilityColor(taskPsbl)}}>
+              <p
+              data-tip = {taskPsbl}
+              data-for="possible"
+              style={{color:colorManage.possibilityColor(taskPsbl)}}>
                 <GrStatusCriticalSmall/>
               </p>
+              <ReactTooltip 
+              id='possible' 
+              aria-haspopup='true' 
+              getContent={(dataTip) => <div>{getToolTipCont(dataTip)}</div>} />
             </div>
           )
         })
@@ -197,8 +211,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours}) => {
             <ReactTooltip 
               id="task" 
               place="top" 
-              effect="solid" 
-              delayHide={300}
+              effect="float" 
               getContent={(dataTip) => <div> <h1>{dataTip}</h1></div>}/>
           </div>
         )

@@ -111,18 +111,17 @@ const TimelineBody = ({loadedTasks,capacity}) => {
                backgroundColor: colorManage.statusColor(task.status)}}
              >
               <div 
-              className="bg-blue-900 pl-1" 
+              className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2" 
               style={{width: getToCompleteTime(task.startdate,task.deadline,task.duration)}}>
                 <p>{task.title}</p>
               </div>
              
            </div>
            <ReactTooltip 
-             id="task" 
-             place="top" 
-             effect="solid" 
-             delayHide={300}
-             getContent={(dataTip) => <div> <h1>{dataTip}</h1></div>}/>
+            id="task" 
+            place="top" 
+            effect="float" 
+            getContent={(dataTip) => <div> <h1>{dataTip}</h1></div>}/>
          </div>
        )
      })
