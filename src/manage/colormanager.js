@@ -22,6 +22,15 @@ const colorManage = {
                 return '#db2777'
 
         }
+    },
+
+    possibilityColor: function possibilityColor(bool){
+        switch(bool){
+            case true:
+                return '#ef4444'
+            case false: 
+                return '#84cc16'
+        }
     }
 
 

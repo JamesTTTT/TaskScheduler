@@ -28,12 +28,7 @@ const capacityManage = {
     capacityToDays: function capacityToDays(cap,duration){
         let daysAmount;
         let taskTime  = duration/cap;
-
-        if(taskTime<1){
-            daysAmount = 1
-        }else{
-            daysAmount = Math.round(taskTime);
-        }
+        daysAmount = Math.ceil(taskTime);
         return daysAmount
     },
 
@@ -49,6 +44,7 @@ const capacityManage = {
     ifPossible: function ifPossible(cap,start,end, duration){
         let disabled = true;
         let taskDays = capacityManage.capacityToDays(cap, duration);
+        //console.log(taskDays)
         let daysToDline = timeline.taskLenght(start,end)
         let possible = capacityManage.checkPossible(daysToDline,taskDays)
         if(possible){

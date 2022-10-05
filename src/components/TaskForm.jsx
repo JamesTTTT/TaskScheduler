@@ -13,7 +13,6 @@ const TaskForm = ({ displayForm,
                     setTaskDuration,
                     startdate,
                     isDisabled,
-                    checkDisability
                   }) => {
     return (
 
@@ -84,7 +83,7 @@ const TaskForm = ({ displayForm,
               <option value="Hard">Hard</option>
               <option value="Challenging">Challenging</option>
               <option value="Intermediate">Intermediate</option>
-              <option selected="selected" value="Simple">Simple</option>
+              <option value="Simple">Simple</option>
             </select>
             </div>
 
@@ -97,7 +96,7 @@ const TaskForm = ({ displayForm,
               required
               onChange={(date) => {
                 setStartDate(date.target.value)
-                checkDisability()}}
+              }}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
               ></input>
@@ -113,7 +112,6 @@ const TaskForm = ({ displayForm,
               required
               onChange={(date) => {
                 setDeadline(date.target.value)
-                checkDisability()
               }}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 
@@ -131,7 +129,6 @@ const TaskForm = ({ displayForm,
               placeholder='Set number of hours' 
               onChange={(e)=>{
                 setTaskDuration(e.target.value)
-                checkDisability()
               }}
               className='bg-gray-50 border border-gray-300 text-gray-900
               text-sm rounded-lg block p-2.5 w-72' 

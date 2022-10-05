@@ -20,11 +20,8 @@ function App() {
     let tasks = taskManage.getTasks()
     let cap = capacityManage.getWorkHours()
 
-    console.log(cap)
-
     // Check data
     if (cap === [null,null]){
-      console.log("!!")
       capacityManage.saveWorkHours(["7","16"])
     }
 
@@ -33,10 +30,8 @@ function App() {
     }
 
     // Set data
-    let hours = capacityManage.calcCapacity(cap[0],cap[1])
-    
+    updateCapacity(cap[0],cap[1])
     setWorkHours(cap)
-    setCapacity(hours)
     setLoadedTasks(tasks)
     }, [])
 

@@ -1,8 +1,5 @@
 import moment from 'moment/moment'
-
 const timeline = {
-
-
     //EACH DAY IS 24px
     figurePosX: function figurePosX(day){
         return day * 24 - 24;
@@ -102,8 +99,31 @@ const timeline = {
         }
       },
 
-      mapDailyCapacity: function mapDailyCapacity(cap,time,start,end){
+      workDays: function workDays(cap,duration){
+        let daysHours = [];
+        let taskTime = duration/cap;
+        let days = Math.floor(taskTime);
+        let hours = duration - days * cap;
+        for(let i=0;i<days;i++){
+          daysHours.push(cap)
+        }
+        if(hours){
+          daysHours.push(hours)
+        }
+        return daysHours
+      },
 
+      workDaysPos: function workDays(start, day, capacity){
+        //start = workHours
+        //day = index
+        //they all have to start in the same place
+        let startPos;
+        let len = capacity*40;
+        let zero = len* day
+        let time = 40*start;
+        startPos = time+960*day-zero
+
+        return startPos;
       }
 
     }

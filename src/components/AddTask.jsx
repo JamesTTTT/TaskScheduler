@@ -19,17 +19,12 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
   const [taskStatus, setTaskStatus] = useState("In-Progress");
   const [isDisabled, setIsDisabled] = useState(false);
 
-  // useEffect(() => {
-  //   let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
-  //   setIsDisabled(d)
-  // }, [taskDurartion,startDate,deadline,capacity])
-  
-  const checkDisability = () =>{
+  useEffect(() => {
+    //console.log(capacity)
     let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
     setIsDisabled(d)
-  }
-  
-
+  }, [taskDurartion,startDate,deadline,capacity])
+    
   const displayForm = () =>{
     if (showForm) {
       setShowForm(false)
@@ -93,7 +88,6 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
           setTaskDuration={setTaskDuration}
           startdate={startDate}
           isDisabled={isDisabled}
-          checkDisability={checkDisability}
         />
         </div>
 

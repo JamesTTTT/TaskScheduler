@@ -16,7 +16,6 @@ const Settings = ({workHours, capacity,updateCapacity}) => {
     
 
     useEffect(() => {
-        console.log("i trigger")
         updateCapacity(startTime,endTime)
     }, [startTime,endTime])
 

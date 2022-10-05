@@ -4,6 +4,7 @@ import colorManage from '../../manage/colormanager'
 import moment from 'moment/moment'
 import ReactTooltip from 'react-tooltip';
 import { useEffect, useState } from 'react';
+import {GrStatusCriticalSmall} from 'react-icons/gr'
 import capacityManage from '../../manage/capacitymanager';
 
 //EACH HOUR IS 40 AND EACH DAY IS 960
@@ -99,12 +100,18 @@ const TimelineHeader = () => {
  )
 }
 
-const TaskList = ({loadedTasks}) => {
+const TaskList = ({loadedTasks,capacity}) => {
   const splitDate = (date) => {
     return date.split(' ')
   }
+
+  const getToCompleteTime = (start,end,duration) =>{
+    let days = timeline.taskLenght(start,end)
+    return capacityManage.capacityToDays(capacity,duration,days)
+   }
  
   const taskList = (y) => {
+      let taskPsbl;
       let year = y.toString()
       if(loadedTasks){
         return loadedTasks
@@ -116,12 +123,17 @@ const TaskList = ({loadedTasks}) => {
         //     }
         // })
         .map((task, index) =>{
+          let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration)
           return(
             <div 
               key={index} 
-              className='outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
+              className='flex justify-between outline outline-blue-500 outline-1 bg-slate-700 text-white text-lg py-2 px-4'
             >
               <p>{task.title}</p>
+              {}
+              <p style={{color:colorManage.possibilityColor(taskPsbl)}}>
+                <GrStatusCriticalSmall/>
+              </p>
             </div>
           )
         })
@@ -151,6 +163,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours}) => {
       .map((task, index) =>{
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
         let dayStart = timeline.startDateToDay(task.startdate);
+        let workDays = timeline.workDays(capacity,task.duration);
         return(
           <div 
             key={index} 
@@ -167,13 +180,19 @@ const TimelineBody = ({loadedTasks, capacity, workHours}) => {
                 width: timeline.figureHourPosEnd(dayCount,0),
                 backgroundColor: colorManage.statusColor(task.status)}}
               >
-              <div 
-                className="bg-blue-900 pl-1 relative" 
-                style={{
-                  left:timeline.figureHourPosEnd(0,workHours[0]),
-                  width: timeline.figureHourPosEnd(0,task.duration)}}>
-                <p>{task.title}</p>
+              <div className='flex'>
+              {workDays.map((item, index) => (
+                <div 
+                  key={index}
+                  className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2 " 
+                  style={{
+                    left:timeline.workDaysPos(workHours[0],index,capacity),
+                    width: timeline.figureHourPosEnd(0,item)}}>
+                  <p>{item}H</p>
+                </div>
+              ))}
               </div>
+
             </div>
             <ReactTooltip 
               id="task" 
@@ -257,7 +276,7 @@ const TimelineHourly = ({loadedTasks, capacity, workHours}) => {
           text-center outline-blue-800 outline-1 pb-4'>
           <h2>Task List</h2>
         </div>
-          <TaskList loadedTasks={loadedTasks} />
+          <TaskList loadedTasks={loadedTasks} capacity={capacity} />
       </div>
     </div>
   </div>
