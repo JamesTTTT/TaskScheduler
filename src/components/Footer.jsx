@@ -6,16 +6,14 @@ import download from '../manage/download'
 
 const Footer = ({loadedTasks}) => {
 
-  const [isTasksAvailable, setIsTasksAvailable] = useState(true)
+  const [isTasksAvailable, setIsTasksAvailable] = useState(false);
+  
   useEffect(() => {
-
-    setIsTasksAvailable(false)
-
     if(loadedTasks){
-      if(loadedTasks.lenght > 0){
-        setIsTasksAvailable(true)
+      if(loadedTasks.length > 0){
+        console.log("i happen")
+          setIsTasksAvailable(true)
       }
-      
     }
 
   }, [loadedTasks])
@@ -23,7 +21,7 @@ const Footer = ({loadedTasks}) => {
 
   return (
     <div>
-      <div className='bg-blue-500 w-full flex justify-center items-center text-white flex-col'>
+      <div className='bg-blue-500 w-full flex justify-center items-center text-white flex-col pb-4'>
         <p className='text-xl p-2'>Export all tasks</p>
         {isTasksAvailable
         ?(
