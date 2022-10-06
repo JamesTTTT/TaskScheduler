@@ -11,8 +11,11 @@ const Footer = ({loadedTasks}) => {
 
     setIsTasksAvailable(false)
 
-    if(loadedTasks.length > 0){
-      setIsTasksAvailable(true)
+    if(loadedTasks){
+      if(loadedTasks.lenght > 0){
+        setIsTasksAvailable(true)
+      }
+      
     }
 
   }, [loadedTasks])
