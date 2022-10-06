@@ -12,15 +12,21 @@ const colorManage = {
         }
     },
 
-    statusColor: function handleStatusColor(status){
+    statusColor: function statusColor(status){
         switch(status){
             case 'In-Progress':
                 return '#1d4ed8'
             case 'Complete':
                 return '#22c55e'
-            case 'edited':
-                return '#db2777'
+        }
+    },
 
+    statusColorTable: function statusColorTable(status){
+        switch(status){
+            case 'In-Progress':
+                return '#1e40af'
+            case 'Complete':
+                return '#15803d'
         }
     },
 

@@ -45,8 +45,8 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                             <p className='text-md font-semibold'>{item.title} </p>
                         </td>
 
-                        <td className='text-md font-semibold'>Due: {item.deadline}</td>
-                        <td className='text-md font-semibold'>Started: {item.startdate}</td>
+                        <td className='text-md font-semibold'>{item.deadline}</td>
+                        <td className='text-md font-semibold'>{item.startdate}</td>
                         <td className='text-md font-semibold'>{daysLeft(item.deadline)}</td>
                         <td className='text-md font-semibold'>{item.duration} hours</td>
                         <td 
@@ -55,7 +55,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                         </td>
                         <td >
                             <p
-                            style={{color: colorManage.statusColor(item.status)}}
+                            style={{color: colorManage.statusColorTable(item.status)}}
                             className='text-md text-white font-bold'>
                                 {item.status}
                             </p>
@@ -64,7 +64,9 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                         <td>
                             <div className='px-2 flex flex-row'>
                                 <button
-                                    onClick={()=>handleDelete(item.id)}
+                                    onClick={() => { 
+                                        handleDelete(item.id)
+                                    }}
                                     className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
                                     hover:bg-red-500 transition-colors mx-1'>
                                         <AiOutlineDelete/>
