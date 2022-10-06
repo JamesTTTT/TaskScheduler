@@ -1,6 +1,6 @@
 import React from 'react'
-import { useState } from 'react'
-import timeline from '../../manage/timeline'
+import { useState, useEffect } from 'react'
+import moment from 'moment/moment'
 import TaskForm from '../TaskForm'
 import Search from '../Search'
 import LargeList from './LargeList'
@@ -8,7 +8,7 @@ import CondensedList from './CondensedList'
 import SelectView from './SelectView'
 
 
-const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
+const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArray}) => {
     
     const [showForm, setShowForm] = useState(false)
 
@@ -101,7 +101,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
             {isLargeList
             ?(            
             <LargeList
-                loadedTasks={loadedTasks}
+                loadedTasks={sortedArray}
                 handleDelete={handleDelete}
                 handleDone={handleDone}
                 handleEdit={handleEdit}
@@ -109,7 +109,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
             />)
             :
             <CondensedList              
-                loadedTasks={loadedTasks}
+                loadedTasks={sortedArray}
                 handleDelete={handleDelete}
                 handleDone={handleDone}
                 handleEdit={handleEdit}
@@ -127,12 +127,50 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList}) => {
 
 
 const FilteredList = ({loadedTasks, updateTask}) =>{
+    const [sortedArray, setSortedArray] = useState([])
     const [searchPhrase, setSearchPhrase] = useState("")
     const [isLargeList, setIsLargeList] = useState(true)
+    
+    useEffect(() => {
+        setSortedArray(loadedTasks)
+    }, [loadedTasks])
+    
 
     const updateView = (bool) =>{
         setIsLargeList(bool)
     }
+
+    const handleSort = (arg) =>{
+        let data;
+        switch(arg){
+            case 'default':
+                data = [...loadedTasks];
+            break;
+            case 'deadline':
+                data = [...loadedTasks].sort((a, b) =>{
+                    return new moment(a.deadline).format('YYYYMMDD') - new moment(b.deadline).format('YYYYMMDD')
+                })
+            break;
+            case 'startdate':
+                data = [...loadedTasks].sort((a, b) =>{
+                    return new moment(a.startdate).format('YYYYMMDD') - new moment(b.startdate).format('YYYYMMDD')
+                })
+            break;
+            case 'title':
+                data = [...loadedTasks].sort((a, b) =>{
+                    return a.title.localeCompare(b.title);
+                })
+            break;
+            case 'duration':
+                data = [...loadedTasks].sort((a, b) =>{
+                    return b.duration - a.duration;
+                })
+            break;
+        }
+        setSortedArray(data)
+
+    }
+
     return(
     <div>
         <div>
@@ -144,6 +182,7 @@ const FilteredList = ({loadedTasks, updateTask}) =>{
         <div>
             <SelectView
                 updateView={updateView}
+                handleSort={handleSort}
             />
         </div>
         <div>
@@ -152,6 +191,7 @@ const FilteredList = ({loadedTasks, updateTask}) =>{
                 updateTask={updateTask}
                 searchPhrase={searchPhrase}
                 isLargeList={isLargeList}
+                sortedArray={sortedArray}
             />
         </div>
     </div>

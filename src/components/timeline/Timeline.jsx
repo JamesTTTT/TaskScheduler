@@ -19,25 +19,37 @@ const Timeline = ({workHours, loadedTasks, capacity}) => {
           text-white font-light '
           >
             <div className='px-3 flex flex-row'>
-              <label className='px-2'>
-                Daily
-              </label>
-              <input
+            <input
                 type="radio" 
+                id="daily"
                 name="timeline"
+                className='hidden peer'
                 onClick={()=>{handleRadio(false)}}
               />
+              <label 
+                className='px-2 peer-checked:text-blue-400 peer-checked:underline
+                hover:text-blue-200' 
+                for="daily">
+                Daily
+              </label>
+
 
             </div>
-            <div className='px-3 flex flex-row'> 
-              <label className='px-2'>
+            <div className='px-3 flex flex-row'>
+              <input
+                  type="radio" 
+                  name="timeline" 
+                  id="hourly"
+                  className='hidden peer'
+                  onClick={()=>{handleRadio(true)}}
+                />
+              <label 
+                className='px-2 peer-checked:text-blue-400 peer-checked:underline
+                hover:text-blue-200' 
+                for="hourly">
                 Hourly
               </label>
-              <input
-                type="radio" 
-                name="timeline" 
-                onClick={()=>{handleRadio(true)}}
-              />
+
             </div>
         </div>
 
