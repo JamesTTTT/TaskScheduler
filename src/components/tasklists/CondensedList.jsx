@@ -62,32 +62,32 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                         </td>
 
                         <td>
-                            <div className='px-2 flex flex-row'>
+                            <div>
                                 <button
                                     onClick={() => { 
                                         handleDelete(item.id)
                                     }}
-                                    className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                                    hover:bg-red-500 transition-colors mx-1'>
+                                    className='text-3xl p-2 text-slate-700 rounded-3x
+                                    hover:text-red-500 transition-colors mx-1'>
                                         <AiOutlineDelete/>
                                 </button>
                                 <button
                                     onClick={()=>handleEdit(item.id)}
-                                    className='text-2xl p-2 bg-slate-700 rounded-3xl text-white
-                                    hover:bg-blue-500 transition-colors mx-1'>
+                                    className='text-3xl p-2 text-slate-700 rounded-3x
+                                    hover:text-blue-500 transition-colors mx-1'>
                                         <AiOutlineEdit/>
                                 </button>                             
                                 {archiveBtn(item.status)
                                 ?   <button
                                       onClick={()=>handleDone(item.id)}
-                                      className='text-2xl p-2 bg-green-500 rounded-3xl text-white
-                                      hover:bg-slate-700 transition-colors mx-1'>
+                                      className='text-3xl p-2 text-slate-700 rounded-3x font-bold
+                                      hover:text-green-500 transition-colors mx-1'>
                                           <AiOutlineCheck/>
                                     </button>
                                 :   <button
                                     onClick={()=>handleDone(item.id)}
-                                    className='text-2xl p-2 bg-slate-500 rounded-3xl text-white
-                                    hover:bg-slate-700 transition-colors mx-1'>
+                                    className='text-2xl p-2 text-slate-500 rounded-3xl font-bold
+                                    hover:text-slate-700 transition-colors mx-1'>
                                         <BiArchiveIn/>
                                     </button>
                                 }
@@ -99,7 +99,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
         }
     }
   return (
-    <table className="w-full text-sm text-left text-gray-800 ">
+    <table className="w-full text-sm text-center text-gray-800 ">
     <thead className="text-xs uppercase bg-slate-700 text-gray-200 p-1">
       <tr>
         <th>Title</th>
