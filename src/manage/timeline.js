@@ -100,6 +100,7 @@ const timeline = {
       },
 
       workDays: function workDays(cap,duration){
+        //returns array with how many days/hours this task is 
         let daysHours = [];
         let taskTime = duration/cap;
         let days = Math.floor(taskTime);
@@ -113,7 +114,8 @@ const timeline = {
         return daysHours
       },
 
-      workDaysPos: function workDays(start, day, capacity){
+      workDaysPos: function workDaysPos(start, day, capacity){
+        //Sets postion of tak
         //start = workHours
         //day = index
         //they all have to start in the same place

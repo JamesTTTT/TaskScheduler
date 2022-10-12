@@ -12,6 +12,7 @@ const capacityManage = {
     },
 
     calcCapacity: function calcCapacity(start,end){
+        //How many hours you work a day
         let workHours = end - start
         let hrs = workHours;
 

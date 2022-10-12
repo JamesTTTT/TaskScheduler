@@ -16,7 +16,7 @@ const Timeline = ({workHours, loadedTasks, capacity}) => {
       <div id="timelineID">
         <div
           className='bg-slate-700 text-lg flex justify-center
-          text-white font-light '
+          text-white font-light'
           >
             <div className='px-3 flex flex-row'>
             <input

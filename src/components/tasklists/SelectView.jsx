@@ -7,7 +7,7 @@ const SelectView = ({updateView, timelineComp, handleSort}) => {
   return (
     <div>
         <div 
-          className='text-lg p-3 flex justify-between font-light text-white'
+          className='text-lg p-1 flex justify-between bg-slate-200 rounded-xl font-light text-white'
           >
             <div className='p-2'>
               <JumpToTimelineBtn timelineComp={timelineComp}/>
@@ -45,7 +45,7 @@ const SelectView = ({updateView, timelineComp, handleSort}) => {
                 <select
                   onChange={(e)=>{ handleSort(e.target.value)}}
                   className='bg-gray-50 border border-gray-300 text-gray-900
-                  text-sm rounded-lg block p-2.5' >
+                  text-sm rounded-lg block p-2.5 mt-1 mr-2' >
                   <option value="default">Unsorted</option>
                   <option value="title">Title</option>
                   <option value="duration">Duration</option>

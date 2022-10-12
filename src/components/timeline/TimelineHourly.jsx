@@ -34,7 +34,7 @@ const TimelineHeader = () => {
         <div 
         key={index}
         className='
-        bg-blue-500 text-xs px-1 w-10 outline
+        bg-blue-700 text-xs px-1 w-10 outline
         outline-blue-800 outline-2 font-bold'>
           <p>{hour}</p>
         </div>

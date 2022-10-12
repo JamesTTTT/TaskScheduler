@@ -1,6 +1,7 @@
 import './App.css';
 import taskManage from './manage/taskmanager';
 import capacityManage from './manage/capacitymanager';
+import occupiedHrs from './manage/occupiedhours';
 import { useState, useEffect, useRef } from 'react';
 
 import { AddTask, Header, Footer, TaskList, Settings, Timeline} from './components';
@@ -10,6 +11,8 @@ function App() {
   const [loadedTasks, setLoadedTasks] = useState([])
   const [capacity, setCapacity] = useState(8)
   const [workHours, setWorkHours] = useState(["7","16"])
+  const [ocpHours, setOcpHours] = useState([])
+
 
   useEffect(() => {
     document.title = 'My Task Scheduler';
@@ -34,6 +37,14 @@ function App() {
     setWorkHours(cap)
     setLoadedTasks(tasks)
     }, [])
+
+
+  useEffect(() => {
+    let i = occupiedHrs.calcOcpHours(loadedTasks, workHours, capacity)
+    setOcpHours(i)
+
+  }, [loadedTasks, capacity])
+  
 
   const updateTask = (newTasks) => {
     setLoadedTasks(newTasks)

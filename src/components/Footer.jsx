@@ -11,7 +11,6 @@ const Footer = ({loadedTasks}) => {
   useEffect(() => {
     if(loadedTasks){
       if(loadedTasks.length > 0){
-        console.log("i happen")
           setIsTasksAvailable(true)
       }
     }
