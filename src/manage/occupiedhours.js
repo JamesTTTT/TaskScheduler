@@ -41,6 +41,18 @@ const occupiedHrs = {
         return occArr
     },
 
+    findAllTaskWithDay: function findAllTaskWithDay(curDay, ocpTimes){
+        let e = [];
+        let x;
+        for (let i in ocpTimes){
+           x = ocpTimes[i].occupy.find(({ day }) => day === curDay);
+           if(x){
+            e.push(x)
+           }
+        }
+        return e
+    },
+
     nextAvailbleTime: function nextAvailbleTime(dayOfTheYear, ocpTimes, cap, duration, daysHours, startTime, finishTime ,occArr = []){
         //console.log(ocpTimes)
         //let occArr = []
@@ -51,10 +63,14 @@ const occupiedHrs = {
             times:[]
         }
         let dayOfTY = dayOfTheYear;
-        for(let index in ocpTimes){
-            const result = ocpTimes[index].occupy.find(({ day }) => day === dayOfTY);
+        const e = this.findAllTaskWithDay(dayOfTY, ocpTimes)
+        console.log(e)
+            //const result = ocpTimes[index].occupy.find(({ day }) => day === dayOfTY);
+            const result = e.at(-1);
+            //console.log(duration +":")
+            //console.log(e)
             if(result){
-                console.log(duration +":"+ result.day)
+                //console.log(duration +":"+ result.day)
                 //dayOfTY = result.day
                 //Squeeze in a few hours on the same day
                 let lastHour = result.times.at(-1)+1;
@@ -64,10 +80,10 @@ const occupiedHrs = {
 
                 let remainingHrs = duration;
 
-                console.log(hoursLeft)
-                console.log(duration)
+                //console.log(hoursLeft)
+                //console.log(duration)
                 if(0 < hoursLeft && hoursLeft < duration){
-                    console.log(duration + "in")
+                    //console.log(duration + "in")
                     remainingHrs = hoursLeft
                     let newDuration = duration - remainingHrs
                     daysArray = timeline.workDays(cap,newDuration)
@@ -78,12 +94,12 @@ const occupiedHrs = {
                     daysArray = timeline.workDays(cap,duration)
                 }
                 else {
-                    console.log(duration + "trigger")
+                    //console.log(duration + "trigger")
                     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr)
                 }
      
                 for(let index in daysArray){
-                    console.log("loop:"+daysArray.length)
+                    //console.log("loop:"+daysArray.length)
                     let time  = this.calcTimesOftheDay(startTime, daysArray[index])
                     if( index < 1){
                         time  = this.calcTimesOftheDay(lastHour, daysArray[index])
@@ -114,7 +130,8 @@ const occupiedHrs = {
             //     occArr.push(newDay)
             // }
 
-        }
+        
+
         return occArr;
 
     },
