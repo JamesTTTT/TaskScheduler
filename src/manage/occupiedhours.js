@@ -54,7 +54,7 @@ const occupiedHrs = {
         for(let index in ocpTimes){
             const result = ocpTimes[index].occupy.find(({ day }) => day === dayOfTY);
             if(result){
-                console.log(result)
+                //console.log(result)
                 //dayOfTY = result.day
                 //Squeeze in a few hours on the same day
                 let lastHour = result.times.at(-1)+1;
@@ -64,22 +64,26 @@ const occupiedHrs = {
 
                 let remainingHrs = duration;
 
-                console.log(hoursLeft)
+                //console.log(hoursLeft)
                 if(0 < hoursLeft && hoursLeft < duration){
-                    console.log("squeeze")
                     remainingHrs = hoursLeft
                     let newDuration = duration - remainingHrs
                     daysArray = timeline.workDays(cap,newDuration)
                     daysArray.unshift(remainingHrs);
                 } else {
-                    console.log("wow")
                     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr)
                 }
                 
                 
                 for(let index in daysArray){
+
+                    let time  = this.calcTimesOftheDay(startTime, daysArray[index])
+
+                    if( index < 1){
+                        time  = this.calcTimesOftheDay(lastHour, daysArray[index])
+                    }
+
                     if(0 < daysArray[index]){
-                        let time  = this.calcTimesOftheDay(lastHour, daysArray[index])
                         let curDay =  parseInt(dayOfTY)+parseInt(index)
                         newDay = {
                             day:curDay,

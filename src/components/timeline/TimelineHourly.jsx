@@ -186,25 +186,53 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
         return(
           <div 
             key={index} 
-            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 '
+            className='outline outline-blue-800 outline-2 bg-gray-50
+          text-black flex-1 text-lg relative w-80 overflow-hidden	'
             // the param is how wide each sqaure is. so each hour is 40px, making each day 40*24=960 
             style={{width: timeline.timelineDailyLen(960)}}>
+                <div 
+                  className='absolute text-blue-500 z-50 font-bold'
+                  style={{
+                    left: timeline.figureHourPos(dayStart,0)}}
+                  >
+                  Start Date
+                </div>
+                <div 
+                  className='absolute text-red-700 z-50 font-bold'
+                  style={{
+                    left: timeline.figureHourPos(dayStart,0) 
+                    + timeline.figureHourPosEnd(dayCount,0)}}
+                  >
+                  Deadline
+                </div>
             <div
               data-tip={task.title}
               data-for="task"
-              className='outline outline-blue-800 outline-2 text-white bg-slate-200
+              className='outline outline-blue-800 outline-2 text-white bg-gray-300 w-full
                          flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
               style={{
                 left: timeline.figureHourPos(dayStart,0),
                 width: timeline.figureHourPosEnd(dayCount,0)}}
               >
-              <div className='flex'>
+                
+              <div 
+                className='flex relative'
+                // style={{
+                //   left: 0}}
+              >
+
               {algDays.map((item, index) => (
                 <div 
                   key={index}
-                  className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2  py-2" 
+                  className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2  py-2 overflow-visible" 
                   style={{
-                    left:timeline.workDaysPos(taskTimeData.occupy[index].times[0],index,capacity),
+                    left:timeline.algWorkDaysPos(
+                      dayStart,
+                      taskTimeData.occupy,
+                      index,
+                      capacity,
+                      ),
+                    // left:0,
                     width: timeline.figureHourPosEnd(0,item),
                     backgroundColor: colorManage.statusColor(task.status)}}>
                   <p>{item}H</p>
