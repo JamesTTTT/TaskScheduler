@@ -114,8 +114,16 @@ const timeline = {
         return daysHours
       },
 
+      algDuration: function algDuration(workHours){
+        let hrsPerDay = [];
+        for(let index in workHours){
+          hrsPerDay.push(workHours[index].hours)
+        }
+        return hrsPerDay
+      },
+
       workDaysPos: function workDaysPos(start, day, capacity){
-        //Sets postion of tak
+        //Sets postion of tasks
         //start = workHours
         //day = index
         //they all have to start in the same place
@@ -127,6 +135,8 @@ const timeline = {
 
         return startPos;
       }
+
+
 
     }
 

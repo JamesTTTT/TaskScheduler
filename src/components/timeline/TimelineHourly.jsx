@@ -110,13 +110,13 @@ const TaskList = ({loadedTasks,capacity}) => {
     return capacityManage.capacityToDays(capacity,duration,days)
    }
 
-  const getToolTipCont = (bool) =>{
-    let string = "Posssible"
-      if(bool === "true"){
-        string = "Not Posssible"
-      }
-    return string
-  }
+  // const getToolTipCont = (bool) =>{
+  //   let string = "Posssible"
+  //     if(bool === "true"){
+  //       string = "Not Posssible"
+  //     }
+  //   return string
+  // }
  
   const taskList = (y) => {
       let year = y.toString()
@@ -160,7 +160,7 @@ const TaskList = ({loadedTasks,capacity}) => {
   )
 }
 
-const TimelineBody = ({loadedTasks, capacity, workHours}) => {
+const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
 
 
   const taskRows = (y) => {
@@ -175,33 +175,38 @@ const TimelineBody = ({loadedTasks, capacity, workHours}) => {
       //     }
       // })
       .map((task, index) =>{
+        const taskTimeData = ocpHours.find((t) => t.id === task.id);
+        
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
         let dayStart = timeline.startDateToDay(task.startdate);
-        let workDays = timeline.workDays(capacity,task.duration);
+        let workH = taskTimeData.occupy;
+
+        let algDays = timeline.algDuration(workH)
+
         return(
           <div 
             key={index} 
-            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
+            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 '
             // the param is how wide each sqaure is. so each hour is 40px, making each day 40*24=960 
             style={{width: timeline.timelineDailyLen(960)}}>
             <div
               data-tip={task.title}
               data-for="task"
-              className='outline outline-blue-800 outline-2 bg-blue-500 text-white
+              className='outline outline-blue-800 outline-2 text-white bg-slate-200
                          flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
               style={{
                 left: timeline.figureHourPos(dayStart,0),
-                width: timeline.figureHourPosEnd(dayCount,0),
-                backgroundColor: colorManage.statusColor(task.status)}}
+                width: timeline.figureHourPosEnd(dayCount,0)}}
               >
               <div className='flex'>
-              {workDays.map((item, index) => (
+              {algDays.map((item, index) => (
                 <div 
                   key={index}
-                  className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2 " 
+                  className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2  py-2" 
                   style={{
-                    left:timeline.workDaysPos(workHours[0],index,capacity),
-                    width: timeline.figureHourPosEnd(0,item)}}>
+                    left:timeline.workDaysPos(taskTimeData.occupy[index].times[0],index,capacity),
+                    width: timeline.figureHourPosEnd(0,item),
+                    backgroundColor: colorManage.statusColor(task.status)}}>
                   <p>{item}H</p>
                 </div>
               ))}
@@ -252,7 +257,7 @@ const CurrentMonth = () =>{
   )
 }
 
-const TimelineHourly = ({loadedTasks, capacity, workHours}) => {
+const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours}) => {
     
   return (
     <div>
@@ -280,6 +285,7 @@ const TimelineHourly = ({loadedTasks, capacity, workHours}) => {
             loadedTasks={loadedTasks}
             capacity={capacity}
             workHours={workHours}
+            ocpHours= {ocpHours}
           />
 
       </div>

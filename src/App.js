@@ -11,7 +11,9 @@ function App() {
   const [loadedTasks, setLoadedTasks] = useState([])
   const [capacity, setCapacity] = useState(8)
   const [workHours, setWorkHours] = useState(["7","16"])
-  const [ocpHours, setOcpHours] = useState([])
+  const [ocpHours, setOcpHours] = useState([{
+    
+  }])
 
 
   useEffect(() => {
@@ -93,7 +95,8 @@ function App() {
         <Timeline 
           workHours={workHours} 
           loadedTasks={loadedTasks} 
-          capacity={capacity} 
+          capacity={capacity}
+          ocpHours={ocpHours}
         />
       </div>
       <div>
