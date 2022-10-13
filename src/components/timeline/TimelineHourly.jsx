@@ -191,14 +191,14 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
             // the param is how wide each sqaure is. so each hour is 40px, making each day 40*24=960 
             style={{width: timeline.timelineDailyLen(960)}}>
                 <div 
-                  className='absolute text-blue-500 z-50 font-bold'
+                  className='absolute text-blue-500 z-50 font-bold px-1.5 py-1.5'
                   style={{
                     left: timeline.figureHourPos(dayStart,0)}}
                   >
                   Start Date
                 </div>
                 <div 
-                  className='absolute text-red-700 z-50 font-bold'
+                  className='absolute text-red-700 z-50 font-bold px-1.5 py-1.5'
                   style={{
                     left: timeline.figureHourPos(dayStart,0) 
                     + timeline.figureHourPosEnd(dayCount,0)}}

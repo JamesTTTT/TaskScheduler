@@ -53,7 +53,16 @@ const occupiedHrs = {
         return e
     },
 
-    nextAvailbleTime: function nextAvailbleTime(dayOfTheYear, ocpTimes, cap, duration, daysHours, startTime, finishTime ,occArr = []){
+    nextAvailbleTime: function nextAvailbleTime(
+        dayOfTheYear,
+        ocpTimes,
+        cap, 
+        duration, 
+        daysHours, 
+        startTime, 
+        finishTime,
+        occArr = [], 
+        timeLeft = duration){
         //console.log(ocpTimes)
         //let occArr = []
         let daysArray = [];
@@ -64,74 +73,72 @@ const occupiedHrs = {
         }
         let dayOfTY = dayOfTheYear;
         const e = this.findAllTaskWithDay(dayOfTY, ocpTimes)
-        console.log(e)
+        //console.log(e)
             //const result = ocpTimes[index].occupy.find(({ day }) => day === dayOfTY);
-            const result = e.at(-1);
-            //console.log(duration +":")
-            //console.log(e)
+        const result = e.at(-1);
+        console.log(duration +":")
+        console.log(result)
+        if(result){
+            let lastHour = result.times.at(-1)+1;
+            //How much time is left between the last task and the finish time
+            let hoursLeft = finishTime - lastHour;
+            console.log(hoursLeft)
+            console.log(timeLeft)
+            let remainingHrs = timeLeft;
+            if(0 < hoursLeft && hoursLeft <= timeLeft){
+                console.log("I topped ")
+                remainingHrs = hoursLeft
+                let newDuration = timeLeft - remainingHrs
+                daysArray = timeline.workDays(cap,newDuration)
+                daysArray.unshift(remainingHrs);
+            }
+            else if(0 < hoursLeft && hoursLeft >= timeLeft){
+                console.log("I midd ")
+
+                daysArray = daysHours;
+            }
+            else {
+                console.log("i bot")
+                let timeleft = timeLeft;
+                this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
+            }
+            for(let index in daysArray){
+                let time  = this.calcTimesOftheDay(startTime, daysArray[index])
+                if( index < 1){
+                    time  = this.calcTimesOftheDay(lastHour, daysArray[index])
+                }
+                if(0 < daysArray[index]){
+                    let curDay =  parseInt(dayOfTY)+parseInt(index)
+                    newDay = {
+                        day:curDay,
+                        hours:daysArray[index],
+                        times:time
+                    }
+                    occArr.push(newDay)
+                }
+            }
+        } 
+        else {
+            let days = parseInt(dayOfTY);
+            //let time = this.calcTimesOftheDay(startTime, daysHours[i])
+            daysArray = timeline.workDays(cap,timeLeft)
+            let time = this.calcTimesOftheDay(startTime, daysArray[0])
+            newDay ={
+                day:days,
+                hours:daysArray[0],
+                times:time
+            }
+            occArr.push(newDay)
+            let e = this.findAllTaskWithDay(dayOfTY+1, ocpTimes)
+            let result = e.at(-1);
             if(result){
-                //console.log(duration +":"+ result.day)
-                //dayOfTY = result.day
-                //Squeeze in a few hours on the same day
-                let lastHour = result.times.at(-1)+1;
-                
-                //How much time is left between the last task and the finish time
-                let hoursLeft = finishTime - lastHour;
-
-                let remainingHrs = duration;
-
-                //console.log(hoursLeft)
-                //console.log(duration)
-                if(0 < hoursLeft && hoursLeft < duration){
-                    //console.log(duration + "in")
-                    remainingHrs = hoursLeft
-                    let newDuration = duration - remainingHrs
-                    daysArray = timeline.workDays(cap,newDuration)
-                    daysArray.unshift(remainingHrs);
-                    //console.log(daysArray)
-                }
-                else if(0 < hoursLeft && hoursLeft > duration){
-                    daysArray = timeline.workDays(cap,duration)
-                }
-                else {
-                    //console.log(duration + "trigger")
-                    this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr)
-                }
-     
-                for(let index in daysArray){
-                    //console.log("loop:"+daysArray.length)
-                    let time  = this.calcTimesOftheDay(startTime, daysArray[index])
-                    if( index < 1){
-                        time  = this.calcTimesOftheDay(lastHour, daysArray[index])
-                    }
-                    if(0 < daysArray[index]){
-                        let curDay =  parseInt(dayOfTY)+parseInt(index)
-                        newDay = {
-                            day:curDay,
-                            hours:daysArray[index],
-                            times:time
-                        }
-                        occArr.push(newDay)
-                    }
-                }
-
-
-            } 
-            // else {
-            //     for (let i in daysHours){
-            //         let days = parseInt(dayOfTY)+parseInt(i);
-            //         let time = this.calcTimesOftheDay(startTime, daysHours[i])
-            //         newDay ={
-            //             day:days,
-            //             hours:daysHours[i],
-            //             times:time
-            //         }
-            //     }
-            //     occArr.push(newDay)
+                let timeleft = timeLeft - daysArray[0];
+                this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
+            }
+            // if(idx <= daysArray.length){
+            //     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, idx+1)
             // }
-
-        
-
+        }
         return occArr;
 
     },
