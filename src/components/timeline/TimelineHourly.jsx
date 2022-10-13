@@ -179,9 +179,10 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
         
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
         let dayStart = timeline.startDateToDay(task.startdate);
-        let workH = taskTimeData.occupy;
 
-        let algDays = timeline.algDuration(workH)
+        //let workH = taskTimeData.occupy;
+        
+        let algDays = timeline.algDuration(taskTimeData.occupy)
 
         return(
           <div 

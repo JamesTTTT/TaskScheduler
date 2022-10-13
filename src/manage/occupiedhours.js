@@ -76,6 +76,7 @@ const occupiedHrs = {
         //console.log(e)
             //const result = ocpTimes[index].occupy.find(({ day }) => day === dayOfTY);
         const result = e.at(-1);
+        console.log(timeLeft+ "o")
         console.log(duration +":")
         console.log(result)
         if(result){
@@ -119,21 +120,26 @@ const occupiedHrs = {
             }
         } 
         else {
-            let days = parseInt(dayOfTY);
+            console.log("i quit")
             //let time = this.calcTimesOftheDay(startTime, daysHours[i])
             daysArray = timeline.workDays(cap,timeLeft)
-            let time = this.calcTimesOftheDay(startTime, daysArray[0])
-            newDay ={
-                day:days,
-                hours:daysArray[0],
-                times:time
-            }
-            occArr.push(newDay)
-            let e = this.findAllTaskWithDay(dayOfTY+1, ocpTimes)
-            let result = e.at(-1);
-            if(result){
-                let timeleft = timeLeft - daysArray[0];
-                this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
+
+            for (let i in daysArray){
+                let days = parseInt(dayOfTY) + parseInt(i);
+                let time = this.calcTimesOftheDay(startTime, daysArray[i])
+                console.log(daysArray)
+                newDay ={
+                    day:days,
+                    hours:daysArray[i],
+                    times:time
+                }
+                occArr.push(newDay)
+                let e = this.findAllTaskWithDay(dayOfTY+1, ocpTimes)
+                let result = e.at(-1);
+                if(result){
+                    let timeleft = timeLeft - daysArray[0];
+                    this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
+                }
             }
             // if(idx <= daysArray.length){
             //     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, idx+1)
