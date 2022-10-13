@@ -230,7 +230,6 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
                       dayStart,
                       taskTimeData.occupy,
                       index,
-                      capacity,
                       ),
                     // left:0,
                     width: timeline.figureHourPosEnd(0,item),

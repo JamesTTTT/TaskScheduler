@@ -136,7 +136,7 @@ const timeline = {
         return startPos;
       },
 
-      algWorkDaysPos: function workDaysPos(startDate, task, index, capacity){
+      algWorkDaysPos: function workDaysPos(startDate, task, index){
         // startDate is when the task starts
         // dayOfYear is what day of the year the task starts on
         // start is time you start working
@@ -147,13 +147,10 @@ const timeline = {
         for(let i = 0; i<index; i++){
           len += task[i].times.length * 40
         }
-        
         let diff = task[index].day - startDate
-        let zero = len;
-        console.log(zero)
         let time = task[index].times[0] * 40;
 
-        pos = time+960*diff-zero
+        pos = time+960*diff-len
         //console.log(diff)
         return pos;
       }
