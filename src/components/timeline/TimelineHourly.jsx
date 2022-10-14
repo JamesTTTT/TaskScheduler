@@ -30,8 +30,6 @@ const TimelineHeader = ({renderYear}) => {
    
   const hoursOfTheYear = () => {
     let hours = timeline.hoursOfTheDay()
-
-
     return hours.map((hour, index)=>{
       return (
         <div 
@@ -233,10 +231,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
                 
               <div 
                 className='flex relative'
-                // style={{
-                //   left: 0}}
               >
-
               {algDays.map((item, index) => (
                 <div 
                   key={index}
@@ -256,6 +251,11 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
               </div>
 
             </div>
+            {/* <div
+            className='PatternRed'
+            >
+
+            </div> */}
             <ReactTooltip 
               id="task" 
               place="top" 

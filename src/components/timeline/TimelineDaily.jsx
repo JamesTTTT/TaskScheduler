@@ -89,9 +89,7 @@ const TimelineBody = ({loadedTasks,capacity,renderYear}) => {
    if(loadedTasks){
      return loadedTasks
      .filter(task => {
-      console.log(year)
        let dateArr = splitDate(task.startdate)
-       console.log(dateArr)
          if(dateArr[0] === year){
            return task
          }

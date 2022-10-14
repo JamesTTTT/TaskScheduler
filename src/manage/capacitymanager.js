@@ -60,9 +60,14 @@ const capacityManage = {
         let deadlineDate = new Date(deadline);
         let finalMoment = ocpWorkHrs.at(-1);
         let finalDate = moment().dayOfYear(finalMoment.day);
-        if(finalDate>deadlineDate){
+
+        if(moment(finalDate).isAfter(deadlineDate, 'day')){
+            status = true;
+        } else if (moment(finalDate).isSame(deadlineDate, 'day')){
             status = true;
         }
+
+        console.log(status)
         return status
     },
 
