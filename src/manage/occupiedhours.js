@@ -1,12 +1,12 @@
 import timeline from "./timeline";
-import capacityManage from "./capacitymanager";
+// import capacityManage from "./capacitymanager";
 const occupiedHrs = {
-    getOcpHrs:function getOcpHrs(ocphours){
-        localStorage.setItem("ocphours",JSON.stringify(ocphours))
-    },
-    setOcpHrs:function setOcpHrs(){
+    // getOcpHrs:function getOcpHrs(ocphours){
+    //     localStorage.setItem("ocphours",JSON.stringify(ocphours))
+    // },
+    // setOcpHrs:function setOcpHrs(){
 
-    },
+    // },
 
     calcTimesOftheDay: function calcTimesOftheDay(start, hours){
         // returns arra with times

@@ -210,7 +210,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
               data-tip={task.title}
               data-for="task"
               className='outline outline-blue-800 outline-2 text-white bg-gray-300 w-full
-                         flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
+                         flex-1 text-lg relative overflow-visible text-ellipsis whitespace-nowrap'
               style={{
                 left: timeline.figureHourPos(dayStart,0),
                 width: timeline.figureHourPosEnd(dayCount,0)}}

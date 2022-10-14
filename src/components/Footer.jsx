@@ -3,6 +3,7 @@ import { CSVLink } from 'react-csv';
 import { useState,useEffect } from 'react';
 import autoTable from 'jspdf-autotable';
 import download from '../manage/download'
+import {AiFillGithub} from 'react-icons/ai'
 
 const Footer = ({loadedTasks}) => {
 
@@ -52,7 +53,11 @@ const Footer = ({loadedTasks}) => {
             No tasks to export 
           </h1>
         </div>}
-
+        <div className='text-3xl text-white text-center p-3'>
+          <a href='https://github.com/JamesTTTT/TaskScheduler'>
+            <AiFillGithub/>
+        </a>
+      </div>
       </div>
     </div>
   )
