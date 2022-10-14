@@ -1,4 +1,5 @@
 import timeline from "./timeline"
+import moment from "moment";
 const capacityManage = {
 
     saveWorkHours: function saveWorkHours(cap){
@@ -22,7 +23,6 @@ const capacityManage = {
         }else if (workHours<0){
             hrs = 24 - workHours*-1 
         }
-
         return hrs
     },
 
@@ -45,14 +45,25 @@ const capacityManage = {
     ifPossible: function ifPossible(cap,start,end, duration){
         let disabled = true;
         let taskDays = capacityManage.capacityToDays(cap, duration);
-        //console.log(taskDays)
-        let daysToDline = timeline.taskLenght(start,end)
+        let daysToDline = timeline.taskLenght(start,end);
         let possible = capacityManage.checkPossible(daysToDline,taskDays)
         if(possible){
           disabled = false;
         }
         return disabled
       },
+
+    algCheckPossible: function algCheckPossible(workHours, deadline){
+        //console.log(workHours)
+        let status = false;
+        let deadlineDate = new Date(deadline);
+        let finalMoment = workHours.at(-1);
+        let finalDate = moment().dayOfYear(finalMoment.day);
+        if(finalDate>deadlineDate){
+            status = true;
+        }
+        return status
+    },
 
 }
 

@@ -115,9 +115,10 @@ const timeline = {
       },
 
       algDuration: function algDuration(workHours){
+        let ocpWorkHours = workHours.occupy;
         let hrsPerDay = [];
-        for(let index in workHours){
-          hrsPerDay.push(workHours[index].hours)
+        for(let index in ocpWorkHours){
+          hrsPerDay.push(ocpWorkHours[index].hours)
         }
         return hrsPerDay
       },

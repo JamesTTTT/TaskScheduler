@@ -103,7 +103,7 @@ const TimelineHeader = () => {
  )
 }
 
-const TaskList = ({loadedTasks,capacity}) => {
+const TaskList = ({loadedTasks, capacity, ocpHours}) => {
   const splitDate = (date) => {
     return date.split(' ')
   }
@@ -133,8 +133,12 @@ const TaskList = ({loadedTasks,capacity}) => {
         //     }
         // })
         .map((task, index) =>{
-          let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration)
-          let tooltipString = getToCompleteTime(task.startdate,task.deadline,task.duration)
+          const taskTimeData = ocpHours.find((t) => t.id === task.id);
+          //let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration);
+          let tooltipString = getToCompleteTime(task.startdate,task.deadline,task.duration);
+
+          let taskPsbl = capacityManage.algCheckPossible(taskTimeData.occupy, task.deadline);
+
           return(
             <div 
               key={index} 
@@ -185,7 +189,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
 
         //let workH = taskTimeData.occupy;
         
-        let algDays = timeline.algDuration(taskTimeData.occupy)
+        let algDays = timeline.algDuration(taskTimeData)
 
         return(
           <div 
@@ -337,7 +341,11 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours}) => {
           text-center outline-blue-800 outline-1 pb-4'>
           <h2>Task List</h2>
         </div>
-          <TaskList loadedTasks={loadedTasks} capacity={capacity} />
+          <TaskList 
+            loadedTasks={loadedTasks} 
+            capacity={capacity} 
+            ocpHours={ocpHours}
+            />
       </div>
     </div>
   </div>
