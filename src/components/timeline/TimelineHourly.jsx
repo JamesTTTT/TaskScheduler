@@ -134,10 +134,11 @@ const TaskList = ({loadedTasks, capacity, ocpHours}) => {
         // })
         .map((task, index) =>{
           const taskTimeData = ocpHours.find((t) => t.id === task.id);
-          //let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration);
+          let taskPsbl = false;
+          if(taskTimeData){
+            taskPsbl = capacityManage.algCheckPossible(taskTimeData, task.deadline);
+          }
           let tooltipString = getToCompleteTime(task.startdate,task.deadline,task.duration);
-
-          let taskPsbl = capacityManage.algCheckPossible(taskTimeData.occupy, task.deadline);
 
           return(
             <div 

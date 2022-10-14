@@ -56,8 +56,9 @@ const capacityManage = {
     algCheckPossible: function algCheckPossible(workHours, deadline){
         //console.log(workHours)
         let status = false;
+        let ocpWorkHrs = workHours.occupy;
         let deadlineDate = new Date(deadline);
-        let finalMoment = workHours.at(-1);
+        let finalMoment = ocpWorkHrs.at(-1);
         let finalDate = moment().dayOfYear(finalMoment.day);
         if(finalDate>deadlineDate){
             status = true;

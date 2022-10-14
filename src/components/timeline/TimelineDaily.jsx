@@ -98,22 +98,26 @@ const TimelineBody = ({loadedTasks,capacity}) => {
        return(
          <div 
            key={index} 
-           className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80 py-2'
+           className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80'
            // the param is how wide each sqaure is. so each day is 24px
            style={{width: timeline.timelineDailyLen(24)}}>
            <div
              data-tip={task.title}
              data-for="task"
-             className='outline outline-blue-800 outline-2 bg-blue-500 text-white
+             className=' Pattern outline outline-blue-800 outline-2 bg-blue-500 text-white
                         flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
              style={{
                left: timeline.figurePosX(dayStart),
                width: timeline.figurePosEnd(dayCount),
-               backgroundColor: colorManage.statusColor(task.status)}}
+               //backgroundColor: colorManage.statusColor(task.status)
+              }}
              >
               <div 
-              className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2" 
-              style={{width: getToCompleteTime(task.startdate,task.deadline,task.duration)}}>
+              className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2 py-2" 
+              style={{
+                width: getToCompleteTime(task.startdate,task.deadline,task.duration),
+                backgroundColor: colorManage.statusColor(task.status)
+                }}>
                 <p>{task.title}</p>
               </div>
              
@@ -141,7 +145,7 @@ const TimelineBody = ({loadedTasks,capacity}) => {
 }
 
 
-const TaskList = ({loadedTasks, capacity}) => {
+const TaskList = ({loadedTasks, capacity, ocpHours}) => {
  const splitDate = (date) => {
    return date.split(' ')
  }
@@ -165,8 +169,13 @@ const TaskList = ({loadedTasks, capacity}) => {
        //       return task
        //     }
        // })
-       .map((task, index) =>{
-        let taskPsbl = capacityManage.ifPossible(capacity,task.startdate,task.deadline,task.duration)
+      .map((task, index) =>{
+        const taskTimeData = ocpHours.find((t) => t.id === task.id);
+        let taskPsbl = false;
+        if(taskTimeData){
+          taskPsbl = capacityManage.algCheckPossible(taskTimeData, task.deadline);
+        }
+        //let taskPsbl = capacityManage.algCheckPossible(taskTimeData, task.deadline);
         let tooltipString = getToCompleteTime(task.startdate,task.deadline,task.duration)
         return(
           <div 
@@ -196,7 +205,7 @@ const TaskList = ({loadedTasks, capacity}) => {
  )
 }
 
-const TimelineDaily = ({loadedTasks, capacity}) => {
+const TimelineDaily = ({loadedTasks, capacity, ocpHours}) => {
   return (
     <div className='flex flex-row-reverse'>
         <div 
@@ -209,7 +218,10 @@ const TimelineDaily = ({loadedTasks, capacity}) => {
       <div className='bg-slate-700 font-bold outline text-white w-48 text-center outline-blue-800 outline-1 pb-4'>
         <h2>Task List</h2>
       </div>
-        <TaskList loadedTasks={loadedTasks} capacity={capacity} />
+        <TaskList 
+          loadedTasks={loadedTasks} 
+          capacity={capacity} 
+          ocpHours={ocpHours}/>
     </div>
   </div>
   )

@@ -6,6 +6,7 @@ import Search from '../Search'
 import LargeList from './LargeList'
 import CondensedList from './CondensedList'
 import SelectView from './SelectView'
+import taskManage from '../../manage/taskmanager'
 
 
 const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArray}) => {
@@ -141,34 +142,8 @@ const FilteredList = ({loadedTasks, updateTask}) =>{
     }
 
     const handleSort = (arg) =>{
-        let data;
-        switch(arg){
-            case 'default':
-                data = [...loadedTasks];
-            break;
-            case 'deadline':
-                data = [...loadedTasks].sort((a, b) =>{
-                    return new moment(a.deadline).format('YYYYMMDD') - new moment(b.deadline).format('YYYYMMDD')
-                })
-            break;
-            case 'startdate':
-                data = [...loadedTasks].sort((a, b) =>{
-                    return new moment(a.startdate).format('YYYYMMDD') - new moment(b.startdate).format('YYYYMMDD')
-                })
-            break;
-            case 'title':
-                data = [...loadedTasks].sort((a, b) =>{
-                    return a.title.localeCompare(b.title);
-                })
-            break;
-            case 'duration':
-                data = [...loadedTasks].sort((a, b) =>{
-                    return b.duration - a.duration;
-                })
-            break;
-        }
+        let data = taskManage.sortTasks(arg, loadedTasks)
         setSortedArray(data)
-
     }
 
     return(
