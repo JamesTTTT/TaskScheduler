@@ -1,10 +1,13 @@
 import React from 'react'
+import '../../App.css';
 import timeline from '../../manage/timeline'
 import colorManage from '../../manage/colormanager'
 import moment from 'moment/moment'
 import ReactTooltip from 'react-tooltip';
 import { useEffect, useState } from 'react';
-import {GrStatusCriticalSmall} from 'react-icons/gr'
+import {GrStatusCriticalSmall} from 'react-icons/gr';
+import {AiFillStop} from 'react-icons/ai';
+import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 import capacityManage from '../../manage/capacitymanager';
 
 //EACH HOUR IS 40 AND EACH DAY IS 960
@@ -192,26 +195,31 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
             // the param is how wide each sqaure is. so each hour is 40px, making each day 40*24=960 
             style={{width: timeline.timelineDailyLen(960)}}>
                 <div 
-                  className='absolute text-blue-500 z-50 font-bold px-1.5 py-1.5'
+                  className='absolute text-blue-800 text-xl z-50 font-bold py-2.5'
+                  data-tip
+                  data-for='start'
                   style={{
-                    left: timeline.figureHourPos(dayStart,0)}}
+                    left: timeline.figureHourPos(dayStart,0)- 25}}
                   >
-                  Start Date
+                  <BsFillArrowRightCircleFill/>
                 </div>
                 <div 
-                  className='absolute text-red-700 z-50 font-bold px-1.5 py-1.5'
+                  className='absolute text-red-700 text-xl z-50 font-bold px-1.5 py-2.5'
+                  data-tip 
+                  data-for='deadline'
                   style={{
                     left: timeline.figureHourPos(dayStart,0) 
                     + timeline.figureHourPosEnd(dayCount,0)}}
                   >
-                  Deadline
+                  <AiFillStop/>
                 </div>
             <div
               data-tip={task.title}
               data-for="task"
-              className='outline outline-blue-800 outline-2 text-white bg-gray-300 w-full
+              className='Pattern outline outline-blue-800 outline-2 text-white bg-gray-200
                          flex-1 text-lg relative overflow-visible text-ellipsis whitespace-nowrap'
               style={{
+
                 left: timeline.figureHourPos(dayStart,0),
                 width: timeline.figureHourPosEnd(dayCount,0)}}
               >
@@ -246,6 +254,12 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
               place="top" 
               effect="float" 
               getContent={(dataTip) => <div> <h1>{dataTip}</h1></div>}/>
+              <ReactTooltip id='deadline' type='error' effect='float'>
+                <span>Deadline</span>
+              </ReactTooltip>
+              <ReactTooltip id='start' type='info' effect='float'>
+                <span>Start</span>
+              </ReactTooltip>
           </div>
         )
       })

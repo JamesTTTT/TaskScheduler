@@ -173,7 +173,6 @@ const occupiedHrs = {
                 occArr = this.firstTime(startTime, daysHours, dayOfTheYear)
             }
             
-
             let newTaskTimes = {
                 id: tasks[index].id,
                 title: tasks[index].title,
