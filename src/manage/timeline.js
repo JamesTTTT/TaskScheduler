@@ -1,22 +1,22 @@
 import moment from 'moment/moment'
 const timeline = {
     //EACH DAY IS 24px
-    figurePosX: function figurePosX(day){
+      figurePosX: function figurePosX(day){
         return day * 24 - 24;
       },
 
-     //EACH DAY IS 24px
-    figurePosEnd: function figurePosEnd(day){
+       //EACH DAY IS 24px
+      figurePosEnd: function figurePosEnd(day){
         return day * 24;
       },
 
-    //hours are 40px and days 960px
-    figureHourPos: function figureHourPos(day, hour) {
-        let dayPos = day * 960 - 960;
-        let hourPos = hour * 40;
-        let pos = dayPos + hourPos;
-        return pos;
-    },
+        //hours are 40px and days 960px
+       figureHourPos: function figureHourPos(day, hour) {
+           let dayPos = day * 960 - 960;
+           let hourPos = hour * 40;
+           let pos = dayPos + hourPos;
+           return pos;
+       },
 
       //hours are 40px and days 960px
       figureHourPosEnd: function figureHourPosEnd(day, hour) {
@@ -24,7 +24,18 @@ const timeline = {
         let hourPos = hour * 40;
         let pos = dayPos + hourPos;
         return pos;
-    },
+      },
+
+      figurePassedPos: function figurePassedPos(workHours, deadline){
+        //shows how much  task missed the deadline
+        let deadlineDate = moment(deadline);
+        let finalMoment = workHours.occupy.at(-1);
+        let finalDate = moment().dayOfYear(finalMoment.day);
+        let days = deadlineDate.diff(finalDate, 'days');
+        let finalHours=finalMoment.times[0];
+
+        return days*960+finalHours*40
+      },
      
       //Determines when the day starts on the timeline
       startDateToDay: function startDateToDay(date){

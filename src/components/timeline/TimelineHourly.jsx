@@ -209,7 +209,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
                   <BsFillArrowRightCircleFill/>
                 </div>
                 <div 
-                  className='absolute text-red-700 text-xl z-50 font-bold px-1.5 py-2.5'
+                  className='absolute outline-red-800 text-red-700 text-xl z-50 font-bold px-1.5 py-2.5'
                   data-tip 
                   data-for='deadline'
                   style={{
@@ -218,6 +218,21 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
                   >
                   <AiFillStop/>
                 </div>
+                {capacityManage.algCheckPossible(taskTimeData, task.deadline)?
+                  <div
+                  className='PatternRed p-2 absolute'
+                  style={{
+                    width: timeline.figurePassedPos(taskTimeData,task.deadline),
+                    left: timeline.figureHourPos(dayStart,0) 
+                    + timeline.figureHourPosEnd(dayCount,0)
+                  }}
+                  >
+                    <p>.</p>
+                  </div>
+                  : <div></div>
+
+                }
+
             <div
               data-tip={task.title}
               data-for="task"
@@ -251,11 +266,6 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
               </div>
 
             </div>
-            {/* <div
-            className='PatternRed'
-            >
-
-            </div> */}
             <ReactTooltip 
               id="task" 
               place="top" 
