@@ -11,7 +11,7 @@ import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 import capacityManage from '../../manage/capacitymanager';
 
 //EACH HOUR IS 40 AND EACH DAY IS 960
-const TimelineHeader = () => {
+const TimelineHeader = ({renderYear}) => {
   //scroll to current date
   useEffect(() => {
     const timelineX = document.getElementById('hourTimeline');
@@ -86,7 +86,7 @@ const TimelineHeader = () => {
          <div key={month} className=' bg-blue-800 outline-dashed outline-2 font-semibold'>
              {/* <p> {month} </p> */}
              <div className='flex'>
-               {daysOfTheYear(2022,month)}
+               {daysOfTheYear(renderYear,month)}
              </div>
          </div>
      );
@@ -103,9 +103,9 @@ const TimelineHeader = () => {
  )
 }
 
-const TaskList = ({loadedTasks, capacity, ocpHours}) => {
+const TaskList = ({loadedTasks, capacity, ocpHours, renderYear}) => {
   const splitDate = (date) => {
-    return date.split(' ')
+    return date.split('-')
   }
 
   const getToCompleteTime = (start,end,duration) =>{
@@ -125,13 +125,13 @@ const TaskList = ({loadedTasks, capacity, ocpHours}) => {
       let year = y.toString()
       if(loadedTasks){
         return loadedTasks
-        // .filter(task => {
-        //   let dateArr = splitDate(task.startdate)
-        //   //console.log(dateArr)
-        //     if(dateArr[3] === year){
-        //       return task
-        //     }
-        // })
+        .filter(task => {
+          let dateArr = splitDate(task.startdate)
+          //console.log(dateArr)
+            if(dateArr[0] === year){
+              return task
+            }
+        })
         .map((task, index) =>{
           const taskTimeData = ocpHours.find((t) => t.id === task.id);
           let taskPsbl = false;
@@ -163,25 +163,27 @@ const TaskList = ({loadedTasks, capacity, ocpHours}) => {
   }
   return (
     <div>
-      {taskList(2022)}
+      {taskList(renderYear)}
     </div>
   )
 }
 
-const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
+const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) => {
 
+  const splitDate = (date) => {
+    return date.split('-')
+  }
 
   const taskRows = (y) => {
     let year = y.toString()
     if(loadedTasks){
       return loadedTasks
-      // .filter(task => {
-      //   let dateArr = splitDate(task.startdate)
-      //   //console.log(dateArr)
-      //     if(dateArr[3] === year){
-      //       return task
-      //     }
-      // })
+      .filter(task => {
+        let dateArr = splitDate(task.startdate)
+          if(dateArr[0] === year){
+            return task
+          }
+      })
       .map((task, index) =>{
         const taskTimeData = ocpHours.find((t) => t.id === task.id);
         
@@ -276,7 +278,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours}) => {
       {/* <div className='w-full bg-blue-800'
       style={{width: 8784}}> */}
       <div>
-        {taskRows(2022)}
+        {taskRows(renderYear)}
       </div>
     </>
   )
@@ -304,7 +306,7 @@ const CurrentMonth = () =>{
   )
 }
 
-const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours}) => {
+const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear}) => {
     
   return (
     <div>
@@ -327,12 +329,15 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours}) => {
         id="hourTimeline"
         className='max-w-screen-xs overflow-x-scroll scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300'>
 
-          <TimelineHeader />
+          <TimelineHeader
+          renderYear={renderYear} 
+          />
           <TimelineBody 
             loadedTasks={loadedTasks}
             capacity={capacity}
             workHours={workHours}
             ocpHours= {ocpHours}
+            renderYear={renderYear}
           />
 
       </div>
@@ -346,6 +351,7 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours}) => {
             loadedTasks={loadedTasks} 
             capacity={capacity} 
             ocpHours={ocpHours}
+            renderYear={renderYear}
             />
       </div>
     </div>

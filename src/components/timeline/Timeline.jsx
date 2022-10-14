@@ -1,24 +1,52 @@
 import React from 'react'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TimelineDaily from './TimelineDaily';
 import TimelineHourly from './TimelineHourly';
-
+import {BiRightArrow, BiLeftArrow} from 'react-icons/bi'
+import ReactTooltip from 'react-tooltip';
 
 const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setIsOptimized}) => {
 
     const [isHourly, setIsHourly] = useState(false)
+    const [renderYear, setRenderYear] = useState(0)
+
+    useEffect(() => {
+      setRenderYear(thisYear())
+    }, [])
+    
 
     const handleRadio = (bool) => {
       setIsHourly(bool)
+    }
+
+    const nextYear = () =>{
+      let nextYear = renderYear +1
+      if(nextYear <= thisYear()+10){
+        setRenderYear(nextYear)
+      }
+    }
+
+    const lastYear = () =>{
+      let lastYear = renderYear -1
+      if(lastYear >= thisYear()-10){
+        setRenderYear(lastYear)
+      }
+    }
+
+    const thisYear = () =>{
+      return new Date().getFullYear()
     }
 
     return (
       <div id="timelineID">
         <div
           className='bg-slate-700 text-lg flex
-          text-white font-light'
+          text-white font-light justify-between w-full'
           >
-            <div className='pt-1 pl-3'>
+            <div 
+              data-tip 
+              data-for='optimize'
+              className='pt-1 pl-3'>
               <label for="checked-toggle" className="inline-flex relative items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -39,8 +67,29 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
                 <span className="ml-3 text-sm font-medium text-gray-900 dark:text-gray-300">Optimize</span>
               </label>
             </div>
-            <div className='flex justify-center w-full pt-1'>
-              <div className='px-3 flex flex-row'>
+            
+            <div className='w-full flex justify-end p-1'>
+                <button
+                  onClick={()=>{lastYear()}}
+                >
+                <div className='px-3 text-2xl hover:text-blue-300 transition-colors'>
+                  <BiLeftArrow/>
+                </div>
+              </button>
+                <span className='text-2xl'>
+                  {renderYear}
+                </span>
+                <button
+                  onClick={()=>{nextYear()}}
+                >
+                  <div className='px-3 text-2xl hover:text-blue-300 transition-colors'>
+                    <BiRightArrow/>
+                  </div>
+                </button>
+              </div>
+
+            <div className='flex w-full justify-end'>
+              <div className='px-3 flex flex-row bg-slate-600 pt-1 rounded-l-md'>
               <input
                   type="radio" 
                   id="daily"
@@ -55,7 +104,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
                   Daily
                 </label>
               </div>
-              <div className='px-3 flex flex-row'>
+              <div className='px-3 flex flex-row bg-slate-600 pt-1'>
                 <input
                     type="radio" 
                     name="timeline" 
@@ -72,6 +121,11 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
               </div>
             </div>
         </div>
+        <ReactTooltip id='optimize' type='dark' effect='solid'>
+          <span className='text-md'>
+            Prioritize tasks with nearest deadline
+          </span>
+        </ReactTooltip> 
 
         {isHourly
         ? (
@@ -81,6 +135,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
               capacity={capacity}
               workHours={workHours}
               ocpHours={ocpHours}
+              renderYear={renderYear}
             />
           </div>
         )
@@ -90,6 +145,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
               loadedTasks={loadedTasks}
               capacity={capacity}
               ocpHours={ocpHours}
+              renderYear={renderYear}
               />
           </div>
         )

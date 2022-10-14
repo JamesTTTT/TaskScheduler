@@ -8,7 +8,7 @@ import ReactTooltip from 'react-tooltip';
 import { useEffect } from 'react';
 
 //EACH DAY IS 24
-const TimelineHeader = () => {
+const TimelineHeader = ({renderYear}) => {
 
   useEffect(() => {
     const timelineX = document.getElementById('dayTimeline');
@@ -54,7 +54,7 @@ const TimelineHeader = () => {
            <div key={month} className=' bg-blue-800 outline-dashed outline-2 font-semibold'>
                <p>{month}</p>
                <div className='flex'>
-                 {daysOfTheYear(2022,month)}
+                 {daysOfTheYear(renderYear,month)}
                </div>
            </div>
        );
@@ -71,7 +71,11 @@ const TimelineHeader = () => {
    )
 }
 
-const TimelineBody = ({loadedTasks,capacity}) => {
+const TimelineBody = ({loadedTasks,capacity,renderYear}) => {
+  
+  const splitDate = (date) => {
+    return date.split('-')
+  }
 
   const getToCompleteTime = (start,end,duration) =>{
     let days = timeline.taskLenght(start,end)
@@ -84,13 +88,14 @@ const TimelineBody = ({loadedTasks,capacity}) => {
    let year = y.toString()
    if(loadedTasks){
      return loadedTasks
-     // .filter(task => {
-     //   let dateArr = splitDate(task.startdate)
-     //   //console.log(dateArr)
-     //     if(dateArr[3] === year){
-     //       return task
-     //     }
-     // })
+     .filter(task => {
+      console.log(year)
+       let dateArr = splitDate(task.startdate)
+       console.log(dateArr)
+         if(dateArr[0] === year){
+           return task
+         }
+     })
      .map((task, index) =>{
         // Get how many days between two dates
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
@@ -138,16 +143,16 @@ const TimelineBody = ({loadedTasks,capacity}) => {
      {/* <div className='w-full bg-blue-800'
      style={{width: 8784}}> */}
      <div>
-       {taskRows(2022)}
+       {taskRows(renderYear)}
      </div>
    </>
  )
 }
 
 
-const TaskList = ({loadedTasks, capacity, ocpHours}) => {
+const TaskList = ({loadedTasks, capacity, ocpHours,renderYear}) => {
  const splitDate = (date) => {
-   return date.split(' ')
+   return date.split('-')
  }
 
  const getToCompleteTime = (start,end,duration) =>{
@@ -162,13 +167,13 @@ const TaskList = ({loadedTasks, capacity, ocpHours}) => {
      let year = y.toString()
      if(loadedTasks){
        return loadedTasks
-       // .filter(task => {
-       //   let dateArr = splitDate(task.startdate)
-       //   //console.log(dateArr)
-       //     if(dateArr[3] === year){
-       //       return task
-       //     }
-       // })
+       .filter(task => {
+         let dateArr = splitDate(task.startdate)
+         //console.log(dateArr)
+           if(dateArr[0] === year){
+             return task
+           }
+       })
       .map((task, index) =>{
         const taskTimeData = ocpHours.find((t) => t.id === task.id);
         let taskPsbl = false;
@@ -200,19 +205,25 @@ const TaskList = ({loadedTasks, capacity, ocpHours}) => {
  }
  return (
    <div>
-     {taskList(2022)}
+     {taskList(renderYear)}
    </div>
  )
 }
 
-const TimelineDaily = ({loadedTasks, capacity, ocpHours}) => {
+const TimelineDaily = ({loadedTasks, capacity, ocpHours, renderYear}) => {
   return (
     <div className='flex flex-row-reverse'>
         <div 
           id="dayTimeline"
           className='max-w-screen-xs overflow-x-scroll scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300'>
-            <TimelineHeader />
-            <TimelineBody loadedTasks={loadedTasks} capacity={capacity}/>
+            <TimelineHeader 
+              renderYear={renderYear}
+              />
+            <TimelineBody 
+              loadedTasks={loadedTasks} 
+              capacity={capacity}
+              renderYear={renderYear}
+            />
         </div>
     <div>
       <div className='bg-slate-700 font-bold outline text-white w-48 text-center outline-blue-800 outline-1 pb-4'>
@@ -221,7 +232,9 @@ const TimelineDaily = ({loadedTasks, capacity, ocpHours}) => {
         <TaskList 
           loadedTasks={loadedTasks} 
           capacity={capacity} 
-          ocpHours={ocpHours}/>
+          ocpHours={ocpHours}
+          renderYear={renderYear}
+        />
     </div>
   </div>
   )
