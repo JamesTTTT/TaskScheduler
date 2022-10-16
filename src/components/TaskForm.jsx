@@ -60,7 +60,7 @@ const TaskForm = ({ displayForm,
              maxLength="100"
              rows="4"
              className='bg-gray-50 border border-gray-300 text-gray-900
-             text-sm rounded-lg block p-2.5 w-72'
+             text-sm rounded-lg block p-2.5 w-72 max-h-24 min-h-24'
              onChange={(e)=>{
               setTaskDescription(e.target.value)
              }}
@@ -140,7 +140,7 @@ const TaskForm = ({ displayForm,
               {isDisabled
                 ?<div className='text-sm font-bold text-red-600 rounded-lg mb-3'>
                   <p>Warning:</p> 
-                  <p>The task duration is too high to be completed before the deadline</p>
+                  <p>The there is not enough time to schedule this task between these dates</p>
                 </div>
 
                 :<div></div>

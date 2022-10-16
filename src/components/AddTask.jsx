@@ -7,7 +7,7 @@ import capacityManage from '../manage/capacitymanager'
 import TaskForm from './TaskForm'
 import { duration } from 'moment'
 
-const AddTask = ({loadedTasks, updateTask, capacity}) => {
+const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
 
   const [showForm, setShowForm] = useState(false);
   const [deadline, setDeadline] = useState("");
@@ -21,8 +21,30 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
 
   useEffect(() => {
     //console.log(capacity)
-    let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
-    setIsDisabled(d)
+    if(showForm){
+      let newTask = {
+        id: new Date().getTime(),
+        title: "proto",
+        description: "",
+        category: "",
+        startdate: startDate,
+        deadline: deadline,
+        duration: taskDurartion,
+        status: "",
+  
+      }
+      if(startDate && deadline && taskDurartion){
+        let d = false;
+        let proto = capacityManage.createProto(loadedTasks, capacity, newTask, workHours);
+        if(proto){
+          d = capacityManage.algCheckPossible(proto,deadline);
+        }
+        //let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
+        setIsDisabled(d)
+      }
+
+    }
+
   }, [taskDurartion,startDate,deadline,capacity])
     
   const displayForm = () =>{
@@ -95,11 +117,11 @@ const AddTask = ({loadedTasks, updateTask, capacity}) => {
     
     <div className='p-4'>
         <button
-        onClick={displayForm}
-        className='flex overflow-hidden text-white font-bold bg-blue-500 p-2 rounded
-        whitespace-nowrap transition ease-in-out delay-50 hover:bg-indigo-500'>
-            <span className='inline-flex'>Add New Task</span>
-            <span className='inline-flex text-xl mx-1'><BiAddToQueue/></span>
+          onClick={displayForm}
+          className='flex overflow-hidden text-white font-bold bg-blue-500 p-2 rounded
+          whitespace-nowrap transition ease-in-out delay-50 hover:bg-indigo-500'>
+          <span className='inline-flex'>Add New Task</span>
+          <span className='inline-flex text-xl mx-1'><BiAddToQueue/></span>
         </button>
     </div>
 }

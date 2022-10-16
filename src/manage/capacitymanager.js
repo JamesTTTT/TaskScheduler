@@ -1,4 +1,5 @@
 import timeline from "./timeline"
+import occupiedHrs from "./occupiedhours"
 import moment from "moment";
 const capacityManage = {
 
@@ -67,8 +68,21 @@ const capacityManage = {
             status = true;
         }
 
-        //console.log(status)
         return status
+    },
+
+    createProto: function createProto(tasks, cap, newTask, workingHours){
+        let currentTasks;
+        let taskTimeData;
+        let ocp;
+
+        currentTasks = [...tasks];
+        currentTasks.push(newTask);
+        ocp = occupiedHrs.calcOcpHours(currentTasks, workingHours, cap);
+
+        taskTimeData = ocp.find((t) => t.id === newTask.id);
+
+        return taskTimeData
     },
 
 }
