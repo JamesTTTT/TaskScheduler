@@ -13,6 +13,7 @@ const TaskForm = ({ displayForm,
                     setTaskDuration,
                     startdate,
                     isDisabled,
+                    expectedFin
                   }) => {
     return (
 
@@ -141,6 +142,7 @@ const TaskForm = ({ displayForm,
                 ?<div className='text-sm font-bold text-red-600 rounded-lg mb-3'>
                   <p>Warning:</p> 
                   <p>The there is not enough time to schedule this task between these dates</p>
+                  <p>Soonest Deadline: {expectedFin}</p>
                 </div>
 
                 :<div></div>

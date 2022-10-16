@@ -5,7 +5,7 @@ import { useState,useEffect } from 'react'
 import timeline from '../manage/timeline'
 import capacityManage from '../manage/capacitymanager'
 import TaskForm from './TaskForm'
-import { duration } from 'moment'
+import moment from 'moment/moment'
 
 const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
 
@@ -18,6 +18,7 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
   const [taskDurartion, setTaskDuration] = useState(0);
   const [taskStatus, setTaskStatus] = useState("In-Progress");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [expectedFin, setExpectedFin] = useState(0)
 
   useEffect(() => {
     //console.log(capacity)
@@ -39,7 +40,13 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
         if(proto){
           d = capacityManage.algCheckPossible(proto,deadline);
         }
-        //let d = capacityManage.ifPossible(capacity,startDate,deadline,taskDurartion);
+        let e = proto.occupy.at(-1)
+        console.log(e.day)
+        let finalDate = moment().dayOfYear(e.day+1);
+
+        finalDate = finalDate.format("YYYY-MM-DD");
+        //finalDate = finalDate.toDate(finalDate);
+        setExpectedFin(finalDate.toString())
         setIsDisabled(d)
       }
 
@@ -64,6 +71,7 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
     setTaskDuration(0);
     setTaskStatus("In-Progress")
     setIsDisabled(false)
+    setExpectedFin(0)
   }
 
   const handleSave = (e) =>{
@@ -110,6 +118,7 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
           setTaskDuration={setTaskDuration}
           startdate={startDate}
           isDisabled={isDisabled}
+          expectedFin={expectedFin}
         />
         </div>
 
