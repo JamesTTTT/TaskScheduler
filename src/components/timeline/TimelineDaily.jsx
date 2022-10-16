@@ -71,7 +71,7 @@ const TimelineHeader = ({renderYear}) => {
    )
 }
 
-const TimelineBody = ({loadedTasks,capacity,renderYear}) => {
+const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours}) => {
   
   const splitDate = (date) => {
     return date.split('-')
@@ -96,34 +96,46 @@ const TimelineBody = ({loadedTasks,capacity,renderYear}) => {
      })
      .map((task, index) =>{
         // Get how many days between two dates
+        const taskTimeData = ocpHours.find((t) => t.id === task.id);
+        
+        let algDays = [];
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
         let dayStart = timeline.startDateToDay(task.startdate);
+        if(taskTimeData){
+          algDays = timeline.algDays(taskTimeData);
+        }
        return(
          <div 
            key={index} 
            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80'
            // the param is how wide each sqaure is. so each day is 24px
            style={{width: timeline.timelineDailyLen(24)}}>
+          
            <div
              data-tip={task.title}
              data-for="task"
-             className=' Pattern outline outline-blue-800 outline-2 bg-blue-500 text-white
-                        flex-1 text-lg relative overflow-hidden text-ellipsis whitespace-nowrap'
+             className=' Pattern outline outline-blue-800 outline-2 bg-blue-500 text-white overflow-visible
+                        flex-1 text-lg relative text-ellipsis whitespace-nowrap flex flex-row'
              style={{
                left: timeline.figurePosX(dayStart),
                width: timeline.figurePosEnd(dayCount),
                //backgroundColor: colorManage.statusColor(task.status)
               }}
              >
+              {algDays.map((item, index) => (
               <div 
-              className="bg-blue-900 pl-1 relative outline outline-red-800 outline-2 py-2" 
+              key={index}
+              className="bg-blue-900 pl-1 relative 
+              outline outline-blue-700 outline-2 py-2" 
               style={{
-                width: getToCompleteTime(task.startdate,task.deadline,task.duration),
+                width: 24,
+                left:timeline.algDayPos(item, task.startdate, index),
                 backgroundColor: colorManage.statusColor(task.status)
                 }}>
-                <p>{task.title}</p>
+                <p className='py-0 h-7'>
+                </p>
               </div>
-             
+             ))}
            </div>
            <ReactTooltip 
             id="task" 
@@ -217,7 +229,8 @@ const TimelineDaily = ({loadedTasks, capacity, ocpHours, renderYear}) => {
             <TimelineHeader 
               renderYear={renderYear}
               />
-            <TimelineBody 
+            <TimelineBody
+              ocpHours={ocpHours}
               loadedTasks={loadedTasks} 
               capacity={capacity}
               renderYear={renderYear}

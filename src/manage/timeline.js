@@ -30,8 +30,10 @@ const timeline = {
         //shows how much  task missed the deadline
         let deadlineDate = moment(deadline);
         let finalMoment = workHours.occupy.at(-1);
+        console.log(finalMoment);
         let finalDate = moment().dayOfYear(finalMoment.day);
-        let days = deadlineDate.diff(finalDate, 'days');
+        let days = finalDate.diff(deadlineDate, 'days');
+        console.log(days)
         let finalHours=finalMoment.times[0];
 
         return days*960+finalHours*40
@@ -132,6 +134,24 @@ const timeline = {
           hrsPerDay.push(ocpWorkHours[index].hours)
         }
         return hrsPerDay
+      },
+
+      algDays: function algDays(workHours){
+        let days = [];
+        let ocpWorkHours = workHours.occupy;
+        for(let i in ocpWorkHours){
+          days.push(ocpWorkHours[i].day)
+        }
+       // console.log(days)
+        return days;
+      },
+
+      algDayPos: function algDayPos(day, startdate, index){
+       let dayDate = moment().dayOfYear(day);
+       let startDate = moment(startdate);
+       let zero = 24*index
+       let diff = dayDate.diff(startDate, 'days');
+       return diff*24-zero
       },
 
       workDaysPos: function workDaysPos(start, day, capacity){

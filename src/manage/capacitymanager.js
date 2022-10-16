@@ -8,7 +8,7 @@ const capacityManage = {
 
     getWorkHours: function getWorkHours() {
         let retrievedCapacity = localStorage.getItem("capacity")
-        console.log(retrievedCapacity)
+        //console.log(retrievedCapacity)
         return JSON.parse(retrievedCapacity)
     },
 
@@ -67,7 +67,7 @@ const capacityManage = {
             status = true;
         }
 
-        console.log(status)
+        //console.log(status)
         return status
     },
 
