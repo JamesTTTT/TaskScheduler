@@ -85,38 +85,41 @@ const occupiedHrs = {
                console.log("I topped ")
                 remainingHrs = hoursLeft
                 timeleft = timeLeft - remainingHrs;
-                console.log(timeleft);
-                daysArray = remainingHrs;
+                console.log("time left"+timeleft);
+                daysArray.push(remainingHrs);
                 // daysArray = timeline.workDays(cap,timeleft)
                 // daysArray.unshift(remainingHrs);
             }
             else if(0 < hoursLeft && hoursLeft >= timeLeft){
              console.log("I midd ")
-                timeleft = 0;
+                console.log(daysHours)
                 daysArray = daysHours;
+                timeleft = 0;
             }
-            else {
-              console.log("i bot")
-                this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
-            }
+            // else {
+            //   console.log("i bot")
+            //     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
+            // }
 
-            for(let index in daysArray){
-                let time  = this.calcTimesOftheDay(startTime, daysArray[index])
-                if( index < 1){
-                    time  = this.calcTimesOftheDay(lastHour, daysArray[index])
-                }
-                if(0 < daysArray[index]){
-                    let curDay =  parseInt(dayOfTY)+parseInt(index)
-                    newDay = {
-                        day:curDay,
-                        hours:daysArray[index],
-                        times:time
+            if(daysArray.length > 0){
+                for(let index in daysArray){
+                    let time  = this.calcTimesOftheDay(startTime, daysArray[index])
+                    if( index < 1){
+                        time  = this.calcTimesOftheDay(lastHour, daysArray[index])
                     }
-                    occArr.push(newDay)
+                    if(0 < daysArray[index]){
+                        let curDay =  parseInt(dayOfTY)+parseInt(index)
+                        newDay = {
+                            day:curDay,
+                            hours:daysArray[index],
+                            times:time
+                        }
+                        occArr.push(newDay)
+                    }
                 }
             }
 
-            if(timeLeft > 0){
+            if(timeleft > 0){
                 console.log("rework")
                 console.log(timeleft)
                 this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
