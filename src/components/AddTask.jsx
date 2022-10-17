@@ -41,7 +41,6 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
           d = capacityManage.algCheckPossible(proto,deadline);
         }
         let e = proto.occupy.at(-1)
-        console.log(e.day)
         let finalDate = moment().dayOfYear(e.day+1);
 
         finalDate = finalDate.format("YYYY-MM-DD");

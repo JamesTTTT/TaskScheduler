@@ -30,10 +30,8 @@ const timeline = {
         //shows how much  task missed the deadline
         let deadlineDate = moment(deadline);
         let finalMoment = workHours.occupy.at(-1);
-        console.log(finalMoment);
         let finalDate = moment().dayOfYear(finalMoment.day);
         let days = finalDate.diff(deadlineDate, 'days');
-        console.log(days)
         let finalHours=finalMoment.times[0];
 
         return days*960+finalHours*40
