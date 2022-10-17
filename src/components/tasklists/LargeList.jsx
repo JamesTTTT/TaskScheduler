@@ -5,7 +5,7 @@ import colorManage from '../../manage/colormanager'
 import timeline from '../../manage/timeline'
 
 
-const LargeList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhrase}) => {
+const LargeList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhrase, handleArch}) => {
 
     const archiveBtn = (status) =>{
         let comp = true;
@@ -81,7 +81,7 @@ const LargeList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhr
                                           <AiOutlineCheck/>
                                     </button>
                                 :   <button
-                                    onClick={()=>handleDone(item.id)}
+                                    onClick={()=>handleArch(item,item.id)}
                                     className='text-2xl p-2 bg-slate-500 rounded-3xl text-white
                                     hover:bg-slate-700 transition-colors mx-1'>
                                         <BiArchiveIn/>
@@ -109,7 +109,16 @@ const LargeList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhr
                 )
             })
         }
-    }
+        else {
+            return(
+              <div>
+                <p>
+                  EMPTY
+                </p>
+              </div>
+            )
+          }
+        }
   return (
         <div className='flex flex-row justify-center flex-wrap'>
             {tasks()}

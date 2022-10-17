@@ -1,6 +1,7 @@
 import React from 'react'
 import {BsList} from 'react-icons/bs'
 import {FaBoxes} from 'react-icons/fa'
+import {BiArchiveIn} from 'react-icons/bi'
 import JumpToTimelineBtn from '../timeline/JumpToTimelineBtn';
 
 const SelectView = ({updateView, timelineComp, handleSort}) => {
@@ -19,12 +20,25 @@ const SelectView = ({updateView, timelineComp, handleSort}) => {
                 name="select"
                 className='peer hidden'
                 id="select-radio-1"
-                onChange={()=>{updateView(true)}}
+                onChange={()=>{updateView("Large")}}
               />
               <label
                 for="select-radio-1"
-                className='p-2 text-2xl peer-checked:text-blue-400'>
+                className='p-2.5 text-2xl peer-checked:text-blue-400'>
                 <FaBoxes/>
+              </label>
+            </div>
+            <div className='px-1 flex flex-row bg-slate-700'> 
+              <input
+                type="radio" 
+                name="select" 
+                className='peer hidden'
+                id="select-radio-2"
+                onChange={()=>{updateView("Condensed")}}/>
+              <label 
+                for="select-radio-2"
+                className='p-2 text-4xl peer-checked:text-blue-400'>
+                  <BsList/>
               </label>
             </div>
             <div className='px-1 flex flex-row bg-slate-700 rounded-r-xl'> 
@@ -32,12 +46,12 @@ const SelectView = ({updateView, timelineComp, handleSort}) => {
                 type="radio" 
                 name="select" 
                 className='peer hidden'
-                id="select-radio-2"
-                onChange={()=>{updateView(false)}}/>
+                id="select-radio-3"
+                onChange={()=>{updateView("Archived")}}/>
               <label 
-                for="select-radio-2"
-                className='p-2 text-4xl peer-checked:text-blue-400'>
-                  <BsList/>
+                for="select-radio-3"
+                className='p-3 text-3xl peer-checked:text-blue-400'>
+                  <BiArchiveIn/>
               </label>
             </div>
             </div>

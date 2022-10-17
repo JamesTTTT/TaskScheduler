@@ -9,6 +9,7 @@ import { AddTask, Header, Footer, TaskList, Settings, Timeline} from './componen
 function App() {
 
   const [loadedTasks, setLoadedTasks] = useState([]);
+  const [archived, setArchived] = useState([]);
   const [capacity, setCapacity] = useState(8);
   const [workHours, setWorkHours] = useState(["7","16"]);
   const [ocpHours, setOcpHours] = useState([{}]);
@@ -23,6 +24,7 @@ function App() {
     //Get data
     let tasks = taskManage.getTasks()
     let cap = capacityManage.getWorkHours()
+    let archived = taskManage.getArchived()
 
     // Check data
     if (cap === [null,null]){
@@ -33,10 +35,16 @@ function App() {
       taskManage.saveTasks([])
     }
 
+    if(archived === null){
+      taskManage.saveArchived([])
+    }
+
     // Set data
-    updateCapacity(cap[0],cap[1])
-    setWorkHours(cap)
-    setLoadedTasks(tasks)
+    updateCapacity(cap[0],cap[1]);
+    setWorkHours(cap);
+    setLoadedTasks(tasks);
+    setArchived(archived);
+
     }, [])
 
 
@@ -59,6 +67,11 @@ function App() {
   const updateTask = (newTasks) => {
     setLoadedTasks(newTasks)
     taskManage.saveTasks(newTasks)
+  }
+
+  const updateArchived = (arch) => {
+    setArchived(arch);
+    taskManage.saveArchived(arch)
   }
 
   const updateCapacity = (start, end) => {
@@ -90,6 +103,8 @@ function App() {
           <TaskList 
             loadedTasks={loadedTasks}
             updateTask={updateTask}
+            updateArchived={updateArchived}
+            archived={archived}
           />
         </div>
         <div className='absolute right-0'>

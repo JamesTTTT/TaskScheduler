@@ -71,9 +71,9 @@ const occupiedHrs = {
         //console.log(e)
             //const result = ocpTimes[index].occupy.find(({ day }) => day === dayOfTY);
         const result = e.at(-1);
-        console.log(timeLeft+ "o")
-        console.log(duration +":")
-        console.log(result)
+       // console.log(timeLeft+ "o")
+       // console.log(duration +":")
+       // console.log(result)
         if(result){
             let lastHour = result.times.at(-1)+1;
             //How much time is left between the last task and the finish time
@@ -82,17 +82,17 @@ const occupiedHrs = {
            // console.log(timeLeft)
             let remainingHrs = timeLeft;
             if(0 < hoursLeft && hoursLeft <= timeLeft){
-               console.log("I topped ")
+               //console.log("I topped ")
                 remainingHrs = hoursLeft
                 timeleft = timeLeft - remainingHrs;
-                console.log("time left"+timeleft);
+               // console.log("time left"+timeleft);
                 daysArray.push(remainingHrs);
                 // daysArray = timeline.workDays(cap,timeleft)
                 // daysArray.unshift(remainingHrs);
             }
             else if(0 < hoursLeft && hoursLeft >= timeLeft){
-             console.log("I midd ")
-                console.log(daysHours)
+            // console.log("I midd ")
+            //    console.log(daysHours)
                 daysArray = daysHours;
                 timeleft = 0;
             }
@@ -120,14 +120,14 @@ const occupiedHrs = {
             }
 
             if(timeleft > 0){
-                console.log("rework")
-                console.log(timeleft)
+                //console.log("rework")
+                //console.log(timeleft)
                 this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
             }
 
         } 
         else {
-            console.log("i quit")
+            //console.log("i quit")
             //let time = this.calcTimesOftheDay(startTime, daysHours[i])
             daysArray = timeline.workDays(cap,timeLeft)
 
@@ -185,10 +185,10 @@ const occupiedHrs = {
                 title: tasks[index].title,
                 occupy: occArr
             }
-            console.log(tasks[index].title)
+            //console.log(tasks[index].title)
             ocpTimes.push(newTaskTimes)
         }
-        console.log(ocpTimes)
+        //console.log(ocpTimes)
         return ocpTimes
 
     },

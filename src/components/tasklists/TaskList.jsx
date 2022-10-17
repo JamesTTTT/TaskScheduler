@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
-import moment from 'moment/moment'
+import ArchivedList from './ArchivedList'
 import TaskForm from '../TaskForm'
 import Search from '../Search'
 import LargeList from './LargeList'
@@ -9,7 +9,7 @@ import SelectView from './SelectView'
 import taskManage from '../../manage/taskmanager'
 
 
-const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArray}) => {
+const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArray, updateArchived, archived}) => {
     
     const [showForm, setShowForm] = useState(false)
 
@@ -63,6 +63,21 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
         //oldDetails(id)
     }
 
+    const handleArch = (task, id) => {
+
+        let allArch = [];
+        console.log()
+        if(archived){
+            allArch = [...archived, task]
+        } else {
+            allArch= [task]
+        }
+
+        updateArchived(allArch);
+        handleDelete(id);
+        
+    }
+
     const handleUpdateTaskList = () =>{
         let updatedTaskList = newDetails(selectedTaskID)
         
@@ -82,6 +97,41 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
         updateTask(updatedTaskList)
     }
 
+    const view = () =>{
+        if(isLargeList === "Large"){
+            return(
+                <LargeList
+                loadedTasks={sortedArray}
+                handleDelete={handleDelete}
+                handleDone={handleDone}
+                handleEdit={handleEdit}
+                searchPhrase={searchPhrase}
+                handleArch={handleArch}
+            />
+            )
+        }
+        else if(isLargeList === "Condensed"){
+            return(
+                <CondensedList              
+                loadedTasks={sortedArray}
+                handleDelete={handleDelete}
+                handleDone={handleDone}
+                handleEdit={handleEdit}
+                searchPhrase={searchPhrase}
+                handleArch={handleArch}
+            />
+            )
+        }
+        else if (isLargeList == "Archived"){
+            return(
+                <ArchivedList 
+                archived={archived}
+                />
+            )
+
+        }
+    }
+
   return (
     <>
         {showForm ? (
@@ -99,27 +149,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
             </div>
         ) : 
         <div>
-            {isLargeList
-            ?(            
-            <LargeList
-                loadedTasks={sortedArray}
-                handleDelete={handleDelete}
-                handleDone={handleDone}
-                handleEdit={handleEdit}
-                searchPhrase={searchPhrase}
-            />)
-            :
-            <CondensedList              
-                loadedTasks={sortedArray}
-                handleDelete={handleDelete}
-                handleDone={handleDone}
-                handleEdit={handleEdit}
-                searchPhrase={searchPhrase}
-            />
-
-            }
-
-
+            {view()}
         </div>
         }
     </>
@@ -127,18 +157,18 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
 }
 
 
-const FilteredList = ({loadedTasks, updateTask}) =>{
+const FilteredList = ({loadedTasks, updateTask, updateArchived, archived}) =>{
     const [sortedArray, setSortedArray] = useState([])
     const [searchPhrase, setSearchPhrase] = useState("")
-    const [isLargeList, setIsLargeList] = useState(true)
+    const [isLargeList, setIsLargeList] = useState("Large")
     
     useEffect(() => {
         setSortedArray(loadedTasks)
     }, [loadedTasks])
     
 
-    const updateView = (bool) =>{
-        setIsLargeList(bool)
+    const updateView = (state) =>{
+        setIsLargeList(state)
     }
 
     const handleSort = (arg) =>{
@@ -167,6 +197,8 @@ const FilteredList = ({loadedTasks, updateTask}) =>{
                 searchPhrase={searchPhrase}
                 isLargeList={isLargeList}
                 sortedArray={sortedArray}
+                updateArchived={updateArchived}
+                archived={archived}
             />
         </div>
     </div>

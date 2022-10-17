@@ -9,6 +9,15 @@ const taskManage = {
         return JSON.parse(retrievedTask)
     },
 
+    saveArchived: function saveArchived(tasks){
+        localStorage.setItem("Archivedtasks", JSON.stringify(tasks))
+    },
+
+    getArchived: function getTasks() {
+        let retrievedTask = localStorage.getItem("Archivedtasks")
+        return JSON.parse(retrievedTask)
+    },
+
     sortTasks: function sortTasks(arg, loadedTasks){
         let data;
         switch(arg){

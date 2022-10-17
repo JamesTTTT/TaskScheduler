@@ -4,7 +4,7 @@ import {BiArchiveIn} from 'react-icons/bi'
 import colorManage from '../../manage/colormanager'
 import timeline from '../../manage/timeline'
 
-const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhrase}) => {
+const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searchPhrase,handleArch}) => {
     const archiveBtn = (status) =>{
         let comp = true;
         if (status === "Complete"){
@@ -85,7 +85,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
                                           <AiOutlineCheck/>
                                     </button>
                                 :   <button
-                                    onClick={()=>handleDone(item.id)}
+                                    onClick={()=>handleArch(item, item.id)}
                                     className='text-2xl p-2 text-slate-500 rounded-3xl font-bold
                                     hover:text-slate-700 transition-colors mx-1'>
                                         <BiArchiveIn/>
