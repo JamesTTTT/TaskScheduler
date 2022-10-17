@@ -73,7 +73,7 @@ const occupiedHrs = {
         const result = e.at(-1);
        // console.log(timeLeft+ "o")
        // console.log(duration +":")
-       // console.log(result)
+        console.log(result)
         if(result){
             let lastHour = result.times.at(-1)+1;
             //How much time is left between the last task and the finish time
@@ -82,16 +82,16 @@ const occupiedHrs = {
            // console.log(timeLeft)
             let remainingHrs = timeLeft;
             if(0 < hoursLeft && hoursLeft <= timeLeft){
-               //console.log("I topped ")
+               console.log("I topped ")
                 remainingHrs = hoursLeft
                 timeleft = timeLeft - remainingHrs;
-               // console.log("time left"+timeleft);
+                console.log(timeleft)
                 daysArray.push(remainingHrs);
                 // daysArray = timeline.workDays(cap,timeleft)
                 // daysArray.unshift(remainingHrs);
             }
             else if(0 < hoursLeft && hoursLeft >= timeLeft){
-            // console.log("I midd ")
+            console.log("I midd ")
             //    console.log(daysHours)
                 daysArray = daysHours;
                 timeleft = 0;
@@ -120,34 +120,32 @@ const occupiedHrs = {
             }
 
             if(timeleft > 0){
-                //console.log("rework")
+                console.log("rework")
                 //console.log(timeleft)
                 this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
             }
 
         } 
         else {
-            //console.log("i quit")
+            console.log("i quit")
             //let time = this.calcTimesOftheDay(startTime, daysHours[i])
             daysArray = timeline.workDays(cap,timeLeft)
 
-            for (let i in daysArray){
-                let days = parseInt(dayOfTY) + parseInt(i);
-                let time = this.calcTimesOftheDay(startTime, daysArray[i])
+                let days = parseInt(dayOfTY) //+ parseInt(i);
+                let time = this.calcTimesOftheDay(startTime, daysArray[0])
                // console.log(daysArray)
                 newDay ={
                     day:days,
-                    hours:daysArray[i],
+                    hours:daysArray[0],
                     times:time
                 }
                 occArr.push(newDay)
-                let e = this.findAllTaskWithDay(dayOfTY+1, ocpTimes)
-                let result = e.at(-1);
-                if(result){
-                    timeleft = timeLeft - daysArray[0];
+                timeleft -= daysArray[0];
+                if(timeleft > 0){
+                    console.log("im in")
+                    console.log(timeleft)
                     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
                 }
-            }
             // if(idx <= daysArray.length){
             //     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, idx+1)
             // }
@@ -174,6 +172,7 @@ const occupiedHrs = {
             //Get finished data
             let dayOfTheYear = timeline.startDateToDay(taskStart)
             // Get first availible days
+            console.log(tasks[index].title)
             if(0 < index){
                 occArr = this.nextAvailbleTime(dayOfTheYear,ocpTimes,cap, duration, daysHours, startTime, finishTime, [],tasks[index].duration )
             } else {
@@ -188,7 +187,7 @@ const occupiedHrs = {
             //console.log(tasks[index].title)
             ocpTimes.push(newTaskTimes)
         }
-        //console.log(ocpTimes)
+        console.log(ocpTimes)
         return ocpTimes
 
     },

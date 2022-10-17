@@ -4,7 +4,7 @@ import { AiOutlineDelete } from 'react-icons/ai'
 const ArchivedList = ({archived}) => {
 
   const archivedList = () =>{
-    console.log(archived)
+    //console.log(archived)
     if(archived){
       return archived.map((item, index) => {
         return(
