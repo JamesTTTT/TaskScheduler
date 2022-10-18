@@ -96,7 +96,7 @@ function App() {
       </div>
       <div className='mb-auto flex flex-col justify-center md:flex-row w-full'>
         <div>
-          <div className='absolute left-0'>
+          <div>
             <AddTask 
               loadedTasks={loadedTasks} 
               updateTask={updateTask} 
@@ -109,7 +109,7 @@ function App() {
             />
           </div>
         </div>
-        <div className='w-4/5 mb-5'>
+        <div className='mb-1 w-11/12'>
           <TaskList 
             loadedTasks={loadedTasks}
             updateTask={updateTask}

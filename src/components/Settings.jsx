@@ -2,6 +2,7 @@ import React from 'react'
 import {FiSettings} from 'react-icons/fi'
 import {AiOutlineClose} from 'react-icons/ai'
 import { useState, useEffect } from 'react'
+import Draggable from 'react-draggable';
 
 
 const Settings = ({workHours, capacity,updateCapacity}) => {
@@ -40,7 +41,7 @@ const Settings = ({workHours, capacity,updateCapacity}) => {
                   <AiOutlineClose/>
                 </button>
             </div>
-
+            <Draggable>
             <div className='flex flex-col p-3 bg-slate-100 shadow-xl rounded-xl h-fit'>
                 <div className='flex flex-row'>
                 <div className='pr-2'>
@@ -123,7 +124,8 @@ const Settings = ({workHours, capacity,updateCapacity}) => {
                             hours a day</p>
                     </div>
             </div>
-
+            </Draggable>
+            
         </div>) : 
         <div className='p-4'>
             <button

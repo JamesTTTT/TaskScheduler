@@ -5,6 +5,7 @@ import { useState,useEffect } from 'react'
 import timeline from '../manage/timeline'
 import capacityManage from '../manage/capacitymanager'
 import TaskForm from './TaskForm'
+import Draggable from 'react-draggable';
 import moment from 'moment/moment'
 
 const AddTask = ({
@@ -110,11 +111,16 @@ const AddTask = ({
     updateTask(allTasks)
     setShowForm(false)
   }
-  
+
   return (
       <>
       {showForm ? (
-        <div>
+        <Draggable>
+        <div 
+        className='absolute z-50'
+        id='form'
+        >
+        
         <TaskForm
           displayForm={displayForm}
           handleSave={handleSave}
@@ -129,17 +135,12 @@ const AddTask = ({
           expectedFin={expectedFin}
         />
         </div>
+        </Draggable>
 
     ) : 
     
     <div className='p-4'>
-        {/* <button
-          onClick={displayForm}
-          className='flex overflow-hidden text-white font-bold bg-blue-500 p-2 rounded
-          whitespace-nowrap transition ease-in-out delay-50 hover:bg-indigo-500'>
-          <span className='inline-flex'>Add New Task</span>
-          <span className='inline-flex text-xl mx-1'><BiAddToQueue/></span>
-        </button> */}
+
     </div>
 }
   </>
