@@ -141,24 +141,23 @@ const TaskList = ({
                     handleArch={handleArch}
                 />
                 )
-                case 'Archived':
-                    return(
-                        <ArchivedList 
-                        archived={archived}
-                        />
-                    )
-                case 'Timeline':
-                    return(
-                        
-                        <Timeline 
-                          workHours={workHours} 
-                          loadedTasks={loadedTasks} 
-                          capacity={capacity}
-                          ocpHours={ocpHours}
-                          isOptimized = {isOptimized}
-                          setIsOptimized = {setIsOptimized}
-                        />
-                    )
+            case 'Archived':
+                return(
+                    <ArchivedList 
+                    archived={archived}
+                    />
+                )
+            case 'Timeline':
+                return(
+                    <Timeline 
+                      workHours={workHours} 
+                      loadedTasks={loadedTasks} 
+                      capacity={capacity}
+                      ocpHours={ocpHours}
+                      isOptimized = {isOptimized}
+                      setIsOptimized = {setIsOptimized}
+                />
+                )
             }
         // case: "Large"{
         //     return(
@@ -235,6 +234,7 @@ const FilteredList = ({
     ocpHours,
     isOptimized,
     setIsOptimized,
+    displayForm
 
     }) =>{
     const [sortedArray, setSortedArray] = useState([])
@@ -266,6 +266,7 @@ const FilteredList = ({
         <div>
             <SelectView
                 updateView={updateView}
+                displayForm={displayForm}
                 handleSort={handleSort}
             />
         </div>

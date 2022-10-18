@@ -4,7 +4,7 @@ import capacityManage from './manage/capacitymanager';
 import occupiedHrs from './manage/occupiedhours';
 import { useState, useEffect, useRef } from 'react';
 
-import { AddTask, Header, Footer, TaskList, Settings, Timeline} from './components';
+import { AddTask, Header, Footer, TaskList, Settings} from './components';
 
 function App() {
 
@@ -14,7 +14,7 @@ function App() {
   const [workHours, setWorkHours] = useState(["7","16"]);
   const [ocpHours, setOcpHours] = useState([{}]);
   const [isOptimized, setIsOptimized] = useState(true);
-
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     document.title = 'My Task Scheduler';
@@ -63,6 +63,13 @@ function App() {
 
   }, [loadedTasks, capacity, isOptimized])
   
+  const displayForm = () =>{
+    if (showForm) {
+      setShowForm(false)
+    } else {
+      setShowForm(true)
+    }
+  }
 
   const updateTask = (newTasks) => {
     setLoadedTasks(newTasks)
@@ -88,18 +95,21 @@ function App() {
 
       </div>
       <div className='mb-auto flex flex-col justify-center md:flex-row w-full'>
-        <div style={{height:"700px"}}>
+        <div>
           <div className='absolute left-0'>
             <AddTask 
               loadedTasks={loadedTasks} 
               updateTask={updateTask} 
               capacity={capacity}
-              ocpHours={ocpHours}
+              //ocpHours={ocpHours}
               workHours={workHours}
+              showForm={showForm}
+              setShowForm={setShowForm}
+              displayForm={displayForm}
             />
           </div>
         </div>
-        <div className='w-3/5 mb-20'>
+        <div className='w-4/5 mb-5'>
           <TaskList 
             loadedTasks={loadedTasks}
             updateTask={updateTask}
@@ -110,6 +120,7 @@ function App() {
             ocpHours={ocpHours}
             isOptimized = {isOptimized}
             setIsOptimized = {setIsOptimized}
+            displayForm={displayForm}
           />
         </div>
         <div className='absolute right-0'>
@@ -133,7 +144,7 @@ function App() {
         />
       </div> */}
 
-      
+
       <div>
         <Footer loadedTasks={loadedTasks}/>
 

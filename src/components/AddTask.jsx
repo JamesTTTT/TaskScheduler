@@ -7,9 +7,17 @@ import capacityManage from '../manage/capacitymanager'
 import TaskForm from './TaskForm'
 import moment from 'moment/moment'
 
-const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
+const AddTask = ({
+  loadedTasks, 
+  updateTask, 
+  capacity, 
+  workHours, 
+  setShowForm, 
+  showForm,
+  displayForm
 
-  const [showForm, setShowForm] = useState(false);
+}) => {
+
   const [deadline, setDeadline] = useState("");
   const [startDate, setStartDate] = useState("");
   const [taskCategory, setTaskCategory] = useState("Simple");
@@ -18,7 +26,8 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
   const [taskDurartion, setTaskDuration] = useState(0);
   const [taskStatus, setTaskStatus] = useState("In-Progress");
   const [isDisabled, setIsDisabled] = useState(false);
-  const [expectedFin, setExpectedFin] = useState(0)
+  const [expectedFin, setExpectedFin] = useState(0);
+  //const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     //console.log(capacity)
@@ -53,13 +62,13 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
 
   }, [taskDurartion,startDate,deadline,capacity])
     
-  const displayForm = () =>{
-    if (showForm) {
-      setShowForm(false)
-    } else {
-      setShowForm(true)
-    }
-  }
+  // const displayForm = () =>{
+  //   if (showForm) {
+  //     setShowForm(false)
+  //   } else {
+  //     setShowForm(true)
+  //   }
+  // }
 
   const setDefValues = () =>{
     setTaskTitle("");
@@ -124,13 +133,13 @@ const AddTask = ({loadedTasks, updateTask, capacity,ocpHours, workHours}) => {
     ) : 
     
     <div className='p-4'>
-        <button
+        {/* <button
           onClick={displayForm}
           className='flex overflow-hidden text-white font-bold bg-blue-500 p-2 rounded
           whitespace-nowrap transition ease-in-out delay-50 hover:bg-indigo-500'>
           <span className='inline-flex'>Add New Task</span>
           <span className='inline-flex text-xl mx-1'><BiAddToQueue/></span>
-        </button>
+        </button> */}
     </div>
 }
   </>
