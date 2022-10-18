@@ -38,15 +38,16 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
     }
 
     return (
-      <div id="timelineID">
+      <div 
+        id="timelineID">
         <div
           className='bg-slate-700 text-lg flex
-          text-white font-light justify-between w-full'
+          text-white font-light justify-between w-full rounded-t-xl'
           >
             <div 
               data-tip 
               data-for='optimize'
-              className='pt-1 pl-3'>
+              className='pt-1 pl-3 '>
               <label for="checked-toggle" className="inline-flex relative items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -55,7 +56,6 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
                   checked={isOptimized}
                   onChange={(e)=>{
                     setIsOptimized(e.target.checked)
-                    console.log()
                   }}
                 />
                 <div className="w-11 h-6 bg-gray-200 rounded-full peer
@@ -68,7 +68,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
               </label>
             </div>
             
-            <div className='w-full flex justify-end p-1'>
+            <div className='w-full flex justify-end p-1 '>
                 <button
                   onClick={()=>{lastYear()}}
                 >
@@ -88,7 +88,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
                 </button>
               </div>
 
-            <div className='flex w-full justify-end'>
+            <div className='flex w-full justify-end rounded-t-xl'>
               <div className='px-3 flex flex-row bg-slate-600 pt-1 rounded-l-md'>
               <input
                   type="radio" 
@@ -104,7 +104,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
                   Daily
                 </label>
               </div>
-              <div className='px-3 flex flex-row bg-slate-600 pt-1'>
+              <div className='px-3 flex flex-row bg-slate-600 pt-1 rounded-t-xl'>
                 <input
                     type="radio" 
                     name="timeline" 

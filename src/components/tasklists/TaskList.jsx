@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import ArchivedList from './ArchivedList'
-// import TaskForm from '../TaskForm'
+import Timeline from '../timeline/Timeline'
 import EditForm from './EditForm'
 import Search from '../Search'
 import LargeList from './LargeList'
@@ -10,7 +10,20 @@ import SelectView from './SelectView'
 import taskManage from '../../manage/taskmanager'
 
 
-const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArray, updateArchived, archived}) => {
+const TaskList = ({
+    loadedTasks, 
+    updateTask, 
+    searchPhrase, 
+    isLargeList, 
+    sortedArray, 
+    updateArchived, 
+    archived,
+    workHours,
+    capacity,
+    ocpHours,
+    isOptimized,
+    setIsOptimized,
+}) => {
     
     const [showForm, setShowForm] = useState(false)
 
@@ -105,38 +118,80 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
     }
 
     const view = () =>{
-        if(isLargeList === "Large"){
-            return(
-                <LargeList
-                loadedTasks={sortedArray}
-                handleDelete={handleDelete}
-                handleDone={handleDone}
-                handleEdit={handleEdit}
-                searchPhrase={searchPhrase}
-                handleArch={handleArch}
-            />
-            )
-        }
-        else if(isLargeList === "Condensed"){
-            return(
-                <CondensedList              
-                loadedTasks={sortedArray}
-                handleDelete={handleDelete}
-                handleDone={handleDone}
-                handleEdit={handleEdit}
-                searchPhrase={searchPhrase}
-                handleArch={handleArch}
-            />
-            )
-        }
-        else if (isLargeList == "Archived"){
-            return(
-                <ArchivedList 
-                archived={archived}
+        switch(isLargeList){
+            case 'Large':
+                return(
+                    <LargeList
+                    loadedTasks={sortedArray}
+                    handleDelete={handleDelete}
+                    handleDone={handleDone}
+                    handleEdit={handleEdit}
+                    searchPhrase={searchPhrase}
+                    handleArch={handleArch}
                 />
-            )
+                )
+            case 'Condensed':
+                return(
+                    <CondensedList              
+                    loadedTasks={sortedArray}
+                    handleDelete={handleDelete}
+                    handleDone={handleDone}
+                    handleEdit={handleEdit}
+                    searchPhrase={searchPhrase}
+                    handleArch={handleArch}
+                />
+                )
+                case 'Archived':
+                    return(
+                        <ArchivedList 
+                        archived={archived}
+                        />
+                    )
+                case 'Timeline':
+                    return(
+                        
+                        <Timeline 
+                          workHours={workHours} 
+                          loadedTasks={loadedTasks} 
+                          capacity={capacity}
+                          ocpHours={ocpHours}
+                          isOptimized = {isOptimized}
+                          setIsOptimized = {setIsOptimized}
+                        />
+                    )
+            }
+        // case: "Large"{
+        //     return(
+        //         <LargeList
+        //         loadedTasks={sortedArray}
+        //         handleDelete={handleDelete}
+        //         handleDone={handleDone}
+        //         handleEdit={handleEdit}
+        //         searchPhrase={searchPhrase}
+        //         handleArch={handleArch}
+        //     />
+        //     )
+        // }
+        // else if(isLargeList === "Condensed"){
+        //     return(
+        //         <CondensedList              
+        //         loadedTasks={sortedArray}
+        //         handleDelete={handleDelete}
+        //         handleDone={handleDone}
+        //         handleEdit={handleEdit}
+        //         searchPhrase={searchPhrase}
+        //         handleArch={handleArch}
+        //     />
+        //     )
+        // }
+        // else if (isLargeList == "Archived"){
+        //     return(
+        //         <ArchivedList 
+        //         archived={archived}
+        //         />
+        //     )
 
-        }
+        // }
     }
 
   return (
@@ -170,7 +225,18 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
 }
 
 
-const FilteredList = ({loadedTasks, updateTask, updateArchived, archived}) =>{
+const FilteredList = ({
+    loadedTasks,
+    updateTask, 
+    updateArchived,
+    archived,
+    workHours,
+    capacity,
+    ocpHours,
+    isOptimized,
+    setIsOptimized,
+
+    }) =>{
     const [sortedArray, setSortedArray] = useState([])
     const [searchPhrase, setSearchPhrase] = useState("")
     const [isLargeList, setIsLargeList] = useState("Large")
@@ -212,6 +278,11 @@ const FilteredList = ({loadedTasks, updateTask, updateArchived, archived}) =>{
                 sortedArray={sortedArray}
                 updateArchived={updateArchived}
                 archived={archived}
+                workHours={workHours} 
+                capacity={capacity}
+                ocpHours={ocpHours}
+                isOptimized = {isOptimized}
+                setIsOptimized = {setIsOptimized}
             />
         </div>
     </div>

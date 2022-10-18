@@ -105,6 +105,11 @@ function App() {
             updateTask={updateTask}
             updateArchived={updateArchived}
             archived={archived}
+            workHours={workHours} 
+            capacity={capacity}
+            ocpHours={ocpHours}
+            isOptimized = {isOptimized}
+            setIsOptimized = {setIsOptimized}
           />
         </div>
         <div className='absolute right-0'>
@@ -117,7 +122,7 @@ function App() {
           
       </div>
 
-      <div>
+      {/* <div>
         <Timeline 
           workHours={workHours} 
           loadedTasks={loadedTasks} 
@@ -126,7 +131,9 @@ function App() {
           isOptimized = {isOptimized}
           setIsOptimized = {setIsOptimized}
         />
-      </div>
+      </div> */}
+
+      
       <div>
         <Footer loadedTasks={loadedTasks}/>
 
