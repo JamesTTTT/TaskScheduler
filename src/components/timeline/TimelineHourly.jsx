@@ -101,7 +101,7 @@ const TimelineHeader = ({renderYear}) => {
  )
 }
 
-const TaskList = ({loadedTasks, capacity, ocpHours, renderYear}) => {
+const TaskList = ({loadedTasks, capacity, ocpHours, renderYear, searchPhrase}) => {
   const splitDate = (date) => {
     return date.split('-')
   }
@@ -129,8 +129,15 @@ const TaskList = ({loadedTasks, capacity, ocpHours, renderYear}) => {
             if(dateArr[0] === year){
               return task
             }
-        })
-        .map((task, index) =>{
+        })      
+        .filter(item => {
+          if (searchPhrase === ''){
+              return item
+        } else if(item.title.toLowerCase().includes(searchPhrase.toLowerCase())) {
+                return item
+        }
+          return
+        }).map((task, index) =>{
           const taskTimeData = ocpHours.find((t) => t.id === task.id);
           let taskPsbl = false;
           if(taskTimeData){
@@ -166,7 +173,7 @@ const TaskList = ({loadedTasks, capacity, ocpHours, renderYear}) => {
   )
 }
 
-const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) => {
+const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,searchPhrase}) => {
 
   const splitDate = (date) => {
     return date.split('-')
@@ -182,7 +189,14 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
             return task
           }
       })
-      .map((task, index) =>{
+      .filter(item => {
+      if (searchPhrase === ''){
+            return item
+      } else if(item.title.toLowerCase().includes(searchPhrase.toLowerCase())) {
+              return item
+      }
+        return
+      }).map((task, index) =>{
         const taskTimeData = ocpHours.find((t) => t.id === task.id);
         
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
@@ -320,7 +334,7 @@ const CurrentMonth = () =>{
   )
 }
 
-const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear}) => {
+const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear,searchPhrase}) => {
     
   return (
     <div>
@@ -352,6 +366,7 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear}
             workHours={workHours}
             ocpHours= {ocpHours}
             renderYear={renderYear}
+            searchPhrase={searchPhrase}
           />
 
       </div>
@@ -366,6 +381,7 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear}
             capacity={capacity} 
             ocpHours={ocpHours}
             renderYear={renderYear}
+            searchPhrase={searchPhrase}
             />
       </div>
     </div>

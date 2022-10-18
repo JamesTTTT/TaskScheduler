@@ -19,7 +19,7 @@ const TaskForm = ({ displayForm,
           <form
           id='newTask'
           onSubmit={handleSave}
-          className='bg-slate-200 flex flex-col w-80 items-center rounded-md p-4 shadow-xl'>
+          className='bg-slate-300 flex flex-col w-80 items-center rounded-md p-4 shadow-2xl'>
 
             <div className='flex flex-row-reverse justify-between w-full'>
               <button

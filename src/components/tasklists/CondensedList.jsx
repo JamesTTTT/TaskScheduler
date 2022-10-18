@@ -99,6 +99,10 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
         }
     }
   return (
+    <>    
+    <div>
+        <h1 className='text-center text-3xl p-2'>Active Task List</h1>
+    </div>
     <table className="w-full text-sm text-center text-gray-800 ">
     <thead className="text-xs uppercase bg-slate-700 text-gray-200 p-1">
       <tr>
@@ -116,6 +120,7 @@ const CondensedList = ({loadedTasks, handleDelete, handleDone, handleEdit, searc
         {tasks()}
     </tbody>
     </table>
+    </>
   )
 }
 

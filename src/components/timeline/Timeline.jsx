@@ -5,7 +5,7 @@ import TimelineHourly from './TimelineHourly';
 import {BiRightArrow, BiLeftArrow} from 'react-icons/bi'
 import ReactTooltip from 'react-tooltip';
 
-const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setIsOptimized}) => {
+const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setIsOptimized, searchPhrase}) => {
 
     const [isHourly, setIsHourly] = useState(false)
     const [renderYear, setRenderYear] = useState(0)
@@ -38,6 +38,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
     }
 
     return (
+      <>
       <div 
         id="timelineID">
         <div
@@ -136,6 +137,7 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
               workHours={workHours}
               ocpHours={ocpHours}
               renderYear={renderYear}
+              searchPhrase={searchPhrase}
             />
           </div>
         )
@@ -146,11 +148,18 @@ const Timeline = ({workHours, loadedTasks, capacity, ocpHours, isOptimized, setI
               capacity={capacity}
               ocpHours={ocpHours}
               renderYear={renderYear}
+              searchPhrase={searchPhrase}
               />
           </div>
         )
         }
       </div>
+      <div
+          className='bg-slate-700 w-full rounded-b-xl h-8 py-2 mb-2'
+          >
+      <p></p>
+      </div>
+      </>
     )
 }
 

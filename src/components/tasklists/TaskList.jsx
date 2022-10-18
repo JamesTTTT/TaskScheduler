@@ -156,41 +156,10 @@ const TaskList = ({
                       ocpHours={ocpHours}
                       isOptimized = {isOptimized}
                       setIsOptimized = {setIsOptimized}
+                      searchPhrase={searchPhrase}
                 />
                 )
             }
-        // case: "Large"{
-        //     return(
-        //         <LargeList
-        //         loadedTasks={sortedArray}
-        //         handleDelete={handleDelete}
-        //         handleDone={handleDone}
-        //         handleEdit={handleEdit}
-        //         searchPhrase={searchPhrase}
-        //         handleArch={handleArch}
-        //     />
-        //     )
-        // }
-        // else if(isLargeList === "Condensed"){
-        //     return(
-        //         <CondensedList              
-        //         loadedTasks={sortedArray}
-        //         handleDelete={handleDelete}
-        //         handleDone={handleDone}
-        //         handleEdit={handleEdit}
-        //         searchPhrase={searchPhrase}
-        //         handleArch={handleArch}
-        //     />
-        //     )
-        // }
-        // else if (isLargeList == "Archived"){
-        //     return(
-        //         <ArchivedList 
-        //         archived={archived}
-        //         />
-        //     )
-
-        // }
     }
 
   return (

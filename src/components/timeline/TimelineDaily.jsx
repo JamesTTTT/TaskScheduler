@@ -71,7 +71,7 @@ const TimelineHeader = ({renderYear}) => {
    )
 }
 
-const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours}) => {
+const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours,searchPhrase}) => {
   
   const splitDate = (date) => {
     return date.split('-')
@@ -94,6 +94,14 @@ const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours}) => {
            return task
          }
      })
+     .filter(item => {
+      if (searchPhrase === ''){
+          return item
+      } else if(item.title.toLowerCase().includes(searchPhrase.toLowerCase())) {
+              return item
+      }
+          return
+      })
      .map((task, index) =>{
         // Get how many days between two dates
         const taskTimeData = ocpHours.find((t) => t.id === task.id);
@@ -160,7 +168,7 @@ const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours}) => {
 }
 
 
-const TaskList = ({loadedTasks, capacity, ocpHours,renderYear}) => {
+const TaskList = ({loadedTasks, capacity, ocpHours,renderYear,searchPhrase}) => {
  const splitDate = (date) => {
    return date.split('-')
  }
@@ -184,7 +192,14 @@ const TaskList = ({loadedTasks, capacity, ocpHours,renderYear}) => {
              return task
            }
        })
-      .map((task, index) =>{
+      .filter(item => {
+          if (searchPhrase === ''){
+              return item
+      } else if(item.title.toLowerCase().includes(searchPhrase.toLowerCase())) {
+              return item
+      }
+        return
+      }).map((task, index) =>{
         const taskTimeData = ocpHours.find((t) => t.id === task.id);
         let taskPsbl = false;
         if(taskTimeData){
@@ -220,7 +235,7 @@ const TaskList = ({loadedTasks, capacity, ocpHours,renderYear}) => {
  )
 }
 
-const TimelineDaily = ({loadedTasks, capacity, ocpHours, renderYear}) => {
+const TimelineDaily = ({loadedTasks, capacity, ocpHours, renderYear,searchPhrase}) => {
   return (
     <div className='flex flex-row-reverse'>
         <div 
@@ -234,6 +249,7 @@ const TimelineDaily = ({loadedTasks, capacity, ocpHours, renderYear}) => {
               loadedTasks={loadedTasks} 
               capacity={capacity}
               renderYear={renderYear}
+              searchPhrase={searchPhrase}
             />
         </div>
     <div>
@@ -245,6 +261,7 @@ const TimelineDaily = ({loadedTasks, capacity, ocpHours, renderYear}) => {
           capacity={capacity} 
           ocpHours={ocpHours}
           renderYear={renderYear}
+          searchPhrase={searchPhrase}
         />
     </div>
   </div>

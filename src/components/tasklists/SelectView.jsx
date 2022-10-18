@@ -8,7 +8,7 @@ const SelectView = ({updateView, displayForm, handleSort}) => {
   return (
     <div>
         <div 
-          className='p-1 mb-3 flex justify-between align-baseline bg-slate-200 rounded-xl font-light text-white'>
+          className='p-1 mb-4 flex justify-between align-baseline bg-slate-700 rounded-xl font-light text-white'>
               <div className='p-1'>
                   <button
                    onClick={displayForm}
