@@ -1,7 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import ArchivedList from './ArchivedList'
-import TaskForm from '../TaskForm'
+// import TaskForm from '../TaskForm'
+import EditForm from './EditForm'
 import Search from '../Search'
 import LargeList from './LargeList'
 import CondensedList from './CondensedList'
@@ -23,6 +24,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
     const [selectedTaskID, setSelectedTaskId] = useState(0)
 
     const displayForm = () =>{
+
         if (showForm) {
           setShowForm(false)
         } else {
@@ -49,7 +51,6 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
                     startdate: startDate,
                     deadline: deadline,
                     duration: taskDurartion,
-                    status: "edited",
                 }
             }
             return task
@@ -57,16 +58,22 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
         return updatedTaskList
     }
 
-    const handleEdit = (id) => {
+    const handleEdit = (taskid) => {
+        setSelectedTaskId(taskid)
         setShowForm(true)
-        setSelectedTaskId(id)
+        const task = loadedTasks.find(({ id }) => id === taskid);
+        setTaskTitle(task.title);
+        setTaskDescription(task.description);
+        setTaskCategory(task.category);
+        setStartDate(task.startdate);
+        setDeadline(task.deadline);
+        setTaskDuration(task.duration)
         //oldDetails(id)
     }
 
     const handleArch = (task, id) => {
 
         let allArch = [];
-        console.log()
         if(archived){
             allArch = [...archived, task]
         } else {
@@ -136,7 +143,7 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
     <>
         {showForm ? (
             <div>
-            <TaskForm
+            <EditForm
               displayForm={displayForm}
               handleSave={handleUpdateTaskList}
               setDeadline={setDeadline}
@@ -145,6 +152,12 @@ const TaskList = ({loadedTasks, updateTask, searchPhrase, isLargeList, sortedArr
               setTaskTitle={setTaskTitle}
               setTaskDescription={setTaskDescription}
               setTaskDuration={setTaskDuration}
+              taskTitle={taskTitle}
+              taskDescription={taskDescription}
+              taskCategory={taskCategory}
+              startDate={startDate}
+              deadline={deadline}
+              taskDuration={taskDurartion}
             />
             </div>
         ) : 

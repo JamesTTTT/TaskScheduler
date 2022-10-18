@@ -187,11 +187,15 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
         
         let dayCount = timeline.taskLenght(task.startdate, task.deadline);
         let dayStart = timeline.startDateToDay(task.startdate);
-
+        let taskPsbl = false;
+        let algDays = [];
         //let workH = taskTimeData.occupy;
-        
-        let algDays = timeline.algDuration(taskTimeData)
-
+        if(taskTimeData){
+          algDays = timeline.algDuration(taskTimeData)
+        }
+        if(taskTimeData){
+          taskPsbl = capacityManage.algCheckPossible(taskTimeData, task.deadline);
+        }
         return(
           <div 
             key={index} 
@@ -218,7 +222,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear}) =>
                   >
                   <AiFillStop/>
                 </div>
-                {capacityManage.algCheckPossible(taskTimeData, task.deadline)?
+                {taskPsbl?
                   <div
                   className='PatternRed p-2 absolute'
                   style={{

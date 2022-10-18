@@ -81,7 +81,7 @@ const occupiedHrs = {
            // console.log(hoursLeft)
            // console.log(timeLeft)
             let remainingHrs = timeLeft;
-            if(0 < hoursLeft && hoursLeft <= timeLeft){
+            if(0 < hoursLeft && hoursLeft < timeLeft){
                console.log("I topped ")
                 remainingHrs = hoursLeft
                 timeleft = timeLeft - remainingHrs;
@@ -91,9 +91,11 @@ const occupiedHrs = {
                 // daysArray.unshift(remainingHrs);
             }
             else if(0 < hoursLeft && hoursLeft >= timeLeft){
+            console.log(hoursLeft)
+            console.log(timeLeft)
             console.log("I midd ")
             //    console.log(daysHours)
-                daysArray = daysHours;
+                daysArray.push(timeLeft);
                 timeleft = 0;
             }
             // else {
