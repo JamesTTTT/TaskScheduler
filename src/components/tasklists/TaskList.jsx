@@ -239,6 +239,7 @@ const FilteredList = ({
                 handleSort={handleSort}
             />
         </div>
+  
         <div>
             <TaskList
                 loadedTasks={loadedTasks}

@@ -218,7 +218,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
             // the param is how wide each sqaure is. so each hour is 40px, making each day 40*24=960 
             style={{width: timeline.timelineDailyLen(960)}}>
                 <div 
-                  className='absolute text-blue-800 text-xl z-50 font-bold py-2.5'
+                  className='absolute text-blue-800 text-xl z-10 font-bold py-2.5'
                   data-tip
                   data-for='start'
                   style={{
@@ -227,7 +227,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
                   <BsFillArrowRightCircleFill/>
                 </div>
                 <div 
-                  className='absolute outline-red-800 text-red-700 text-xl z-50 font-bold px-1.5 py-2.5'
+                  className='absolute outline-red-800 text-red-700 text-xl z-10 font-bold px-1.5 py-2.5'
                   data-tip 
                   data-for='deadline'
                   style={{

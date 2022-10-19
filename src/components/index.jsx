@@ -5,4 +5,5 @@ export { default as TaskList } from './tasklists/TaskList';
 export { default as Search } from './Search';
 export { default as Settings } from './Settings';
 export { default as Timeline } from './timeline/Timeline';
+export { default as SelectView } from './tasklists/SelectView';
 export { default as JumpToTimelineBtn} from './timeline/JumpToTimelineBtn';

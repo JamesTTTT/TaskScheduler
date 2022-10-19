@@ -73,7 +73,7 @@ const occupiedHrs = {
         const result = e.at(-1);
        // console.log(timeLeft+ "o")
        // console.log(duration +":")
-        console.log(result)
+        //console.log(result)
         if(result){
             let lastHour = result.times.at(-1)+1;
             //How much time is left between the last task and the finish time
@@ -82,18 +82,18 @@ const occupiedHrs = {
            // console.log(timeLeft)
             let remainingHrs = timeLeft;
             if(0 < hoursLeft && hoursLeft < timeLeft){
-               console.log("I topped ")
+               //console.log("I topped ")
                 remainingHrs = hoursLeft
                 timeleft = timeLeft - remainingHrs;
-                console.log(timeleft)
+                //console.log(timeleft)
                 daysArray.push(remainingHrs);
                 // daysArray = timeline.workDays(cap,timeleft)
                 // daysArray.unshift(remainingHrs);
             }
             else if(0 < hoursLeft && hoursLeft >= timeLeft){
-            console.log(hoursLeft)
-            console.log(timeLeft)
-            console.log("I midd ")
+            //console.log(hoursLeft)
+            //console.log(timeLeft)
+            //console.log("I midd ")
             //    console.log(daysHours)
                 daysArray.push(timeLeft);
                 timeleft = 0;
@@ -122,14 +122,14 @@ const occupiedHrs = {
             }
 
             if(timeleft > 0){
-                console.log("rework")
+                //console.log("rework")
                 //console.log(timeleft)
                 this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
             }
 
         } 
         else {
-            console.log("i quit")
+            //console.log("i quit")
             //let time = this.calcTimesOftheDay(startTime, daysHours[i])
             daysArray = timeline.workDays(cap,timeLeft)
 
@@ -144,8 +144,8 @@ const occupiedHrs = {
                 occArr.push(newDay)
                 timeleft -= daysArray[0];
                 if(timeleft > 0){
-                    console.log("im in")
-                    console.log(timeleft)
+                    // console.log("im in")
+                    // console.log(timeleft)
                     this.nextAvailbleTime(dayOfTY+1, ocpTimes, cap, duration, daysHours, startTime, finishTime, occArr, timeleft)
                 }
             // if(idx <= daysArray.length){
@@ -174,7 +174,7 @@ const occupiedHrs = {
             //Get finished data
             let dayOfTheYear = timeline.startDateToDay(taskStart)
             // Get first availible days
-            console.log(tasks[index].title)
+            //console.log(tasks[index].title)
             if(0 < index){
                 occArr = this.nextAvailbleTime(dayOfTheYear,ocpTimes,cap, duration, daysHours, startTime, finishTime, [],tasks[index].duration )
             } else {

@@ -41,7 +41,7 @@ const Settings = ({workHours, capacity,updateCapacity}) => {
                   <AiOutlineClose/>
                 </button>
             </div>
-            <Draggable>
+            {/* <Draggable> */}
             <div className='flex flex-col p-3 bg-slate-200 shadow-xl rounded-2xl h-fit'>
                 <div className='flex flex-row'>
                 <div className='pr-2'>
@@ -124,7 +124,7 @@ const Settings = ({workHours, capacity,updateCapacity}) => {
                             hours a day</p>
                     </div>
             </div>
-            </Draggable>
+            {/* </Draggable> */}
         </div>) : 
         <div className='p-4'>
             <button

@@ -4,7 +4,7 @@ import capacityManage from './manage/capacitymanager';
 import occupiedHrs from './manage/occupiedhours';
 import { useState, useEffect, useRef } from 'react';
 
-import { AddTask, Header, Footer, TaskList, Settings} from './components';
+import { AddTask, Header, Footer, TaskList, Settings, SelectView} from './components';
 
 function App() {
 
@@ -94,10 +94,17 @@ function App() {
         <Header/>
 
       </div>
+      {/* <div>
+            <SelectView
+                //updateView={updateView}
+                //displayForm={displayForm}
+              //  handleSort={handleSort}
+            />
+        </div> */}
       <div className='mb-auto flex flex-col justify-center md:flex-row w-full'>
         <div>
           <div>
-            <AddTask 
+            <AddTask
               loadedTasks={loadedTasks} 
               updateTask={updateTask} 
               capacity={capacity}
@@ -132,18 +139,6 @@ function App() {
         </div>
           
       </div>
-
-      {/* <div>
-        <Timeline 
-          workHours={workHours} 
-          loadedTasks={loadedTasks} 
-          capacity={capacity}
-          ocpHours={ocpHours}
-          isOptimized = {isOptimized}
-          setIsOptimized = {setIsOptimized}
-        />
-      </div> */}
-
 
       <div>
         <Footer loadedTasks={loadedTasks}/>
