@@ -149,7 +149,7 @@ const TaskForm = ({ displayForm,
             <button
             type='submit'
             form='newTask'
-            disabled={isDisabled}
+            //disabled={isDisabled}
             className='p-2 bg-blue-500 text-white rounded
             transition ease-in-out delay-50 hover:bg-blue-600 w-32'>
               Save Task

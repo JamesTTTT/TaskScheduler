@@ -174,6 +174,18 @@ const TaskList = ({loadedTasks, capacity, ocpHours, renderYear, searchPhrase}) =
 }
 
 const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,searchPhrase}) => {
+  
+  const [now, setNow] = useState(0);
+
+  useEffect(() => {
+
+    let day = moment().dayOfYear();
+    let hour = moment().hour();
+
+    const  getTimelinePos = timeline.figureHourPos(day, hour);
+    setNow(getTimelinePos)
+  }, [])
+  
 
   const splitDate = (date) => {
     return date.split('-')
@@ -211,6 +223,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
           taskPsbl = capacityManage.algCheckPossible(taskTimeData, task.deadline);
         }
         return(
+          <>
           <div 
             key={index} 
             className='outline outline-blue-800 outline-2 bg-gray-50
@@ -236,16 +249,19 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
                   >
                   <AiFillStop/>
                 </div>
+                <div className="h-full z-40 w-1 bg-red-600 absolute"
+                  style={{left:now}}>
+
+                </div>
                 {taskPsbl?
                   <div
-                  className='PatternRed p-2 absolute'
+                  className='PatternRed p-2 absolute w-2'
                   style={{
                     width: timeline.figurePassedPos(taskTimeData,task.deadline),
                     left: timeline.figureHourPos(dayStart,0) 
                     + timeline.figureHourPosEnd(dayCount,0)
                   }}
                   >
-                    <p>.</p>
                   </div>
                   : <div></div>
 
@@ -296,8 +312,10 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
                 <span>Start</span>
               </ReactTooltip>
           </div>
+          </>
         )
       })
+      
     }
  }
  
@@ -308,6 +326,7 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
       <div>
         {taskRows(renderYear)}
       </div>
+      
     </>
   )
 }
@@ -356,7 +375,6 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear,
       <div
         id="hourTimeline"
         className='max-w-screen-xs overflow-x-scroll scrollbar-thin scrollbar-thumb-blue-700 scrollbar-track-blue-300'>
-
           <TimelineHeader
           renderYear={renderYear} 
           />
@@ -368,7 +386,6 @@ const TimelineHourly = ({loadedTasks, capacity, workHours, ocpHours, renderYear,
             renderYear={renderYear}
             searchPhrase={searchPhrase}
           />
-
       </div>
       <div>
         <div className='

@@ -115,7 +115,7 @@ const AddTask = ({
   return (
       <>
       {showForm ? (
-        <Draggable>
+       // <Draggable>
         <div 
         className='absolute z-50'
         id='form'
@@ -135,7 +135,7 @@ const AddTask = ({
           expectedFin={expectedFin}
         />
         </div>
-        </Draggable>
+       // </Draggable>
 
     ) : 
     
