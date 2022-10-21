@@ -5,7 +5,7 @@ import timeline from '../../manage/timeline';
 import {GrStatusCriticalSmall} from 'react-icons/gr'
 import capacityManage from '../../manage/capacitymanager';
 import ReactTooltip from 'react-tooltip';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 //EACH DAY IS 24
 const TimelineHeader = ({renderYear}) => {
@@ -72,10 +72,19 @@ const TimelineHeader = ({renderYear}) => {
 }
 
 const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours,searchPhrase}) => {
-  
+  const [now, setNow] = useState(0)
   const splitDate = (date) => {
     return date.split('-')
   }
+
+  useEffect(() => {
+    const timelineX = document.getElementById('dayTimeline');
+
+    let day = moment().dayOfYear();
+    const  getTimelinePos = timeline.figurePosX(day);
+    setNow(getTimelinePos)
+
+  }, []);
 
   const getToCompleteTime = (start,end,duration) =>{
     let days = timeline.taskLenght(start,end)
@@ -118,7 +127,9 @@ const TimelineBody = ({loadedTasks,capacity,renderYear,ocpHours,searchPhrase}) =
            className='outline outline-blue-800 outline-2 bg-gray-50 text-black flex-1 text-lg relative w-80'
            // the param is how wide each sqaure is. so each day is 24px
            style={{width: timeline.timelineDailyLen(24)}}>
-          
+            <div className="h-full z-40 w-1 bg-red-600 absolute"
+              style={{left:now}}>
+            </div>
            <div
              data-tip={task.title}
              data-for="task"

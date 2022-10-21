@@ -251,7 +251,6 @@ const TimelineBody = ({loadedTasks, capacity, workHours,ocpHours,renderYear,sear
                 </div>
                 <div className="h-full z-40 w-1 bg-red-600 absolute"
                   style={{left:now}}>
-
                 </div>
                 {taskPsbl?
                   <div
